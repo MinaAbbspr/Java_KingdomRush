@@ -6,5 +6,5 @@ public abstract class Raider {
     private int health;
     private int speed;
     private int loot;
-    private ArrayList<Double> pathwayFractures;
+    private ArrayList<Coordinate> pathwayFractures;
 }
