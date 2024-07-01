@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxWidth="1550.0" prefHeight="800.0" prefWidth="1550.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainPage">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1550.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/mainPageBackground1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="67.0" fitWidth="78.0" layoutX="41.0" layoutY="699.0" onMouseClicked="#setting" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/setting.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="1399.0" layoutY="691.0" onMouseClicked="#shop" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/shop_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="264.0" layoutX="34.0" layoutY="13.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/star_and_diamond_header.png" />
+         </image>
+      </ImageView>
+      <VBox fx:id="level1" layoutX="263.0" layoutY="285.0" prefHeight="146.0" prefWidth="77.0">
+         <children>
+            <HBox fx:id="hBox_l1" prefHeight="25.0" prefWidth="75.0" visible="false">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <ImageView fx:id="img_l1" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/redFlag.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <Label fx:id="lbl_star" layoutX="222.0" layoutY="18.0" prefHeight="26.0" prefWidth="75.0" text="3/12" textFill="#c5cf87">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_diamond" layoutX="81.0" layoutY="16.0" prefHeight="35.0" prefWidth="75.0" text="0" textFill="#c5cf87">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox fx:id="level2" layoutX="166.0" layoutY="180.0" prefHeight="146.0" prefWidth="77.0" visible="false">
+         <children>
+            <HBox fx:id="hBox_l2" prefHeight="25.0" prefWidth="75.0" visible="false">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <ImageView fx:id="img_l2" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/redFlag.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox fx:id="level3" layoutX="293.0" layoutY="107.0" prefHeight="146.0" prefWidth="77.0" visible="false">
+         <children>
+            <HBox fx:id="hBox_l3" prefHeight="25.0" prefWidth="75.0" visible="false">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <ImageView fx:id="img_l3" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/redFlag.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox fx:id="level4" layoutX="362.0" layoutY="7.0" prefHeight="146.0" prefWidth="77.0" visible="false">
+         <children>
+            <HBox fx:id="hBox_l4" prefHeight="25.0" prefWidth="75.0" visible="false">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/star.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <ImageView fx:id="img_l4" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/redFlag.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <ImageView fitHeight="150.0" fitWidth="45.0" layoutX="1449.0" layoutY="18.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/exit.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

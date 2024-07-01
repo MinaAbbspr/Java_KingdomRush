@@ -16,6 +16,10 @@ public class PlayerController {
         return playerController;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void Login(String username, String password) throws Exception {
         if(username.isEmpty() || password.isEmpty()){
             throw new NullPointerException("No Text Field should not be Empty");
@@ -39,7 +43,7 @@ public class PlayerController {
 
         String sqlCmd = String.format("SELECT * FROM player WHERE username = '%s'",username);
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(sqlCmd);
-        if(resultSet == null ||  !resultSet.next())
+        if(resultSet != null && resultSet.next())
             throw new Exception("This username already exist");
 
         if(! password.equals(checkPassword))
@@ -54,8 +58,13 @@ public class PlayerController {
         String select = "SELECT MAX(ID) from programmers";
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(select);
 
-        if (resultSet.next())
+        if (resultSet!= null && resultSet.next())
             return resultSet.getInt("MAX(ID)");
         return 0;
+    }
+
+    public void save(){
+        String innerCmd = String.format("UPDATE player SET username = '%s', password = '%s', level = %s, diamond = %s WHERE ID = %s",player.getUsername(),player.getPassword(),player.getLevel(),player.getDiamond(),player.getID());
+        SQLConnection.getSqlConnection().execute(innerCmd);
     }
 }

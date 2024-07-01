@@ -19,4 +19,28 @@ public class Player {
         this.backpack = new ArrayList<>();
 
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public long getDiamond() {
+        return diamond;
+    }
+
+    public ArrayList<String> getBackpack() {
+        return backpack;
+    }
 }
