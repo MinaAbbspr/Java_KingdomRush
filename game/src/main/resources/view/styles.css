@@ -1,3 +1,14 @@
 .hand-cursor{
 	-fx-cursor: hand;
 }
+
+.custom-txtField{
+	-fx-background-color: rgb(248, 244, 225);
+}
+
+.custom-btnSubmit{
+	-fx-background-color: rgb(236, 177, 118);
+}
+.btnSubmit:hover{
+	-fx-background-color: rgb(166, 123, 91);
+}
