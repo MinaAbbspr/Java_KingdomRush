@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="800.0" maxWidth="1550.0" prefHeight="800.0" prefWidth="1550.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginSignup">
    <children>
       <ImageView fitHeight="266.0" fitWidth="1550.0" pickOnBounds="true">
@@ -30,7 +29,7 @@
             <Image url="@images/background3.png" />
          </image>
       </ImageView>
-      <VBox fx:id="vBox_login" alignment="TOP_CENTER" layoutX="565.0" layoutY="204.0" prefHeight="200.0" prefWidth="420.0" spacing="30.0">
+      <VBox fx:id="vBox_login" alignment="TOP_CENTER" layoutX="565.0" layoutY="204.0" prefHeight="200.0" prefWidth="420.0" spacing="30.0" visible="false">
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
@@ -56,6 +55,11 @@
                   <Font name="Blackadder ITC" size="24.0" />
                </font>
             </PasswordField>
+            <Label fx:id="lbl_errorL" prefHeight="24.0" prefWidth="395.0" textAlignment="CENTER" textFill="#dc1616">
+               <font>
+                  <Font name="Bradley Hand ITC" size="16.0" />
+               </font>
+            </Label>
             <Button mnemonicParsing="false" onMouseClicked="#submitLogin" stylesheets="@styles.css" text="submit">
                <font>
                   <Font name="Bradley Hand ITC" size="18.0" />
@@ -73,7 +77,7 @@
             <Image url="@images/exit2.png" />
          </image>
       </ImageView>
-      <VBox fx:id="vBox_signup" alignment="TOP_CENTER" layoutX="565.0" layoutY="204.0" prefHeight="200.0" prefWidth="420.0" spacing="30.0" visible="false">
+      <VBox fx:id="vBox_signup" alignment="TOP_CENTER" layoutX="565.0" layoutY="204.0" prefHeight="200.0" prefWidth="420.0" spacing="30.0">
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
@@ -104,6 +108,11 @@
                   <Font name="Blackadder ITC" size="24.0" />
                </font>
             </PasswordField>
+            <Label fx:id="lbl_errorS" prefHeight="24.0" prefWidth="395.0" textAlignment="CENTER" textFill="#dc1616">
+               <font>
+                  <Font name="Bradley Hand ITC" size="16.0" />
+               </font>
+            </Label>
             <Button mnemonicParsing="false" onMouseClicked="#submitSignup" stylesheets="@styles.css" text="submit">
                <font>
                   <Font name="Bradley Hand ITC" size="18.0" />
