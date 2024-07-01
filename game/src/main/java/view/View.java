@@ -2,13 +2,23 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class View {
     private Stage stage;
     private static View view;
+    private boolean music;
+    private MediaPlayer mediaPlayer;
+
+    public View() {
+        music = true;
+        mediaPlayer = new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/Flute-01.mp3")).toExternalForm()));
+    }
 
     public static View getView() {
         if(view == null)
@@ -22,6 +32,10 @@ public class View {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public void show(String fxml) throws IOException {

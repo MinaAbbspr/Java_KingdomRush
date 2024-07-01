@@ -42,4 +42,24 @@ public class Player {
     public Backpack getBackpack() {
         return backpack;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setDiamond(long diamond) {
+        this.diamond = diamond;
+    }
+
+    public void setBackpack(Backpack backpack) {
+        this.backpack = backpack;
+    }
 }

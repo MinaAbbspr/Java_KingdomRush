@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -59,8 +60,8 @@ public class MainPage implements Initializable {
     private HBox hBox_l4;
 
     @FXML
-    void setting(MouseEvent event) {
-
+    void setting(MouseEvent event) throws IOException {
+        View.getView().show("setting.fxml");
     }
 
     @FXML
@@ -79,6 +80,10 @@ public class MainPage implements Initializable {
         lbl_diamond.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getDiamond()));
         lbl_star.setText(PlayerController.getPlayerController().getPlayer().getLevel()*3 + "/12");
         setFlags();
+        if(!View.getView().getMediaPlayer().isMute()) {
+            View.getView().getMediaPlayer().play();
+            View.getView().getMediaPlayer().setCycleCount(100);
+        }
     }
 
     private void setFlags(){

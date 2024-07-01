@@ -43,7 +43,7 @@ public class PlayerController {
         if(username.isEmpty() || password.isEmpty() || checkPassword.isEmpty())
             throw new NullPointerException("No Text Field should not be Empty");
 
-        String sqlCmd = String.format("SELECT * FROM player WHERE username = '%s'",username);
+        String sqlCmd = String.format("SELECT ID FROM player WHERE username = '%s'",username);
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(sqlCmd);
         if(resultSet != null && resultSet.next())
             throw new Exception("This username already exist");
@@ -70,5 +70,18 @@ public class PlayerController {
                 player.getUsername(),player.getPassword(),player.getLevel(),player.getDiamond(),player.getBackpack().getHealth(),
                 player.getBackpack().getFreeze(),player.getBackpack().getCoin(),player.getBackpack().getLittleBoy(),player.getID());
         SQLConnection.getSqlConnection().execute(innerCmd);
+    }
+
+    public void checkChanges(String username, String password) throws Exception {
+        if(!username.equals(player.getUsername())){
+            String sqlCmd = String.format("SELECT * FROM player WHERE username = '%s'",username);
+            ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(sqlCmd);
+            if(resultSet != null && resultSet.next())
+                throw new Exception("This username already exist");
+            else
+                player.setUsername(username);
+        }
+        else
+            player.setPassword(password);
     }
 }
