@@ -1,5 +1,6 @@
 package controller;
 
+import model.Backpack;
 import model.Player;
 
 import java.sql.ResultSet;
@@ -34,7 +35,8 @@ public class PlayerController {
         if(!resultSet.getString("password").equals(password))
             throw new Exception("password is not valid");
 
-        player = new Player(resultSet.getInt("ID"),username,password,resultSet.getInt("level"),resultSet.getLong("diamond"));
+        player = new Player(resultSet.getInt("ID"),username,password,resultSet.getInt("level"),resultSet.getLong("diamond"),
+                new Backpack(resultSet.getInt("health"),resultSet.getInt("freeze"),resultSet.getInt("coin"),resultSet.getInt("littleBoy")));
     }
 
     public void Signup(String username, String password, String checkPassword) throws Exception {
@@ -51,7 +53,7 @@ public class PlayerController {
 
         String innerCmd = String.format("INSERT INTO player (ID,username,password) VALUES (%s,'%s','%s')",getMaxID()+1, username, password);
         SQLConnection.getSqlConnection().execute(innerCmd);
-        player = new Player(getMaxID(),username,password,0,0);
+        player = new Player(getMaxID(),username,password,0,0,new Backpack(0,0,0,0));
     }
 
     private int getMaxID() throws SQLException {
@@ -64,7 +66,9 @@ public class PlayerController {
     }
 
     public void save(){
-        String innerCmd = String.format("UPDATE player SET username = '%s', password = '%s', level = %s, diamond = %s WHERE ID = %s",player.getUsername(),player.getPassword(),player.getLevel(),player.getDiamond(),player.getID());
+        String innerCmd = String.format("UPDATE player SET username = '%s', password = '%s', level = %s, diamond = %s, health = %s, freeze = %s, coin = %s, littleBoy = %s WHERE ID = %s",
+                player.getUsername(),player.getPassword(),player.getLevel(),player.getDiamond(),player.getBackpack().getHealth(),
+                player.getBackpack().getFreeze(),player.getBackpack().getCoin(),player.getBackpack().getLittleBoy(),player.getID());
         SQLConnection.getSqlConnection().execute(innerCmd);
     }
 }

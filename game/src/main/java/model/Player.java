@@ -8,16 +8,15 @@ public class Player {
     private String password;
     private int level;
     private long diamond;
-    private ArrayList<String> backpack;
+    private Backpack backpack;
 
-    public Player(int ID, String username, String password, int level, long diamond) {
+    public Player(int ID, String username, String password, int level, long diamond, Backpack backpack) {
         this.ID = ID;
         this.username = username;
         this.password = password;
         this.level = level;
         this.diamond = diamond;
-        this.backpack = new ArrayList<>();
-
+        this.backpack = backpack;
     }
 
     public int getID() {
@@ -40,7 +39,7 @@ public class Player {
         return diamond;
     }
 
-    public ArrayList<String> getBackpack() {
+    public Backpack getBackpack() {
         return backpack;
     }
 }
