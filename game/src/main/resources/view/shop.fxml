@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1550.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Shop">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1550.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/shopBackground.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="100.0" layoutX="164.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bigBomb2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="106.0" layoutX="158.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bigfreeze2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="74.0" fitWidth="100.0" layoutX="171.0" layoutY="560.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/heart2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="91.0" fitWidth="90.0" layoutX="169.0" layoutY="644.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/coin2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbl_littleBoy" layoutX="164.0" layoutY="250.0" text="0" textFill="#c6c98e">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Label fx:id="lbl_freeze" layoutX="157.0" layoutY="357.0" text="0" textFill="#c6c98e">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_heart" layoutX="164.0" layoutY="616.0" text="0" textFill="#c6c98e">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_coin" layoutX="164.0" layoutY="701.0" text="0" textFill="#c6c98e">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="506.0" layoutY="534.0" onMouseClicked="#heart" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="350.0" fitWidth="300.0" layoutX="684.0" layoutY="422.0" onMouseClicked="#littleBoy" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/bigBomb.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="300.0" fitWidth="400.0" layoutX="908.0" layoutY="454.0" onMouseClicked="#freeze" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/bigfreeze.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="447.0" layoutY="35.0" prefHeight="54.0" prefWidth="191.0" text="0" textFill="#c6c98e">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="54.0" fitWidth="46.0" layoutX="1458.0" layoutY="13.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/exit3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img_blackboard" fitHeight="283.0" fitWidth="580.0" layoutX="766.0" layoutY="74.0" pickOnBounds="true">
+         <image>
+            <Image url="@images/heart3.jpg" />
+         </image></ImageView>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="933.0" layoutY="537.0" onMouseClicked="#coin" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/coin.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="97.0" fitWidth="191.0" layoutX="962.0" layoutY="363.0" onMouseClicked="#buy" pickOnBounds="true" preserveRatio="true" styleClass="hand-cursor">
+         <image>
+            <Image url="@images/buyButtem.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
