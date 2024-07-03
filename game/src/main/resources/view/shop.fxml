@@ -91,5 +91,10 @@
             <Image url="@images/buyButtem.jpg" />
          </image>
       </ImageView>
+      <ImageView fx:id="img_error" fitHeight="532.0" fitWidth="603.0" layoutX="591.0" layoutY="-337.0" onMouseClicked="#closeError" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/errorBoard3.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -65,8 +65,8 @@ public class MainPage implements Initializable {
     }
 
     @FXML
-    void shop(MouseEvent event) {
-
+    void shop(MouseEvent event) throws IOException {
+        View.getView().show("shop.fxml");
     }
 
     @FXML

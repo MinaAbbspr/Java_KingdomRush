@@ -84,4 +84,37 @@ public class PlayerController {
         else
             player.setPassword(password);
     }
+
+    public void buy(String spell) throws Exception {
+        switch (spell){
+            case "health" ->{
+                if(player.getDiamond() < 350)
+                    throw new Exception();
+
+                player.setDiamond(player.getDiamond() - 350);
+                player.getBackpack().addHealth();
+            }
+            case "coin" ->{
+                if(player.getDiamond() < 850)
+                    throw new Exception();
+
+                player.setDiamond(player.getDiamond() - 850);
+                player.getBackpack().addCoin();
+            }
+            case "littleBoy" ->{
+                if(player.getDiamond() < 999)
+                    throw new Exception();
+
+                player.setDiamond(player.getDiamond() - 999);
+                player.getBackpack().addLittleBoy();
+            }
+            case "freeze" -> {
+                if(player.getDiamond() < 250)
+                    throw new Exception();
+
+                player.setDiamond(player.getDiamond() - 250);
+                player.getBackpack().addFreeze();
+            }
+        }
+    }
 }
