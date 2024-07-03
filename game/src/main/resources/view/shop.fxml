@@ -67,7 +67,7 @@
             <Image url="@images/bigfreeze.png" />
          </image>
       </ImageView>
-      <Label layoutX="447.0" layoutY="35.0" prefHeight="54.0" prefWidth="191.0" text="0" textFill="#c6c98e">
+      <Label fx:id="lbl_diamond" layoutX="447.0" layoutY="35.0" prefHeight="54.0" prefWidth="191.0" text="0" textFill="#c6c98e">
          <font>
             <Font size="30.0" />
          </font>

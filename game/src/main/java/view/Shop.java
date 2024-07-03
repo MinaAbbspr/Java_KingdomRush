@@ -38,6 +38,9 @@ public class Shop implements Initializable {
     @FXML
     private Label lbl_littleBoy;
 
+    @FXML
+    private Label lbl_diamond;
+
     private String blackboard;
 
     @FXML
@@ -46,6 +49,7 @@ public class Shop implements Initializable {
             PlayerController.getPlayerController().buy(blackboard);
             new Thread(() -> {
                     Platform.runLater(() -> {
+                        lbl_diamond.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getDiamond()));
                         lbl_coin.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin()));
                         lbl_freeze.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze()));
                         lbl_heart.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth()));
@@ -114,6 +118,7 @@ public class Shop implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         blackboard = "health";
+        lbl_diamond.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getDiamond()));
         lbl_coin.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin()));
         lbl_freeze.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze()));
         lbl_heart.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth()));
