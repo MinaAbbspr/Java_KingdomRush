@@ -75,6 +75,12 @@ public class MainPage implements Initializable {
         View.getView().getStage().close();
     }
 
+    @FXML
+    void level1(MouseEvent event) throws IOException {
+        View.getView().show("level1.fxml");
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lbl_diamond.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getDiamond()));
