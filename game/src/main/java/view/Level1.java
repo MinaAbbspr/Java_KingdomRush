@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.map.Coordinate;
+import model.map.MapLevel1;
 
 import java.net.URL;
 import java.util.Objects;
@@ -21,6 +23,9 @@ public class Level1 implements Initializable {
 
     @FXML
     private ImageView board_artillery;
+
+    @FXML
+    private ImageView board_upgrade;
 
     @FXML
     private ImageView board_wizard;
@@ -51,6 +56,9 @@ public class Level1 implements Initializable {
 
     @FXML
     private Label lbl_barracks;
+
+    @FXML
+    private Label lbl_upgrade;
 
     @FXML
     private Label lbl_bombNumber;
@@ -88,6 +96,7 @@ public class Level1 implements Initializable {
     @FXML
     private ImageView img_ring;
     private boolean isBackpackOpen;
+    private MapLevel1 map;
 
     @FXML
     void backpack(MouseEvent event) {
@@ -114,7 +123,7 @@ public class Level1 implements Initializable {
     @FXML
     void closeRing(MouseEvent event) {
         img_ring.setVisible(false);
-        img_backpack.setVisible(false);
+        img_barracks.setVisible(false);
         img_archer.setVisible(false);
         img_artillery.setVisible(false);
         img_wizard.setVisible(false);
@@ -151,9 +160,73 @@ public class Level1 implements Initializable {
             lbl_artillery.setVisible(true);
             lbl_barracks.setVisible(true);
             lbl_wizard.setVisible(true);
-            //check coin
+            checkCoin();
+        }
+        setRingCoordinate(map.find(new Coordinate(event.getSceneX(), event.getSceneY())));
+    }
+    private void setRingCoordinate(Coordinate coordinate){
+        img_ring.setX(coordinate.getX() - 70);
+        img_ring.setY(coordinate.getY()-92);
+        img_archer.setX(coordinate.getX() - 73);
+        img_archer.setY(coordinate.getY() - 92);
+        img_barracks.setX(coordinate.getX() + 42);
+        img_barracks.setY(coordinate.getY() - 92);
+        img_wizard.setX(coordinate.getX() - 73);
+        img_wizard.setY(coordinate.getY() + 10);
+        img_artillery.setX(coordinate.getX() + 42);
+        img_artillery.setY(coordinate.getY() + 10);
+        lbl_archer.setLayoutX(coordinate.getX() - 59);
+        lbl_archer.setLayoutY(coordinate.getY() - 61);
+        lbl_barracks.setLayoutX(coordinate.getX() + 57);
+        lbl_barracks.setLayoutY(coordinate.getY() - 61);
+        lbl_wizard.setLayoutX(coordinate.getX() - 59);
+        lbl_wizard.setLayoutY(coordinate.getY() + 39);
+        lbl_artillery.setLayoutX(coordinate.getX() + 53);
+        lbl_artillery.setLayoutY(coordinate.getY() + 39);
+        board_archer.setX(coordinate.getX() - 65);
+        board_archer.setY(coordinate.getY() - 61);
+        board_shield.setX(coordinate.getX() + 50);
+        board_shield.setY(coordinate.getY() - 61);
+        board_wizard.setX(coordinate.getX() - 65);
+        board_wizard.setY(coordinate.getY() + 39);
+        board_artillery.setX(coordinate.getX() + 50);
+        board_artillery.setY(coordinate.getY() + 39);
+        img_sell.setX(coordinate.getX() - 12);
+        img_sell.setY(coordinate.getY() + 34);
+        img_upgrade.setX(coordinate.getX() - 18);
+        img_upgrade.setY(coordinate.getY() - 112);
+        lbl_upgrade.setLayoutX(coordinate.getX() - 7);
+        lbl_upgrade.setLayoutY(coordinate.getY() - 81);
+        board_upgrade.setLayoutX(coordinate.getX() - 10);
+        board_upgrade.setLayoutY(coordinate.getY() - 81);
+    }
+    private void checkCoin(){
+        if(map.getCoin() < 70){
+            img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
+            img_wizard.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayWizard.png")).toExternalForm()));
+            img_barracks.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayShield.png")).toExternalForm()));
+            img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayArcher.png")).toExternalForm()));
+        }
+        else if(map.getCoin() < 90){
+            img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
+            img_wizard.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayWizard.png")).toExternalForm()));
+            img_barracks.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/shield.png")).toExternalForm()));
+            img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
+        }
+        else if(map.getCoin() < 112){
+            img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
+            img_wizard.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/wizardTower-hd.png")).toExternalForm()));
+            img_barracks.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/shield.png")).toExternalForm()));
+            img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
+        }
+        else {
+            img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/bomb.png")).toExternalForm()));
+            img_wizard.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/wizardTower-hd.png")).toExternalForm()));
+            img_barracks.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/shield.png")).toExternalForm()));
+            img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
         }
     }
+
     @FXML
     void sell(MouseEvent event) {
     }
@@ -180,5 +253,8 @@ public class Level1 implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isBackpackOpen = false;
+        map = new MapLevel1();
+        lbl_coin.setText(String.valueOf(map.getCoin()));
+        lbl_wave.setText("wave 0/" + map.getWave());
     }
 }

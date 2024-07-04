@@ -28,7 +28,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_coin" layoutX="153.0" layoutY="14.0" prefHeight="28.0" prefWidth="38.0" text="0" textFill="#bfbf65">
+      <Label fx:id="lbl_coin" layoutX="153.0" layoutY="14.0" prefHeight="35.0" prefWidth="70.0" text="0" textFill="#bfbf65">
          <font>
             <Font size="24.0" />
          </font>
@@ -43,79 +43,79 @@
             <Image url="@images/icon/backpack.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_ring" fitHeight="150.0" fitWidth="200.0" layoutX="208.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_ring" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/ring.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_archer" fitHeight="40.0" fitWidth="200.0" layoutX="205.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_archer" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/archer.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_barracks" fitHeight="40.0" fitWidth="200.0" layoutX="320.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_barracks" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/shield.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_wizard" fitHeight="40.0" fitWidth="200.0" layoutX="205.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_wizard" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/wizardTower-hd.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_artillery" fitHeight="40.0" fitWidth="200.0" layoutX="320.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_artillery" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/bomb.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board_archer" fitHeight="19.0" fitWidth="30.0" layoutX="213.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="board_archer" fitHeight="19.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/priceBoard.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board_shield" fitHeight="19.0" fitWidth="30.0" layoutX="328.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="board_shield" fitHeight="19.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/priceBoard.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board_wizard" fitHeight="19.0" fitWidth="30.0" layoutX="213.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="board_wizard" fitHeight="19.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/priceBoard.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="board_artillery" fitHeight="19.0" fitWidth="30.0" layoutX="328.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="board_artillery" fitHeight="19.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/priceBoard.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbl_archer" layoutX="219.0" layoutY="284.0" prefHeight="19.0" prefWidth="15.0" text="70" textFill="#bfbf65" visible="false">
+      <Label fx:id="lbl_archer" prefHeight="19.0" prefWidth="15.0" text="70" textFill="#bfbf65" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_barracks" layoutX="335.0" layoutY="284.0" prefHeight="19.0" prefWidth="15.0" text="70" textFill="#bfbf65" visible="false">
+      <Label fx:id="lbl_barracks" prefHeight="19.0" prefWidth="15.0" text="70" textFill="#bfbf65" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_wizard" layoutX="219.0" layoutY="384.0" prefHeight="19.0" prefWidth="15.0" text="90" textFill="#bfbf65" visible="false">
+      <Label fx:id="lbl_wizard" prefHeight="19.0" prefWidth="15.0" text="90" textFill="#bfbf65" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_artillery" layoutX="331.0" layoutY="384.0" prefHeight="19.0" prefWidth="22.0" text="112" textFill="#bfbf65" visible="false">
+      <Label fx:id="lbl_artillery" prefHeight="19.0" prefWidth="22.0" text="112" textFill="#bfbf65" visible="false">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ImageView fx:id="img_sell" fitHeight="30.0" fitWidth="200.0" layoutX="266.0" layoutY="379.0" onMouseClicked="#sell" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_sell" fitHeight="30.0" fitWidth="200.0" onMouseClicked="#sell" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/sell.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_upgrade" fitHeight="40.0" fitWidth="200.0" layoutX="260.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_upgrade" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/icon/lock.png" />
+            <Image url="@images/icon/upgrade.png" />
          </image>
       </ImageView>
       <Label layoutX="218.0" layoutY="306.0" onMouseClicked="#showRing" onMouseExited="#closeRing" prefHeight="68.0" prefWidth="120.0" />
@@ -162,6 +162,17 @@
       <Label fx:id="lbl_heartNumber" layoutX="1158.0" layoutY="733.0" prefHeight="26.0" prefWidth="30.0" text="0" textFill="#bfbf65">
          <font>
             <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="885.0" layoutY="203.0" onMouseClicked="#showRing" onMouseExited="#closeRing" prefHeight="35.0" prefWidth="111.0" />
+      <ImageView fx:id="board_upgrade" fitHeight="19.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/icon/priceBoard.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbl_upgrade" prefHeight="19.0" prefWidth="22.0" text="160" textFill="#bfbf65" visible="false">
+         <font>
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
    </children>
