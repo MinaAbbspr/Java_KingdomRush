@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public abstract class Map {
     private ArrayList<Coordinate> towersCoordinate;
     private Coordinate way;
-    private Coordinate endPoint;
-    private int  Wave;
+    private final Coordinate endPoint;
+    private final int  Wave;
     private int coin;
 
     public Map(Coordinate endPoint, int wave, int coin) {
@@ -41,6 +41,10 @@ public abstract class Map {
 
     public int getCoin() {
         return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
     }
 
     public Coordinate find (Coordinate coordinate){

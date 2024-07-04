@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -86,9 +88,10 @@ public class MainPage implements Initializable {
         lbl_diamond.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getDiamond()));
         lbl_star.setText(PlayerController.getPlayerController().getPlayer().getLevel()*3 + "/12");
         setFlags();
-        if(!View.getView().getMediaPlayer().isMute()) {
+        if(View.getView().isMusic()) {
+            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/Flute-01.mp3")).toExternalForm())));
             View.getView().getMediaPlayer().play();
-            View.getView().getMediaPlayer().setCycleCount(100);
+            View.getView().getMediaPlayer().setCycleCount(50);
         }
     }
 

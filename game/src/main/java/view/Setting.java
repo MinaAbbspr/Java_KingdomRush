@@ -38,15 +38,15 @@ public class Setting implements Initializable {
 
     @FXML
     void music(MouseEvent event) {
-        if(View.getView().getMediaPlayer().isMute()){
+        if(!View.getView().isMusic()){
             View.getView().getMediaPlayer().play();
-            View.getView().getMediaPlayer().setMute(false);
+            View.getView().setMusic(true);
             img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOn.png")).toExternalForm()));
             img_music.setFitWidth(50);
         }
         else{
             View.getView().getMediaPlayer().pause();
-            View.getView().getMediaPlayer().setMute(true);
+            View.getView().setMusic(false);
             img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOFF.png")).toExternalForm()));
             img_music.setFitWidth(55);
         }

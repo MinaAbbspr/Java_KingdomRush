@@ -16,8 +16,7 @@ public class View {
     private MediaPlayer mediaPlayer;
 
     public View() {
-        music = true;
-        mediaPlayer = new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/Flute-01.mp3")).toExternalForm()));
+        this.music = true;
     }
 
     public static View getView() {
@@ -36,6 +35,18 @@ public class View {
 
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
+    }
+
+    public boolean isMusic() {
+        return music;
+    }
+
+    public void setMusic(boolean music) {
+        this.music = music;
     }
 
     public void show(String fxml) throws IOException {
