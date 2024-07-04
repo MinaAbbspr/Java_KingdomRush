@@ -13,7 +13,15 @@
 	-fx-background-color: rgb(166, 123, 91);
 }
 
-.custom-pause{
-	-fx-background-color: #ffffff;
+.progress-bar:indeterminate{
+    -fx-box-border: rgb(166, 123, 91);
 }
 
+
+
+.progress-bar .bar {
+    -fx-background-color:
+        -fx-box-border,
+        green;
+    -fx-padding: 0.1916667em;
+}

@@ -1,4 +1,4 @@
-package model;
+package model.raidar;
 
 import model.map.Coordinate;
 
@@ -9,4 +9,12 @@ public abstract class Raider {
     private int speed;
     private int loot;
     private ArrayList<Coordinate> pathwayFractures;
+
+    public Raider(int health, int speed, int loot) {
+        this.health = health;
+        this.speed = speed;
+        this.loot = loot;
+    }
+
+    public void walk(){}
 }
