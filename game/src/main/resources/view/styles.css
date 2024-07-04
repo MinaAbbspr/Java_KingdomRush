@@ -12,3 +12,8 @@
 .btnSubmit:hover{
 	-fx-background-color: rgb(166, 123, 91);
 }
+
+.custom-pause{
+	-fx-background-color: #ffffff;
+}
+

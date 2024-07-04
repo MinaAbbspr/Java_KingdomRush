@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -39,6 +41,8 @@ public class Setting implements Initializable {
     @FXML
     void music(MouseEvent event) {
         if(!View.getView().isMusic()){
+            View.getView().getMediaPlayer().pause();
+            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/corsairs-studiokolomna-main-version-23542-02-33.mp3")).toExternalForm())));
             View.getView().getMediaPlayer().play();
             View.getView().setMusic(true);
             img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOn.png")).toExternalForm()));
@@ -67,5 +71,13 @@ public class Setting implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txt_username.setText(PlayerController.getPlayerController().getPlayer().getUsername());
         txt_password.setText(PlayerController.getPlayerController().getPlayer().getPassword());
+        if(View.getView().isMusic()){
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOn.png")).toExternalForm()));
+            img_music.setFitWidth(50);
+        }
+        else{
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOFF.png")).toExternalForm()));
+            img_music.setFitWidth(55);
+        }
     }
 }

@@ -89,7 +89,8 @@ public class MainPage implements Initializable {
         lbl_star.setText(PlayerController.getPlayerController().getPlayer().getLevel()*3 + "/12");
         setFlags();
         if(View.getView().isMusic()) {
-            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/Flute-01.mp3")).toExternalForm())));
+            View.getView().getMediaPlayer().pause();
+            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/corsairs-studiokolomna-main-version-23542-02-33.mp3")).toExternalForm())));
             View.getView().getMediaPlayer().play();
             View.getView().getMediaPlayer().setCycleCount(50);
         }

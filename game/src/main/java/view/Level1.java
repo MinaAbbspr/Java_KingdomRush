@@ -8,9 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.map.Coordinate;
 import model.map.MapLevel1;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -132,6 +135,30 @@ public class Level1 implements Initializable {
 
     @FXML
     private ImageView img_ring;
+
+    @FXML
+    private ImageView img_start;
+
+    @FXML
+    private ImageView board_pause;
+
+    @FXML
+    private ImageView img_exit;
+
+    @FXML
+    private ImageView img_quit;
+
+    @FXML
+    private ImageView img_restart;
+
+    @FXML
+    private Label lbl_quit;
+
+    @FXML
+    private ImageView img_music;
+
+    @FXML
+    private Label lbl_restart;
     private boolean isBackpackOpen;
     private MapLevel1 map;
     private Map<Coordinate,ImageView> towers;
@@ -388,6 +415,68 @@ public class Level1 implements Initializable {
         }
     }
 
+    @FXML
+    void start(MouseEvent event) {
+
+    }
+
+    @FXML
+    void pause(MouseEvent event) {
+        if(View.getView().isMusic()){
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOn.png")).toExternalForm()));
+            img_music.setFitWidth(50);
+        }
+        else{
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOFF.png")).toExternalForm()));
+            img_music.setFitWidth(55);
+        }
+        img_restart.setVisible(true);
+        img_quit.setVisible(true);
+        img_music.setVisible(true);
+        img_exit.setVisible(true);
+        board_pause.setVisible(true);
+        lbl_restart.setVisible(true);
+        lbl_quit.setVisible(true);
+    }
+
+    @FXML
+    void music(MouseEvent event) {
+        if(!View.getView().isMusic()){
+            View.getView().getMediaPlayer().pause();
+            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/64bd63ab01192d69e1229f3b_8459257530528737799.mp4")).toExternalForm())));
+            View.getView().getMediaPlayer().play();
+            View.getView().setMusic(true);
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOn.png")).toExternalForm()));
+            img_music.setFitWidth(50);
+        }
+        else{
+            View.getView().getMediaPlayer().pause();
+            View.getView().setMusic(false);
+            img_music.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/musicOFF.png")).toExternalForm()));
+            img_music.setFitWidth(55);
+        }
+    }
+
+    @FXML
+    void exit(MouseEvent event) {
+        img_restart.setVisible(false);
+        img_quit.setVisible(false);
+        img_music.setVisible(false);
+        img_exit.setVisible(false);
+        board_pause.setVisible(false);
+        lbl_restart.setVisible(false);
+        lbl_quit.setVisible(false);
+    }
+
+    @FXML
+    void quit(MouseEvent event) throws IOException {
+        View.getView().show("mainPage.fxml");
+    }
+
+    @FXML
+    void restart(MouseEvent event) throws IOException {
+        View.getView().show("level1.fxml");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -411,5 +500,12 @@ public class Level1 implements Initializable {
         towers.put(map.getTowersCoordinate().get(5), img_tower5);
         towers.put(map.getTowersCoordinate().get(6), img_tower7);
         towers.put(map.getTowersCoordinate().get(7), img_tower6);
+
+        if(View.getView().isMusic()) {
+            View.getView().getMediaPlayer().pause();
+            View.getView().setMediaPlayer(new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/64bd63ab01192d69e1229f3b_8459257530528737799.mp4")).toExternalForm())));
+            View.getView().getMediaPlayer().play();
+            View.getView().getMediaPlayer().setCycleCount(50);
+        }
     }
 }

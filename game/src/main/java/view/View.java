@@ -17,6 +17,7 @@ public class View {
 
     public View() {
         this.music = true;
+        mediaPlayer = new MediaPlayer(new Media(Objects.requireNonNull(HelloApplication.class.getResource("sound/corsairs-studiokolomna-main-version-23542-02-33.mp3")).toExternalForm()));
     }
 
     public static View getView() {
