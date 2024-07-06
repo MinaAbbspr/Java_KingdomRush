@@ -89,7 +89,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <ImageView fx:id="img_l2" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img_l2" fitHeight="150.0" fitWidth="75.0" onMouseClicked="#level2" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/redFlag.png" />
                </image>
@@ -117,7 +117,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <ImageView fx:id="img_l3" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img_l3" fitHeight="150.0" fitWidth="75.0" onMouseClicked="#level3" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/redFlag.png" />
                </image>
@@ -145,7 +145,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <ImageView fx:id="img_l4" fitHeight="150.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="img_l4" fitHeight="150.0" fitWidth="75.0" onMouseClicked="#level4" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/redFlag.png" />
                </image>

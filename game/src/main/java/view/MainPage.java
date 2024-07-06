@@ -82,6 +82,19 @@ public class MainPage implements Initializable {
         View.getView().show("level1.fxml");
     }
 
+    @FXML
+    void level2(MouseEvent event) throws IOException {
+        View.getView().show("level2.fxml");
+    }
+    @FXML
+    void level3(MouseEvent event) throws IOException {
+        View.getView().show("level3.fxml");
+    }
+    @FXML
+    void level4(MouseEvent event) throws IOException {
+        View.getView().show("level4.fxml");
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
