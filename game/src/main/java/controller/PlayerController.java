@@ -2,6 +2,10 @@ package controller;
 
 import model.Backpack;
 import model.Player;
+import model.spell.Bomb;
+import model.spell.Coin;
+import model.spell.Freeze;
+import model.spell.Heart;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,31 +92,35 @@ public class PlayerController {
     public void buy(String spell) throws Exception {
         switch (spell){
             case "health" ->{
-                if(player.getDiamond() < 350)
+                Heart heart = new Heart();
+                if(player.getDiamond() < heart.getPrice())
                     throw new Exception();
 
-                player.setDiamond(player.getDiamond() - 350);
+                player.setDiamond(player.getDiamond() - heart.getPrice());
                 player.getBackpack().addHealth();
             }
             case "coin" ->{
-                if(player.getDiamond() < 850)
+                Coin coin = new Coin();
+                if(player.getDiamond() < coin.getPrice())
                     throw new Exception();
 
-                player.setDiamond(player.getDiamond() - 850);
+                player.setDiamond(player.getDiamond() - coin.getPrice());
                 player.getBackpack().addCoin();
             }
             case "littleBoy" ->{
-                if(player.getDiamond() < 999)
+                Bomb bomb = new Bomb();
+                if(player.getDiamond() < bomb.getPrice())
                     throw new Exception();
 
-                player.setDiamond(player.getDiamond() - 999);
+                player.setDiamond(player.getDiamond() - bomb.getPrice());
                 player.getBackpack().addLittleBoy();
             }
             case "freeze" -> {
-                if(player.getDiamond() < 250)
+                Freeze freeze = new Freeze();
+                if(player.getDiamond() < freeze.getPrice())
                     throw new Exception();
 
-                player.setDiamond(player.getDiamond() - 250);
+                player.setDiamond(player.getDiamond() - freeze.getPrice());
                 player.getBackpack().addFreeze();
             }
         }

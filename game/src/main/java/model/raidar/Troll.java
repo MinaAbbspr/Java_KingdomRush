@@ -5,15 +5,17 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import model.map.Coordinate;
 import view.HelloApplication;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Troll extends Raider{
     ImageView imageView;
 
-    public Troll(ImageView imageView) {
-        super(100, 100, 15);
+    public Troll( ArrayList<Coordinate> way, ImageView imageView) {
+        super(100, 100, 15, way, imageView);
         this.imageView = imageView;
     }
 

@@ -13,12 +13,6 @@
 	-fx-background-color: rgb(166, 123, 91);
 }
 
-.progress-bar:indeterminate{
-    -fx-box-border: rgb(166, 123, 91);
-}
-
-
-
 .progress-bar .bar {
     -fx-background-color:
         -fx-box-border,

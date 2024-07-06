@@ -8,10 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import model.map.Coordinate;
 import model.map.MapLevel1;
+import model.map.Wave;
 
 import java.io.IOException;
 import java.net.URL;
@@ -159,6 +161,9 @@ public class Level1 implements Initializable {
 
     @FXML
     private Label lbl_restart;
+
+    @FXML
+    private AnchorPane root;
     private boolean isBackpackOpen;
     private MapLevel1 map;
     private Map<Coordinate,ImageView> towers;
@@ -168,6 +173,7 @@ public class Level1 implements Initializable {
     private boolean wizard;
     private boolean barracks;
     private boolean artillery;
+    private int wave;
 
     @FXML
     void backpack(MouseEvent event) {
@@ -417,7 +423,13 @@ public class Level1 implements Initializable {
 
     @FXML
     void start(MouseEvent event) {
-
+        img_start.setVisible(false);
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                map.getWaves().get(wave++).run(root);
+                lbl_wave.setText("wave " + wave + "/" + map.getWave());
+            });
+        }).start();
     }
 
     @FXML
@@ -482,6 +494,7 @@ public class Level1 implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isBackpackOpen = false;
         ringOpen = false;
+        wave = 0;
         map = new MapLevel1();
         towers = new HashMap<>();
 

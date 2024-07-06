@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public abstract class Map {
     private ArrayList<Coordinate> towersCoordinate;
-    private Coordinate way;
+    private ArrayList<Coordinate> way;
+    private ArrayList<Wave> waves;
     private final Coordinate endPoint;
-    private final int  Wave;
+    private final int wave;
     private int coin;
 
     public Map(Coordinate endPoint, int wave, int coin) {
         this.endPoint = endPoint;
-        Wave = wave;
+        this.wave = wave;
         this.coin = coin;
+        this.waves = new ArrayList<>();
     }
 
     public ArrayList<Coordinate> getTowersCoordinate() {
@@ -23,12 +25,20 @@ public abstract class Map {
         this.towersCoordinate = towersCoordinate;
     }
 
-    public Coordinate getWay() {
+    public ArrayList<Coordinate> getWay() {
         return way;
     }
 
-    public void setWay(Coordinate way) {
+    public void setWay(ArrayList<Coordinate> way) {
         this.way = way;
+    }
+
+    public ArrayList<model.map.Wave> getWaves() {
+        return waves;
+    }
+
+    public void setWaves(ArrayList<model.map.Wave> waves) {
+        this.waves = waves;
     }
 
     public Coordinate getEndPoint() {
@@ -36,7 +46,7 @@ public abstract class Map {
     }
 
     public int getWave() {
-        return Wave;
+        return wave;
     }
 
     public int getCoin() {
