@@ -61,7 +61,7 @@ public class PlayerController {
     }
 
     private int getMaxID() throws SQLException {
-        String select = "SELECT MAX(ID) from programmers";
+        String select = "SELECT MAX(ID) from player";
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(select);
 
         if (resultSet!= null && resultSet.next())
