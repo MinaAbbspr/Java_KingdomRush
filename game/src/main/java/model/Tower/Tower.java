@@ -1,10 +1,7 @@
 package model.Tower;
 
-import javafx.scene.layout.VBox;
 import model.map.Coordinate;
 import model.raidar.Raider;
-import view.Arrow;
-import view.Shot;
 
 import java.util.ArrayList;
 

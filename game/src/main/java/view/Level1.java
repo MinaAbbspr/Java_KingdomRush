@@ -299,8 +299,8 @@ public class Level1 implements Initializable {
             img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
             archer = true;
             wizard = false;
-            artillery = true;
-            barracks = false;
+            artillery = false;
+            barracks = true;
         }
         else if(map.getCoin() < 112){
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
@@ -309,8 +309,8 @@ public class Level1 implements Initializable {
             img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
             archer = true;
             wizard = true;
-            artillery = true;
-            barracks = false;
+            artillery = false;
+            barracks = true;
         }
         else {
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/bomb.png")).toExternalForm()));
@@ -457,8 +457,6 @@ public class Level1 implements Initializable {
                                 lbl_wave.setText("wave " + wave + "/" + map.getWave());
                             });
                             }).start();
-//                            for(Tower tower : towerController)
-//                                tower.run(true,enemies);
                         }),
                 new KeyFrame(
                         Duration.seconds(33.5),
@@ -559,7 +557,6 @@ public class Level1 implements Initializable {
         towers = new HashMap<>();
         towerController = new ArrayList<>();
         enemies = new ArrayList<>();
-        Arrow.root = root;
         View.getView().setRoot(root);
 
         lbl_coin.setText(String.valueOf(map.getCoin()));

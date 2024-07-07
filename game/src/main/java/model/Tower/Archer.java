@@ -1,7 +1,6 @@
 package model.Tower;
 
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.VBox;
 import model.map.Coordinate;
 import model.raidar.Raider;
 import view.Shot;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 
 public class Archer extends Tower{
     public Archer(Coordinate coordinate) {
-        super(10, 70, 100, 0, 40,coordinate);
+        super(15, 70, 100, 0, 40,coordinate);
     }
 
     public void run(boolean run, ArrayList<Raider> raiders) {
