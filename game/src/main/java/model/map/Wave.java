@@ -9,46 +9,43 @@ import model.raidar.Troll;
 import java.util.ArrayList;
 
 public class Wave {
-    private int number1;
-    private int number2;
-    private int number3;
-    private String kind1;
-    private String kind2;
-    private String kind3;
-    private ArrayList<Coordinate> way;
-    private ArrayList<Raider> raiders;
+    private final int number1;
+    private final int number2;
+    private final int number3;
+    private final String kind1;
+    private final String kind2;
+    private final String kind3;
 
-    public Wave(int number1, int number2, int number3, String kind1, String kind2, String kind3, ArrayList<Coordinate> way) {
+    public Wave(int number1, int number2, int number3, String kind1, String kind2, String kind3) {
         this.number1 = number1;
         this.number2 = number2;
         this.number3 = number3;
         this.kind1 = kind1;
         this.kind2 = kind2;
         this.kind3 = kind3;
-        this.way = way;
-        this.raiders = new ArrayList<>();
     }
 
-    public void run(AnchorPane root){
-        switch (kind1){
-            case "Bird" -> {}
-            case "Troll" -> {
-                for(int i=0; i<number1; i++){
-                    ImageView imageView = new ImageView();
-                    imageView.setFitWidth(100);
-                    imageView.setFitHeight(100);
-                    imageView.setSmooth(true);
-                    AnchorPane.setTopAnchor(imageView,way.getFirst().getY()-50);
-                    AnchorPane.setLeftAnchor(imageView,way.getFirst().getX());
-                    root.getChildren().add(imageView);
-                    raiders.add(new Troll(way,imageView));
-                    new Thread(() -> {
-                        Platform.runLater(() -> {
-                            raiders.getLast().action();
-                        });
-                    }).start();
-                }
-            }
-        }
+    public int getNumber1() {
+        return number1;
+    }
+
+    public int getNumber2() {
+        return number2;
+    }
+
+    public int getNumber3() {
+        return number3;
+    }
+
+    public String getKind1() {
+        return kind1;
+    }
+
+    public String getKind2() {
+        return kind2;
+    }
+
+    public String getKind3() {
+        return kind3;
     }
 }

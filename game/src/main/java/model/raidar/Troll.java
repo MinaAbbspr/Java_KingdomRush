@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.map.Coordinate;
 import view.HelloApplication;
@@ -14,9 +15,13 @@ import java.util.Objects;
 public class Troll extends Raider{
     ImageView imageView;
 
-    public Troll( ArrayList<Coordinate> way, ImageView imageView) {
-        super(100, 100, 15, way, imageView);
-        this.imageView = imageView;
+    public Troll( ArrayList<Coordinate> way, VBox vBox) {
+        super(100, 100, 15, way, vBox);
+    }
+
+    public void setvBox(VBox vBox) {
+        this.imageView = (ImageView) vBox.getChildren().getLast();
+        super.setvBox(vBox);
     }
 
     @Override

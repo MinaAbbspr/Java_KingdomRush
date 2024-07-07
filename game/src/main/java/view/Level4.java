@@ -426,7 +426,7 @@ public class Level4 implements Initializable {
         img_start.setVisible(false);
         new Thread(() -> {
             Platform.runLater(() -> {
-                map.getWaves().get(wave++).run(root);
+                //map.getWaves().get(wave++).run(root);
                 lbl_wave.setText("wave " + wave + "/" + map.getWave());
             });
         }).start();

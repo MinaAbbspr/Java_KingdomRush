@@ -1,26 +1,30 @@
 package view;
 
 import controller.PlayerController;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import model.map.Coordinate;
 import model.map.MapLevel1;
 import model.map.Wave;
+import model.raidar.Troll;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Level1 implements Initializable {
 
@@ -167,6 +171,7 @@ public class Level1 implements Initializable {
     private boolean isBackpackOpen;
     private MapLevel1 map;
     private Map<Coordinate,ImageView> towers;
+    private ArrayList<VBox> enemies;
     private Coordinate coordinate;
     private boolean ringOpen;
     private boolean archer;
@@ -424,12 +429,58 @@ public class Level1 implements Initializable {
     @FXML
     void start(MouseEvent event) {
         img_start.setVisible(false);
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                map.getWaves().get(wave++).run(root);
-                lbl_wave.setText("wave " + wave + "/" + map.getWave());
-            });
-        }).start();
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        e -> {
+                            img_start.setVisible(true);
+                            FadeTransition FT = new FadeTransition();
+                            FT.setNode(img_start);
+                            FT.setDuration(Duration.seconds(0.5));
+                            FT.setToValue(0.001);
+                            FT.setAutoReverse(true);
+                            FT.setCycleCount(7);
+                            FT.play();
+                        }),
+                new KeyFrame(
+                        Duration.seconds(3.5),
+                        e -> {
+                            img_start.setVisible(false);
+                            new Thread(() -> {
+                            Platform.runLater(() -> {
+                                run(map.getWaves().get(wave++));
+                                lbl_wave.setText("wave " + wave + "/" + map.getWave());
+                            });
+                        }).start();}),
+                new KeyFrame(
+                        Duration.seconds(43.5),
+                        e -> {})
+        );
+        timeline.setCycleCount(map.getWave());
+        timeline.playFromStart();
+    }
+    private void run(Wave wave){
+        try {
+            addEnemy(wave.getNumber1(), wave.getKind1());
+            addEnemy(wave.getNumber2(), wave.getKind2());
+            addEnemy(wave.getNumber3(), wave.getKind3());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void addEnemy(int number, String kind) throws IOException {
+        switch (kind){
+            case "Bird" -> {}
+            case "Troll" -> {
+                for(int i=0; i<number; i++){
+                    Enemy.raider = new Troll(map.getWay(), new VBox());
+                    enemies.add(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
+                    AnchorPane.setTopAnchor(enemies.getLast(),map.getWay().getFirst().getY()-50);
+                    AnchorPane.setLeftAnchor(enemies.getLast(),map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast());
+                }
+            }
+        }
     }
 
     @FXML
@@ -497,6 +548,7 @@ public class Level1 implements Initializable {
         wave = 0;
         map = new MapLevel1();
         towers = new HashMap<>();
+        enemies = new ArrayList<>();
 
         lbl_coin.setText(String.valueOf(map.getCoin()));
         lbl_wave.setText("wave 0/" + map.getWave());
