@@ -15,8 +15,8 @@ import java.util.Objects;
 public class Bird extends Raider{
 
     ImageView imageView;
-    public Bird(ArrayList<Coordinate> way, VBox vBox) {
-        super(100, 200, 40, way, vBox);
+    public Bird(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate) {
+        super(100, 200, 40, way, vBox, coordinate);
     }
 
     @Override

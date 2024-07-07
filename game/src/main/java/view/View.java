@@ -2,6 +2,7 @@ package view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
@@ -14,6 +15,7 @@ public class View {
     private static View view;
     private boolean music;
     private MediaPlayer mediaPlayer;
+    private AnchorPane root;
 
     public View() {
         this.music = true;
@@ -48,6 +50,14 @@ public class View {
 
     public void setMusic(boolean music) {
         this.music = music;
+    }
+
+    public AnchorPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(AnchorPane root) {
+        this.root = root;
     }
 
     public void show(String fxml) throws IOException {

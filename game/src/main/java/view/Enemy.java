@@ -1,12 +1,10 @@
 package view;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import model.map.Coordinate;
 import model.raidar.Raider;
 
 import java.net.URL;

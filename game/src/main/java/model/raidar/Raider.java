@@ -22,8 +22,9 @@ public abstract class Raider {
     private final ArrayList<Coordinate> pathwayFractures;
     private final Random random;
     private VBox vBox;
+    private Coordinate coordinate;
 
-    public Raider(int health, int speed, int loot, ArrayList<Coordinate> pathwayFractures, VBox vBox) {
+    public Raider(int health, int speed, int loot, ArrayList<Coordinate> pathwayFractures, VBox vBox, Coordinate coordinate) {
         this.health = health;
         this.speed = speed;
         this.loot = loot;
@@ -31,6 +32,7 @@ public abstract class Raider {
         this.vBox = vBox;
         this.hero = false;
         this.random = new Random();
+        this.coordinate = coordinate;
     }
 
     public VBox getvBox() {
@@ -39,6 +41,14 @@ public abstract class Raider {
 
     public void setvBox(VBox vBox) {
         this.vBox = vBox;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 
     public void walk(){}
@@ -56,6 +66,7 @@ public abstract class Raider {
                                     else
                                         vBox.getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
+                                    coordinate = pathwayFractures.get(finalI);
                                     TranslateTransition TT = new TranslateTransition();
                                     TT.setNode(vBox);
                                     TT.setDuration(Duration.millis(speed * 10));

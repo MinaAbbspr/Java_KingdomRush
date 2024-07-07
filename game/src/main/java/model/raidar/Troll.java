@@ -15,8 +15,8 @@ import java.util.Objects;
 public class Troll extends Raider{
     ImageView imageView;
 
-    public Troll( ArrayList<Coordinate> way, VBox vBox) {
-        super(100, 100, 15, way, vBox);
+    public Troll( ArrayList<Coordinate> way, VBox vBox,Coordinate coordinate) {
+        super(100, 100, 15, way, vBox,coordinate);
     }
 
     public void setvBox(VBox vBox) {
