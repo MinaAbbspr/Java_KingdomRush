@@ -1,6 +1,5 @@
 package controller.tower;
 
-import controller.HeroController;
 import controller.raider.RaiderController;
 import model.Tower.Barracks;
 import model.Tower.Hero;

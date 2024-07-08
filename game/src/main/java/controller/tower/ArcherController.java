@@ -3,14 +3,13 @@ package controller.tower;
 import controller.raider.RaiderController;
 import javafx.scene.control.ProgressBar;
 import model.Tower.Archer;
-import model.Tower.Tower;
 import view.Shot;
 import view.View;
 
 import java.util.ArrayList;
 
 public class ArcherController extends TowerController {
-    private Archer archer;
+    private final Archer archer;
 
     public ArcherController(Archer archer) {
         super();

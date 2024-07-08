@@ -1,7 +1,6 @@
 package model.Tower;
 
-import controller.HeroController;
-import controller.raider.RaiderController;
+import controller.tower.HeroController;
 import model.map.Coordinate;
 
 import java.util.ArrayList;

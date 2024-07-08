@@ -22,10 +22,26 @@ public abstract class RaiderController {
     }
 
     public void walk(){}
+    public void attack(int counter, int DPS){}
+
+    public void setHero(boolean hero){
+        raider.setHero(hero);
+        synchronized (this){
+            this.notify();
+        }
+    }
 
     public void action() {
         for (int i = 1; i < raider.getPathwayFractures().size(); i++) {
             int finalI = i;
+            while (raider.isHero())
+                synchronized (this){
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             Timeline timeline = new Timeline(
                     new KeyFrame(
                             Duration.millis(raider.getSpeed() * 10 * (finalI-1)),

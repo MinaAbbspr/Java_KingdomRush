@@ -1,14 +1,6 @@
 package model.raidar;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
-import javafx.geometry.NodeOrientation;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import model.map.Coordinate;
 
 import java.util.ArrayList;
