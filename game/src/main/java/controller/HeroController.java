@@ -1,5 +1,6 @@
 package controller;
 
+import controller.raider.RaiderController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -191,7 +192,7 @@ public class HeroController {
         timeline.playFromStart();
     }
 
-    public void HeroRun(boolean run, ArrayList<Raider> raiders) {
+    public void HeroRun(boolean run, ArrayList<RaiderController> raiders) {
         hero.setHeroRun(run);
         hero.getBarracks().setRaiders(raiders);
         action();
@@ -199,14 +200,14 @@ public class HeroController {
 
     private void action() {
         while (hero.isHeroRun()){
-            for(Raider raider : hero.getBarracks().getRaiders())
-                if(raider.getvBox().isVisible()){
-                    double x = Math.abs(raider.getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
-                    double y = Math.abs(raider.getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
+            for(RaiderController raider : hero.getBarracks().getRaiders())
+                if(raider.getRaider().getvBox().isVisible()){
+                    double x = Math.abs(raider.getRaider().getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
+                    double y = Math.abs(raider.getRaider().getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
                     if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius()){
                         hero.setRaider(true);
-                        raider.setHero(true);
-                        attackTime(raider);
+                        raider.getRaider().setHero(true);
+                        attackTime(raider.getRaider());
                     }
                 }
         }

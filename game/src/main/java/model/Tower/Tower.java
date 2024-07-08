@@ -1,7 +1,7 @@
 package model.Tower;
 
+import controller.raider.RaiderController;
 import model.map.Coordinate;
-import model.raidar.Raider;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public abstract class Tower {
     private int level;
     private int updateCost;
     private boolean run;
-    private ArrayList<Raider> raiders;
+    private ArrayList<RaiderController> raiders;
     private Coordinate coordinate;
 
     public Tower(double DPS, int cost, double radius, int level, int updateCost, Coordinate coordinate) {
@@ -52,11 +52,11 @@ public abstract class Tower {
         this.run = run;
     }
 
-    public ArrayList<Raider> getRaiders() {
+    public ArrayList<RaiderController> getRaiders() {
         return raiders;
     }
 
-    public void setRaiders(ArrayList<Raider> raiders) {
+    public void setRaiders(ArrayList<RaiderController> raiders) {
         this.raiders = raiders;
     }
 
@@ -69,7 +69,7 @@ public abstract class Tower {
         radius += 20;
     }
 
-    public void run(boolean run, ArrayList<Raider> raiders) {}
+    public void run(boolean run, ArrayList<RaiderController> raiders) {}
 
     public void action(){}
 }

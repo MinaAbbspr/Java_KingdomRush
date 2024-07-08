@@ -1,8 +1,8 @@
 package model.Tower;
 
+import controller.raider.RaiderController;
 import javafx.scene.control.ProgressBar;
 import model.map.Coordinate;
-import model.raidar.Raider;
 import view.Shot;
 import view.View;
 
@@ -13,7 +13,7 @@ public class Archer extends Tower{
         super(15, 70, 150, 0, 40,coordinate);
     }
 
-    public void run(boolean run, ArrayList<Raider> raiders) {
+    public void run(boolean run, ArrayList<RaiderController> raiders) {
         super.setRun(run);
         super.setRaiders(raiders);
         action();
@@ -21,21 +21,21 @@ public class Archer extends Tower{
 
     public void action(){
         while (super.isRun()){
-            for(Raider raider : super.getRaiders())
-                if(raider.getvBox().isVisible()){
-                    double x = Math.abs(raider.getCoordinate().getX()- super.getCoordinate().getX());
-                    double y = Math.abs(raider.getCoordinate().getY()- super.getCoordinate().getY());
+            for(RaiderController raider : super.getRaiders())
+                if(raider.getRaider().getvBox().isVisible()){
+                    double x = Math.abs(raider.getRaider().getCoordinate().getX()- super.getCoordinate().getX());
+                    double y = Math.abs(raider.getRaider().getCoordinate().getY()- super.getCoordinate().getY());
                     if(Math.sqrt(x*x + y*y) <= super.getRadius()){
-                        new Shot("arrow",super.getCoordinate(),raider.getCoordinate());
-                        ProgressBar progressBar = (ProgressBar)(raider.getvBox().getChildren().getFirst());
+                        new Shot("arrow",super.getCoordinate(),raider.getRaider().getCoordinate());
+                        ProgressBar progressBar = (ProgressBar)(raider.getRaider().getvBox().getChildren().getFirst());
                         if(progressBar.getProgress() - super.getDPS()/100 >= 0) {
                             progressBar.setProgress(progressBar.getProgress() - super.getDPS() / 100);
-                            raider.setHealth((int) (progressBar.getProgress() * raider.getFinalHealth()));
+                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
                         }
                         else {
                             super.getRaiders().remove(raider);
-                            raider.getvBox().setVisible(false);
-                            View.getView().getRoot().getChildren().remove(raider.getvBox());
+                            raider.getRaider().getvBox().setVisible(false);
+                            View.getView().getRoot().getChildren().remove(raider.getRaider().getvBox());
                         }
                         try {
                             Thread.sleep(2000);

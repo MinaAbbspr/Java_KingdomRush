@@ -75,33 +75,23 @@ public abstract class Raider {
         return DPS;
     }
 
-    public void walk(){}
+    public int getSpeed() {
+        return speed;
+    }
 
-    public void action() {
-        for (int i = 1; i < pathwayFractures.size(); i++) {
-            int finalI = i;
-            Timeline timeline = new Timeline(
-                    new KeyFrame(
-                            Duration.millis(speed * 10 * (finalI-1)),
-                            e -> {
-                                if (!this.hero) {
-                                    if (pathwayFractures.get(finalI).getX() - vBox.getLayoutX() < 0)
-                                        vBox.getChildren().getLast().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-                                    else
-                                        vBox.getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+    public int getLoot() {
+        return loot;
+    }
 
-                                    coordinate = pathwayFractures.get(finalI);
-                                    TranslateTransition TT = new TranslateTransition();
-                                    TT.setNode(vBox);
-                                    TT.setDuration(Duration.millis(speed * 10));
-                                    TT.setToX(pathwayFractures.get(finalI).getX() - vBox.getLayoutX() -random.nextInt(5));
-                                    TT.setToY(pathwayFractures.get(finalI).getY() - vBox.getLayoutY() - random.nextInt(25) - 25);
-                                    TT.play();
-                                    walk();
-                                }
-                            })
-            );
-            timeline.playFromStart();
-        }
+    public boolean isHero() {
+        return hero;
+    }
+
+    public ArrayList<Coordinate> getPathwayFractures() {
+        return pathwayFractures;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 }

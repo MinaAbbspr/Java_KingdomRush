@@ -19,7 +19,7 @@ public class Bird extends Raider{
         super(100, 200, 40, 0, way, vBox, coordinate);
     }
 
-    @Override
+
     public void walk(){
         Timeline timeline = new Timeline(
                 new KeyFrame(

@@ -1,6 +1,8 @@
 package view;
 
 import controller.PlayerController;
+import controller.raider.RaiderController;
+import controller.raider.TrollController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,12 +20,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import model.Tower.Archer;
+import model.Tower.Barracks;
 import model.Tower.Tower;
 import model.map.Coordinate;
 import model.map.MapLevel1;
 import model.map.Wave;
-import model.raidar.Raider;
-import model.raidar.Troll;
 
 import java.io.IOException;
 import java.net.URL;
@@ -175,7 +176,7 @@ public class Level1 implements Initializable {
     private MapLevel1 map;
     private Map<Coordinate,ImageView> towers;
     private ArrayList<Tower> towerController;
-    private ArrayList<Raider> enemies;
+    private ArrayList<RaiderController> enemies;
     private Coordinate coordinate;
     private boolean ringOpen;
     private boolean archer;
@@ -379,7 +380,8 @@ public class Level1 implements Initializable {
                 });
             }).start();
             closeRing();
-            new Thread( () -> new Archer(coordinate).run(true,enemies)).start();
+            towerController.add(new Archer(coordinate));
+            new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }
 
@@ -412,6 +414,8 @@ public class Level1 implements Initializable {
                 });
             }).start();
             closeRing();
+            towerController.add(new Barracks(coordinate, map.getWay()));
+            new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }
 
@@ -479,11 +483,11 @@ public class Level1 implements Initializable {
             case "Bird" -> {}
             case "Troll" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new Troll(map.getWay(), new VBox(),map.getWay().getFirst()));
-                    enemies.getLast().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
-                    AnchorPane.setTopAnchor(enemies.getLast().getvBox(),map.getWay().getFirst().getY()-50);
-                    AnchorPane.setLeftAnchor(enemies.getLast().getvBox(),map.getWay().getFirst().getX());
-                    root.getChildren().add(enemies.getLast().getvBox());
+                    enemies.add(new TrollController(map.getWay(), new VBox(),map.getWay().getFirst()));
+                    enemies.getLast().getRaider().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
+                    AnchorPane.setTopAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getY()-50);
+                    AnchorPane.setLeftAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
                     new Thread(() -> {
                         enemies.getLast().action();
                     }).start();

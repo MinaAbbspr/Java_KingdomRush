@@ -1,10 +1,8 @@
 package model.Tower;
 
 import controller.HeroController;
-import javafx.scene.control.ProgressBar;
+import controller.raider.RaiderController;
 import model.map.Coordinate;
-import model.raidar.Raider;
-import view.Shot;
 
 import java.util.ArrayList;
 
@@ -18,7 +16,7 @@ public class Barracks extends Tower{
         heroes = new ArrayList<>();
     }
 
-    public void run(boolean run, ArrayList<Raider> raiders) {
+    public void run(boolean run, ArrayList<RaiderController> raiders) {
         super.setRun(run);
         super.setRaiders(raiders);
         action();
