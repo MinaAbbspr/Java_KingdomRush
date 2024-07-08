@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Barracks extends Tower{
     private final ArrayList<HeroController> heroes;
     private final ArrayList<Coordinate> pathwayFractures;
-    private static final int maxHero = 2;
+    private static final int maxHero = 3;
     public Barracks( Coordinate coordinate,  ArrayList<Coordinate> pathwayFractures) {
         super(10, 70, 200, 0, 40, coordinate);
         this.pathwayFractures = pathwayFractures;

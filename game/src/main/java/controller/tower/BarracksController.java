@@ -25,12 +25,12 @@ public class BarracksController extends TowerController{
         while (barracks.isRun()){
             if(barracks.getHeroes().size() < Barracks.getMaxHero()){
                 barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                break;
+                new Thread(() -> barracks.getHeroes().getLast().HeroRun(true,barracks.getRaiders())).start();
+            }
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

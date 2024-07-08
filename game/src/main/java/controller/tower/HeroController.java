@@ -42,9 +42,10 @@ public class HeroController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()));
         Coordinate coordinate = find();
-        hero.getvBox().setLayoutX(coordinate.getX() -hero.getRandom().nextInt(100));
-        hero.getvBox().setLayoutY(coordinate.getY() - hero.getRandom().nextInt(25) - 25);
+        hero.getvBox().setLayoutX(coordinate.getX() -hero.getRandom().nextInt(50));
+        hero.getvBox().setLayoutY(coordinate.getY() - hero.getRandom().nextInt(25) - 50);
         hero.setCoordinate(new Coordinate(hero.getvBox().getLayoutX(), hero.getvBox().getLayoutY()));
         Timeline timeline = new Timeline(
                 new KeyFrame(
@@ -60,7 +61,9 @@ public class HeroController {
                         }),
                 new KeyFrame(
                         Duration.millis(0.5),
-                        e -> View.getView().getRoot().getChildren().add(hero.getvBox()))
+                        e -> {
+                            View.getView().getRoot().getChildren().add(hero.getvBox());
+                        })
                 );
         timeline.playFromStart();
     }
