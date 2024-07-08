@@ -191,14 +191,14 @@ public class HeroController {
         timeline.playFromStart();
     }
 
-    public void run(boolean run, ArrayList<Raider> raiders) {
-        hero.getBarracks().setRun(run);
+    public void HeroRun(boolean run, ArrayList<Raider> raiders) {
+        hero.setHeroRun(run);
         hero.getBarracks().setRaiders(raiders);
         action();
     }
 
     private void action() {
-        while (hero.getBarracks().isRun()){
+        while (hero.isHeroRun()){
             for(Raider raider : hero.getBarracks().getRaiders())
                 if(raider.getvBox().isVisible()){
                     double x = Math.abs(raider.getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
@@ -273,7 +273,7 @@ public class HeroController {
                 new KeyFrame(
                         Duration.seconds(2 * counter),
                         e -> {
-                            if(hero.getBarracks().isRun()){
+                            if(hero.isHeroRun()){
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
                                 TT.setDuration(Duration.millis(hero.getSpeed() * 10));
@@ -330,7 +330,7 @@ public class HeroController {
                                 hero.getBarracks().getHeroes().remove(this);
                                 hero.getvBox().setVisible(false);
                                 View.getView().getRoot().getChildren().remove(hero.getvBox());
-                                run(false,hero.getBarracks().getRaiders());
+                                HeroRun(false,hero.getBarracks().getRaiders());
                             }
                         }
                 )
