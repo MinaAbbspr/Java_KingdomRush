@@ -3,6 +3,9 @@ package view;
 import controller.PlayerController;
 import controller.raider.RaiderController;
 import controller.raider.TrollController;
+import controller.tower.ArcherController;
+import controller.tower.BarracksController;
+import controller.tower.TowerController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -175,7 +178,7 @@ public class Level1 implements Initializable {
     private boolean isBackpackOpen;
     private MapLevel1 map;
     private Map<Coordinate,ImageView> towers;
-    private ArrayList<Tower> towerController;
+    private ArrayList<TowerController> towerController;
     private ArrayList<RaiderController> enemies;
     private Coordinate coordinate;
     private boolean ringOpen;
@@ -380,7 +383,7 @@ public class Level1 implements Initializable {
                 });
             }).start();
             closeRing();
-            towerController.add(new Archer(coordinate));
+            towerController.add(new ArcherController(new Archer(coordinate)));
             new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }
@@ -414,7 +417,7 @@ public class Level1 implements Initializable {
                 });
             }).start();
             closeRing();
-            towerController.add(new Barracks(coordinate, map.getWay()));
+            towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
             new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }

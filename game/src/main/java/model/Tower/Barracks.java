@@ -16,27 +16,15 @@ public class Barracks extends Tower{
         heroes = new ArrayList<>();
     }
 
-    public void run(boolean run, ArrayList<RaiderController> raiders) {
-        super.setRun(run);
-        super.setRaiders(raiders);
-        action();
-    }
-
-    public void action(){
-        while (super.isRun()){
-            if(heroes.size() < maxHero){
-                heroes.add(new HeroController(new Hero(pathwayFractures,this)));
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
-    }
-
     public ArrayList<HeroController> getHeroes() {
         return heroes;
+    }
+
+    public ArrayList<Coordinate> getPathwayFractures() {
+        return pathwayFractures;
+    }
+
+    public static int getMaxHero(){
+        return maxHero;
     }
 }

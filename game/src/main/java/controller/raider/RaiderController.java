@@ -10,8 +10,7 @@ import model.raidar.Raider;
 public abstract class RaiderController {
     private Raider raider;
 
-    public RaiderController(Raider raider) {
-        this.raider = raider;
+    public RaiderController() {
     }
 
     public Raider getRaider() {

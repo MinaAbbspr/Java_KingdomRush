@@ -64,12 +64,27 @@ public abstract class Tower {
         return coordinate;
     }
 
-    public void updateLevel(){
-        this.level++;
-        radius += 20;
+    public void setDPS(double DPS) {
+        this.DPS = DPS;
     }
 
-    public void run(boolean run, ArrayList<RaiderController> raiders) {}
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 
-    public void action(){}
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setUpdateCost(int updateCost) {
+        this.updateCost = updateCost;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
 }

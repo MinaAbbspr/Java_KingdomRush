@@ -16,7 +16,7 @@ import java.util.Objects;
 public class TrollController extends RaiderController {
     private Troll troll;
     public TrollController(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate) {
-        super(new Troll(way,vBox,coordinate));
+        super();
         this.troll = new Troll(way,vBox,coordinate);
         super.setRaider(troll);
     }
