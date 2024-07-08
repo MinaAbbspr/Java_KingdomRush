@@ -194,25 +194,19 @@ public class HeroController {
         timeline.playFromStart();
     }
 
-    public void HeroRun(boolean run, ArrayList<RaiderController> raiders) {
-        hero.setHeroRun(run);
-        hero.getBarracks().setRaiders(raiders);
-        action();
-    }
-
-    private void action() {
-        while (hero.isHeroRun()){
-            for(RaiderController raider : hero.getBarracks().getRaiders())
-                if(raider.getRaider().getvBox().isVisible()){
-                    double x = Math.abs(raider.getRaider().getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
-                    double y = Math.abs(raider.getRaider().getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
-                    if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius()){
-                        hero.setRaider(true);
-                        raider.setHero(true);
-                        attackTime(raider);
-                    }
+    public void action() {
+        for(RaiderController raider : hero.getBarracks().getRaiders())
+            if(raider.getRaider().getvBox().isVisible()){
+                double x = Math.abs(raider.getRaider().getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
+                double y = Math.abs(raider.getRaider().getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
+                if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius()){
+                    hero.setRaider(true);
+                    raider.setHero(true);
+                    attackTime(raider);
                 }
-        }
+                break;
+            }
+
     }
 
     private void attackTime(RaiderController raider){
@@ -287,7 +281,6 @@ public class HeroController {
                                 TT.play();
                                 walk();
                             }
-                            raider.setHero(false);
                         })
         );
         timeline.playFromStart();
@@ -336,7 +329,6 @@ public class HeroController {
                                 hero.getBarracks().getHeroes().remove(this);
                                 hero.getvBox().setVisible(false);
                                 View.getView().getRoot().getChildren().remove(hero.getvBox());
-                                HeroRun(false,hero.getBarracks().getRaiders());
                             }
                         }
                 )

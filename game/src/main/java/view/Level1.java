@@ -384,7 +384,6 @@ public class Level1 implements Initializable {
             }).start();
             closeRing();
             towerController.add(new ArcherController(new Archer(coordinate)));
-            new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }
 
@@ -418,7 +417,6 @@ public class Level1 implements Initializable {
             }).start();
             closeRing();
             towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
-            new Thread( () -> towerController.getLast().run(true,enemies)).start();
         }
     }
 
