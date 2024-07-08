@@ -480,11 +480,13 @@ public class Level1 implements Initializable {
             case "Troll" -> {
                 for(int i=0; i<number; i++){
                     enemies.add(new Troll(map.getWay(), new VBox(),map.getWay().getFirst()));
-                    Enemy.raider = enemies.getLast();
                     enemies.getLast().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
                     AnchorPane.setTopAnchor(enemies.getLast().getvBox(),map.getWay().getFirst().getY()-50);
                     AnchorPane.setLeftAnchor(enemies.getLast().getvBox(),map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getvBox());
+                    new Thread(() -> {
+                        enemies.getLast().action();
+                    }).start();
                 }
             }
         }

@@ -16,7 +16,7 @@ public class Bird extends Raider{
 
     ImageView imageView;
     public Bird(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate) {
-        super(100, 200, 40, way, vBox, coordinate);
+        super(100, 200, 40, 0, way, vBox, coordinate);
     }
 
     @Override
