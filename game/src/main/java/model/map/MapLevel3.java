@@ -18,7 +18,6 @@ public class MapLevel3 extends Map{
         super.setTowersCoordinate(tower);
 
         ArrayList<Coordinate> way = new ArrayList<>();
-        super.setWay(way);
 
     }
 }

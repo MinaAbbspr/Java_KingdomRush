@@ -27,6 +27,8 @@ public class Shot {
         switch (shot) {
             case "arrow" -> {
                 ImageView img_arrow = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
+                img_arrow.setFitWidth(15);
+                img_arrow.setFitHeight(15);
                 arrowAndBomb(img_arrow);
             }
             case "hex" -> {
@@ -44,8 +46,8 @@ public class Shot {
                                     TranslateTransition TT = new TranslateTransition();
                                     TT.setNode(img_hex);
                                     TT.setDuration(Duration.millis(500));
-                                    TT.setToX(end.getX() - img_hex.getX());
-                                    TT.setToY(end.getY() - img_hex.getY());
+                                    TT.setToX(end.getX() - img_hex.getX() + 25);
+                                    TT.setToY(end.getY() - img_hex.getY() + 25);
                                     TT.play();
                                 }),
                         new KeyFrame(
@@ -55,15 +57,15 @@ public class Shot {
                 timeline.playFromStart();
             }
             case "bomb" -> {
-                ImageView img_bomb = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/.png")).toExternalForm()));
+                ImageView img_bomb = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/ston.png")).toExternalForm()));
+                img_bomb.setFitWidth(20);
+                img_bomb.setFitHeight(20);
                 arrowAndBomb(img_bomb);
             }
         }
     }
 
     private void arrowAndBomb(ImageView img_arrow) {
-        img_arrow.setFitWidth(15);
-        img_arrow.setFitHeight(15);
         img_arrow.setPreserveRatio(false);
         img_arrow.setX(start.getX());
         img_arrow.setY(start.getY() - 100);
@@ -86,8 +88,8 @@ public class Shot {
                             TranslateTransition TT = new TranslateTransition();
                             TT.setNode(img_arrow);
                             TT.setDuration(Duration.millis(500));
-                            TT.setToX(end.getX() - img_arrow.getX());
-                            TT.setToY(end.getY() - img_arrow.getY());
+                            TT.setToX(end.getX() - img_arrow.getX() + 25);
+                            TT.setToY(end.getY() - img_arrow.getY() + 25);
                             TT.play();
                         }),
                 new KeyFrame(

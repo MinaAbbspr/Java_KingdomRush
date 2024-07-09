@@ -18,7 +18,10 @@ public class MapLevel2 extends Map{
         super.setTowersCoordinate(tower);
 
         ArrayList<Coordinate> way = new ArrayList<>();
-        super.setWay(way);
+        super.getWays().add(way);
+    }
 
+    public ArrayList<Coordinate> getWay(){
+        return super.getWays().getFirst();
     }
 }

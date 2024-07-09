@@ -46,6 +46,7 @@ public class TrollController extends RaiderController {
                             }
                             else {
                                 troll.getvBox().setVisible(false);
+                                View.getView().getMap().setCoin(View.getView().getMap().getCoin() + troll.getLoot());
                                 View.getView().getRoot().getChildren().remove(troll.getvBox());
                             }
                         })

@@ -3,9 +3,7 @@ package view;
 import controller.PlayerController;
 import controller.raider.RaiderController;
 import controller.raider.TrollController;
-import controller.tower.ArcherController;
-import controller.tower.BarracksController;
-import controller.tower.TowerController;
+import controller.tower.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -24,9 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import model.Tower.Archer;
-import model.Tower.Barracks;
-import model.Tower.Tower;
+import model.Tower.*;
 import model.map.Coordinate;
 import model.map.MapLevel1;
 import model.map.Wave;
@@ -189,7 +185,6 @@ public class Level1 implements Initializable {
     private boolean barracks;
     private boolean artillery;
     private int wave;
-    private int health;
 
     @FXML
     void backpack(MouseEvent event) {
@@ -395,6 +390,7 @@ public class Level1 implements Initializable {
             map.setCoin(map.getCoin() - 112);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new ArtilleryController(new Artillery(coordinate)));
         }
     }
 
@@ -420,6 +416,7 @@ public class Level1 implements Initializable {
             map.setCoin(map.getCoin() - 90);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new WizardController(new Wizard(coordinate)));
         }
     }
 
@@ -494,15 +491,16 @@ public class Level1 implements Initializable {
                 root.getChildren().remove(enemies.get(i).getRaider().getvBox());
                 enemies.remove(enemies.get(i));
                 i--;
-                health--;
-                lbl_heart.setText(String.valueOf(health));
-                if (health == 0) {
+                map.setHealth(map.getHealth()-1);
+                lbl_heart.setText(String.valueOf(map.getHealth()));
+                if (map.getHealth() == 0) {
                     //gameOver
                 }
             }
         for(TowerController tower : towerController){
             tower.action(enemies);
         }
+        lbl_coin.setText(String.valueOf(map.getCoin()));
         PauseTransition pause = new PauseTransition(Duration.seconds(speed));
         pause.setOnFinished(e -> {
             run(enemies.isEmpty());
@@ -573,12 +571,12 @@ public class Level1 implements Initializable {
         isBackpackOpen = false;
         ringOpen = false;
         wave = 0;
-        health = 20;
         map = new MapLevel1();
         towers = new HashMap<>();
         towerController = new ArrayList<>();
         enemies = new ArrayList<>();
         View.getView().setRoot(root);
+        View.getView().setMap(map);
 
         lbl_coin.setText(String.valueOf(map.getCoin()));
         lbl_wave.setText("wave 0/" + map.getWave());

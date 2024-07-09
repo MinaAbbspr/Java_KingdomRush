@@ -1,5 +1,7 @@
 package controller;
 
+import exception.InvalidPassword;
+import exception.InvalidUsername;
 import model.Backpack;
 import model.Player;
 import model.spell.Bomb;
@@ -33,11 +35,11 @@ public class PlayerController {
         String sqlCmd = String.format("SELECT * FROM player WHERE username = '%s'",username);
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(sqlCmd);
         if(resultSet == null)
-            throw new Exception("username is not valid");
+            throw new InvalidUsername();
 
         resultSet.next();
         if(!resultSet.getString("password").equals(password))
-            throw new Exception("password is not valid");
+            throw new InvalidPassword();
 
         player = new Player(resultSet.getInt("ID"),username,password,resultSet.getInt("level"),resultSet.getLong("diamond"),
                 new Backpack(resultSet.getInt("health"),resultSet.getInt("freeze"),resultSet.getInt("coin"),resultSet.getInt("littleBoy")));
@@ -50,10 +52,10 @@ public class PlayerController {
         String sqlCmd = String.format("SELECT ID FROM player WHERE username = '%s'",username);
         ResultSet resultSet = SQLConnection.getSqlConnection().executeSelect(sqlCmd);
         if(resultSet != null && resultSet.next())
-            throw new Exception("This username already exist");
+            throw new InvalidUsername("This username already exist");
 
         if(! password.equals(checkPassword))
-            throw new Exception("Enter the password again");
+            throw new InvalidPassword("Enter the password again");
 
         String innerCmd = String.format("INSERT INTO player (ID,username,password) VALUES (%s,'%s','%s')",getMaxID()+1, username, password);
         SQLConnection.getSqlConnection().execute(innerCmd);

@@ -40,6 +40,7 @@ public class WizardController extends TowerController{
                                         else {
                                             wizard.getRaiders().remove(raider);
                                             raider.getRaider().getvBox().setVisible(false);
+                                            View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());
                                             View.getView().getRoot().getChildren().remove(raider.getRaider().getvBox());
                                         }
                                     }),

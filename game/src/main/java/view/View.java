@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
+import model.map.Map;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class View {
     private boolean music;
     private MediaPlayer mediaPlayer;
     private AnchorPane root;
+    private Map map;
 
     public View() {
         this.music = true;
@@ -58,6 +60,14 @@ public class View {
 
     public void setRoot(AnchorPane root) {
         this.root = root;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 
     public void show(String fxml) throws IOException {
