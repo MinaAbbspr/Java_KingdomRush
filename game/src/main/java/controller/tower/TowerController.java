@@ -24,8 +24,6 @@ public abstract class TowerController {
         tower.setRadius(tower.getRadius() + 20);
     }
 
-    public void run(boolean run, ArrayList<RaiderController> raiders) {}
-
-    public void action(){}
+    public void action(ArrayList<RaiderController> raiders){}
 
 }

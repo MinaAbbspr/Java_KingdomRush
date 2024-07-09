@@ -18,7 +18,6 @@ import view.HelloApplication;
 import view.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class HeroController {
@@ -61,9 +60,7 @@ public class HeroController {
                         }),
                 new KeyFrame(
                         Duration.millis(0.5),
-                        e -> {
-                            View.getView().getRoot().getChildren().add(hero.getvBox());
-                        })
+                        e -> View.getView().getRoot().getChildren().add(hero.getvBox()))
                 );
         timeline.playFromStart();
     }
@@ -199,9 +196,9 @@ public class HeroController {
             if(raider.getRaider().getvBox().isVisible()){
                 double x = Math.abs(raider.getRaider().getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
                 double y = Math.abs(raider.getRaider().getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
-                if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius()){
+                if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero()){
                     hero.setRaider(true);
-                    raider.setHero(true);
+                    raider.getRaider().setHero(true);
                     attackTime(raider);
                 }
                 break;
@@ -242,15 +239,12 @@ public class HeroController {
                             if(heroCounter > raiderCounter){
                                 attack(raiderCounter,raider);
                                 raider.attack(raiderCounter,hero.getDPS());
-                                //attack
                             }
                             else if(heroCounter == raiderCounter){
                                 attack(raiderCounter+1,raider);
-                                //attack raider++
                             }
                             else{
                                 attack(heroCounter,raider);
-                                //attack hero
                             }
                         })
         );
@@ -271,7 +265,7 @@ public class HeroController {
                 new KeyFrame(
                         Duration.seconds(2 * counter),
                         e -> {
-                            if(hero.isHeroRun()){
+                            if (hero.getHealth() > 0) {
                                 hero.getBarracks().getRaiders().remove(raider);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
@@ -281,6 +275,8 @@ public class HeroController {
                                 TT.play();
                                 walk();
                             }
+                            else
+                                raider.getRaider().setHero(false);
                         })
         );
         timeline.playFromStart();
@@ -326,6 +322,7 @@ public class HeroController {
                                 hero.setHealth((int) (progressBar.getProgress() * hero.getFinalHealth()));
                             }
                             else {
+                                hero.setHealth(0);
                                 hero.getBarracks().getHeroes().remove(this);
                                 hero.getvBox().setVisible(false);
                                 View.getView().getRoot().getChildren().remove(hero.getvBox());

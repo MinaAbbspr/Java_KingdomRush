@@ -20,13 +20,8 @@ public class ArcherController extends TowerController {
         super.setTower(archer);
     }
 
-    public void run(boolean run, ArrayList<RaiderController> raiders) {
-        archer.setRun(run);
+    public void action(ArrayList<RaiderController> raiders){
         archer.setRaiders(raiders);
-        action();
-    }
-
-    public void action(){
         for(RaiderController raider : archer.getRaiders())
             if(raider.getRaider().getvBox().isVisible()){
                 double x = Math.abs(raider.getRaider().getCoordinate().getX()- archer.getCoordinate().getX());

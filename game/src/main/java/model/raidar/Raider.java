@@ -17,6 +17,7 @@ public abstract class Raider {
     private VBox vBox;
     private Coordinate coordinate;
     private final int DPS;
+    private int nextIndex;
 
     public Raider(int health, int speed, int loot, int DPS, ArrayList<Coordinate> pathwayFractures, VBox vBox, Coordinate coordinate) {
         this.health = health;
@@ -29,6 +30,7 @@ public abstract class Raider {
         this.hero = false;
         this.random = new Random();
         this.coordinate = coordinate;
+        this.nextIndex = 1;
     }
 
     public VBox getvBox() {
@@ -85,5 +87,13 @@ public abstract class Raider {
 
     public Random getRandom() {
         return random;
+    }
+
+    public int getNextIndex() {
+        return nextIndex;
+    }
+
+    public void setNextIndex() {
+        this.nextIndex++ ;
     }
 }

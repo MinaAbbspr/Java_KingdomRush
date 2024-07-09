@@ -187,6 +187,7 @@ public class Level1 implements Initializable {
     private boolean barracks;
     private boolean artillery;
     private int wave;
+    private int health;
 
     @FXML
     void backpack(MouseEvent event) {
@@ -438,10 +439,18 @@ public class Level1 implements Initializable {
 
     @FXML
     void start(MouseEvent event) {
-        img_start.setVisible(false);
+        for(int i=0; i<map.getWave(); i++) {
+            int finalI = i;
+            new Thread(() -> timeLine(finalI)).start();
+        }
+//        timeLine(wave);
+//        new Thread(() -> new Timeline(new KeyFrame(Duration.seconds(wave * 30 +4), e -> run())).play()).start();
+//        wave++;
+    }
+    private void timeLine(int finalI){
         Timeline timeline = new Timeline(
                 new KeyFrame(
-                        Duration.ZERO,
+                        Duration.seconds(finalI * 30),
                         e -> {
                             img_start.setVisible(true);
                             FadeTransition FT = new FadeTransition();
@@ -453,47 +462,62 @@ public class Level1 implements Initializable {
                             FT.play();
                         }),
                 new KeyFrame(
-                        Duration.seconds(3.5),
+                        Duration.seconds(finalI * 30 + 3.5),
                         e -> {
                             img_start.setVisible(false);
-                            new Thread(() -> {
-                            Platform.runLater(() -> {
-                                run(map.getWaves().get(wave++));
-                                lbl_wave.setText("wave " + wave + "/" + map.getWave());
-                            });
-                            }).start();
-                        }),
-                new KeyFrame(
-                        Duration.seconds(33.5),
-                        e -> {})
+                            new Thread(() -> Platform.runLater(() -> lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave()))).start();
+                            addWave(map.getWaves().get(finalI));
+                        })
         );
-        timeline.setCycleCount(map.getWave());
-        timeline.playFromStart();
+        timeline.play();
+        new Timeline(new KeyFrame(Duration.seconds(wave * 30 +4), e -> run())).play();
     }
-    private void run(Wave wave){
-        try {
-            addEnemy(wave.getNumber1(), wave.getKind1());
-            addEnemy(wave.getNumber2(), wave.getKind2());
-            addEnemy(wave.getNumber3(), wave.getKind3());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void addWave(Wave wave){
+        addEnemy(wave.getNumber1(), wave.getKind1());
+        addEnemy(wave.getNumber2(), wave.getKind2());
+        addEnemy(wave.getNumber3(), wave.getKind3());
     }
-    private void addEnemy(int number, String kind) throws IOException {
+    private void addEnemy(int number, String kind) {
         switch (kind){
             case "Bird" -> {}
             case "Troll" -> {
                 for(int i=0; i<number; i++){
                     enemies.add(new TrollController(map.getWay(), new VBox(),map.getWay().getFirst()));
-                    enemies.getLast().getRaider().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
+                    try {
+                        enemies.getLast().getRaider().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     AnchorPane.setTopAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getY()-50);
                     AnchorPane.setLeftAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
-                    new Thread(() -> {
-                        enemies.getLast().action();
-                    }).start();
                 }
             }
+        }
+    }
+    private void run(){
+        int counter = 0;
+        while (!enemies.isEmpty()){
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.millis(counter++),
+                            e -> {
+                                for (int i = 0; i < enemies.size(); i++)
+                                    if (!enemies.get(i).action()) {
+                                        enemies.remove(enemies.get(i));
+                                        i--;
+                                        health--;
+                                        new Thread(() -> Platform.runLater(() -> lbl_heart.setText(String.valueOf(health)))).start();
+                                        if (health == 0) {
+                                            //gameOver
+                                        }
+                                    }
+                                for (TowerController tower : towerController) {
+                                    tower.action(enemies);
+                                }
+                            })
+            );
+            timeline.play();
         }
     }
 
@@ -560,6 +584,7 @@ public class Level1 implements Initializable {
         isBackpackOpen = false;
         ringOpen = false;
         wave = 0;
+        health = 20;
         map = new MapLevel1();
         towers = new HashMap<>();
         towerController = new ArrayList<>();

@@ -15,13 +15,8 @@ public class BarracksController extends TowerController{
         setTower(barracks);
     }
 
-    public void run(boolean run, ArrayList<RaiderController> raiders) {
-        barracks.setRun(run);
+    public void action(ArrayList<RaiderController> raiders){
         barracks.setRaiders(raiders);
-        action();
-    }
-
-    public void action(){
         if(barracks.getHeroes().size() < Barracks.getMaxHero()){
             barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
         }

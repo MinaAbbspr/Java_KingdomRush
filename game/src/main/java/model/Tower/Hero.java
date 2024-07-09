@@ -17,7 +17,6 @@ public class Hero {
     private final Barracks barracks;
     private Coordinate coordinate;
     private final int DPS;
-    private boolean heroRun;
 
     public Hero(ArrayList<Coordinate> pathwayFractures, Barracks barracks) {
         this.pathwayFractures = pathwayFractures;
@@ -84,13 +83,5 @@ public class Hero {
 
     public int getFinalHealth() {
         return finalHealth;
-    }
-
-    public boolean isHeroRun() {
-        return heroRun;
-    }
-
-    public void setHeroRun(boolean heroRun) {
-        this.heroRun = heroRun;
     }
 }
