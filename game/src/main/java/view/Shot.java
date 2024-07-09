@@ -23,51 +23,19 @@ public class Shot {
         add();
     }
 
-    private void add(){
-        switch (shot){
-            case "arrow" ->{
+    private void add() {
+        switch (shot) {
+            case "arrow" -> {
                 ImageView img_arrow = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
-                img_arrow.setFitWidth(15);
-                img_arrow.setFitHeight(15);
-                img_arrow.setPreserveRatio(false);
-                img_arrow.setX(start.getX());
-                img_arrow.setY(start.getY()-100);
-
-                Timeline timeline = new Timeline(
-                        new KeyFrame(
-                                Duration.ZERO,
-                                e -> {
-                                    View.getView().getRoot().getChildren().add(img_arrow);
-                                    TranslateTransition TT = new TranslateTransition();
-                                    TT.setNode(img_arrow);
-                                    TT.setDuration(Duration.millis(500));
-                                    TT.setToY(-30);
-                                    TT.play();
-                                }),
-                        new KeyFrame(
-                                Duration.seconds(0.5),
-                                e -> {
-                                    img_arrow.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow2.png")).toExternalForm()));
-                                    TranslateTransition TT = new TranslateTransition();
-                                    TT.setNode(img_arrow);
-                                    TT.setDuration(Duration.millis(500));
-                                    TT.setToX(end.getX() - img_arrow.getX());
-                                    TT.setToY(end.getY() - img_arrow.getY());
-                                    TT.play();
-                                }),
-                        new KeyFrame(
-                                Duration.seconds(1),
-                                e -> View.getView().getRoot().getChildren().remove(img_arrow))
-                );
-                timeline.playFromStart();
+                arrowAndBomb(img_arrow);
             }
-            case"hex" -> {
+            case "hex" -> {
                 ImageView img_hex = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
                 img_hex.setFitWidth(20);
                 img_hex.setFitHeight(20);
                 img_hex.setPreserveRatio(false);
                 img_hex.setX(start.getX());
-                img_hex.setY(start.getY()-150);
+                img_hex.setY(start.getY() - 150);
 
                 Timeline timeline = new Timeline(
                         new KeyFrame(
@@ -86,6 +54,46 @@ public class Shot {
                 );
                 timeline.playFromStart();
             }
+            case "bomb" -> {
+                ImageView img_bomb = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/.png")).toExternalForm()));
+                arrowAndBomb(img_bomb);
+            }
         }
+    }
+
+    private void arrowAndBomb(ImageView img_arrow) {
+        img_arrow.setFitWidth(15);
+        img_arrow.setFitHeight(15);
+        img_arrow.setPreserveRatio(false);
+        img_arrow.setX(start.getX());
+        img_arrow.setY(start.getY() - 100);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        e -> {
+                            View.getView().getRoot().getChildren().add(img_arrow);
+                            TranslateTransition TT = new TranslateTransition();
+                            TT.setNode(img_arrow);
+                            TT.setDuration(Duration.millis(500));
+                            TT.setToY(-30);
+                            TT.play();
+                        }),
+                new KeyFrame(
+                        Duration.seconds(0.5),
+                        e -> {
+                            img_arrow.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow2.png")).toExternalForm()));
+                            TranslateTransition TT = new TranslateTransition();
+                            TT.setNode(img_arrow);
+                            TT.setDuration(Duration.millis(500));
+                            TT.setToX(end.getX() - img_arrow.getX());
+                            TT.setToY(end.getY() - img_arrow.getY());
+                            TT.play();
+                        }),
+                new KeyFrame(
+                        Duration.seconds(1),
+                        e -> View.getView().getRoot().getChildren().remove(img_arrow))
+        );
+        timeline.playFromStart();
     }
 }
