@@ -40,7 +40,7 @@ public abstract class RaiderController {
         TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
         TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
         TT.play();
-        walk();
+//        walk();
         raider.setNextIndex();
         return raider.getNextIndex() < raider.getPathwayFractures().size();
     }

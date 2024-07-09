@@ -465,8 +465,7 @@ public class Level1 implements Initializable {
             case "Bird" -> {}
             case "Troll" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new TrollController(map.getWay(), new VBox(),map.getWay().getFirst()));
-                    enemies.getLast().getRaider().setvBox(makeVBox());
+                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst()));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());

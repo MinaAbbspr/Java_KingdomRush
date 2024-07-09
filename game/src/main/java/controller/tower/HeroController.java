@@ -60,7 +60,7 @@ public class HeroController {
         progressBar.setMaxHeight(15);
         progressBar.setMaxWidth(100);
         imageView = new ImageView();
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()));
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm()));
         imageView.setPreserveRatio(false);
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
@@ -88,123 +88,29 @@ public class HeroController {
         }
     }
     private void walkLevel0(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed()),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_001.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 2),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_002.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 3),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_003.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 4),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_004.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 5),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_005.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 6),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_006.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 7),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_007.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 8),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_008.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 9),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_009.png")).toExternalForm())))
-        );
-        timeline.playFromStart();
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk.gif")).toExternalForm()));
     }
     private void walkLevel1(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed()),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_001.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 2),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_002.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 3),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_003.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 4),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_004.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 5),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_005.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 6),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_006.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 7),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_007.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 8),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_008.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 9),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_009.png")).toExternalForm())))
-        );
-        timeline.playFromStart();
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/1/walk.gif")).toExternalForm()));
     }
     private void walkLevel2(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed()),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_001.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 2),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_002.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 3),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_003.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 4),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_004.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 5),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_005.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 6),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_006.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 7),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_007.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 8),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_008.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 9),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_009.png")).toExternalForm())))
-        );
-        timeline.playFromStart();
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/2/walk.gif")).toExternalForm()));
     }
 
     public void action() {
-        for(RaiderController raider : hero.getBarracks().getRaiders())
-            if(raider.getRaider().getvBox().isVisible()){
-                double x = Math.abs(raider.getRaider().getCoordinate().getX()- hero.getBarracks().getCoordinate().getX());
-                double y = Math.abs(raider.getRaider().getCoordinate().getY()- hero.getBarracks().getCoordinate().getY());
-                if(Math.sqrt(x*x + y*y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero()){
-                    hero.setRaider(true);
-                    raider.getRaider().setHero(true);
-                    attackTime(raider);
+        if(!hero.isRaider()){
+            for (RaiderController raider : hero.getBarracks().getRaiders())
+                if (raider.getRaider().getvBox().isVisible()) {
+                    double x = Math.abs(raider.getRaider().getCoordinate().getX() - hero.getBarracks().getCoordinate().getX());
+                    double y = Math.abs(raider.getRaider().getCoordinate().getY() - hero.getBarracks().getCoordinate().getY());
+                    if (Math.sqrt(x * x + y * y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero()) {
+                        hero.setRaider(true);
+                        raider.getRaider().setHero(true);
+                        attackTime(raider);
+                        break;
+                    }
                 }
-                break;
-            }
+        }
 
     }
 
@@ -268,6 +174,7 @@ public class HeroController {
                         Duration.seconds(2 * counter),
                         e -> {
                             if (hero.getHealth() > 0) {
+                                hero.setRaider(false);
                                 hero.getBarracks().getRaiders().remove(raider);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
@@ -279,6 +186,11 @@ public class HeroController {
                             }
                             else
                                 raider.getRaider().setHero(false);
+                        }),
+                new KeyFrame(
+                        Duration.seconds(2 * counter + (double) hero.getSpeed() / 100),
+                        e -> {
+                            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm()));
                         })
         );
         timeline.playFromStart();
@@ -287,34 +199,7 @@ public class HeroController {
         Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_000.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(200),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_001.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(400),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_002.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(600),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_003.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(800),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_004.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1000),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_005.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1200),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_006.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1400),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_007.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1600),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_008.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1800),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack/Knight_01__ATTACK_009.png")).toExternalForm()))),
+                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack.gif")).toExternalForm()))),
                 new KeyFrame(
                         Duration.seconds(2),
                         e -> {

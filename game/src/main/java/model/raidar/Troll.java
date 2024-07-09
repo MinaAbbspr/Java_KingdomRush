@@ -17,11 +17,7 @@ public class Troll extends Raider{
 
     public Troll( ArrayList<Coordinate> way, VBox vBox,Coordinate coordinate) {
         super(100, 100, 15, 15, way, vBox,coordinate);
-    }
-
-    public void setvBox(VBox vBox) {
         this.imageView = (ImageView) vBox.getChildren().getLast();
-        super.setvBox(vBox);
     }
 
     public ImageView getImageView() {
