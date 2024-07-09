@@ -13,6 +13,9 @@ public class BarracksController extends TowerController{
         super();
         this.barracks = barracks;
         setTower(barracks);
+        barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
+        barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
+        barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
     }
 
     public void action(ArrayList<RaiderController> raiders){

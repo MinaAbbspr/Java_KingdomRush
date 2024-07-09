@@ -34,43 +34,14 @@ public abstract class RaiderController {
             raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
         raider.setCoordinate(raider.getPathwayFractures().get(raider.getNextIndex()));
-        int finalIndex = raider.getNextIndex();
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.millis(raider.getSpeed() * 10 * (finalIndex-1)),
-                        e -> {
-                            TranslateTransition TT = new TranslateTransition();
-                            TT.setNode(raider.getvBox());
-                            TT.setDuration(Duration.millis(raider.getSpeed() * 10));
-                            TT.setToX(raider.getPathwayFractures().get(finalIndex).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
-                            TT.setToY(raider.getPathwayFractures().get(finalIndex).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
-                            TT.play();
-                            walk();
-                        })
-        );
-        timeline.playFromStart();
+        TranslateTransition TT = new TranslateTransition();
+        TT.setNode(raider.getvBox());
+        TT.setDuration(Duration.millis(raider.getSpeed() * 10));
+        TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
+        TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
+        TT.play();
+        walk();
         raider.setNextIndex();
         return raider.getNextIndex() < raider.getPathwayFractures().size();
     }
-
-//    public boolean action() {
-//        if(raider.isHero()){
-//            return true;
-//        }
-//        else if (raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() < 0)
-//                raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-//        else
-//            raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-//
-//        raider.setCoordinate(raider.getPathwayFractures().get(raider.getNextIndex()));
-//        TranslateTransition TT = new TranslateTransition();
-//        TT.setNode(raider.getvBox());
-//        TT.setDuration(Duration.millis(raider.getSpeed() * 10));
-//        TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
-//        TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
-//        TT.play();
-//        walk();
-//        raider.setNextIndex();
-//        return raider.getNextIndex() < raider.getPathwayFractures().size();
-//    }
 }

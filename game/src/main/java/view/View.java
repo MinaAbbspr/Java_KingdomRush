@@ -63,6 +63,7 @@ public class View {
     public void show(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxml));
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(HelloApplication.class.getResource("styles.css")).toExternalForm());
         stage.setTitle("KINGDOM RUSH");
         stage.setScene(scene);
         stage.show();

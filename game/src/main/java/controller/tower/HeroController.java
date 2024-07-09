@@ -30,18 +30,9 @@ public class HeroController {
         showHero();
     }
 
-    public void setvBox(VBox vBox){
-        this.imageView = (ImageView) vBox.getChildren().getLast();
-        hero.setvBox(vBox);
-    }
-
     public void showHero(){
-        try {
-            setvBox(new FXMLLoader(HelloApplication.class.getResource("hero.fxml")).load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()));
+
+        hero.setvBox(makeVBox());
         Coordinate coordinate = find();
         hero.getvBox().setLayoutX(coordinate.getX() -hero.getRandom().nextInt(50));
         hero.getvBox().setLayoutY(coordinate.getY() - hero.getRandom().nextInt(25) - 50);
@@ -59,10 +50,21 @@ public class HeroController {
                             FT.play();
                         }),
                 new KeyFrame(
-                        Duration.millis(0.5),
+                        Duration.millis(500),
                         e -> View.getView().getRoot().getChildren().add(hero.getvBox()))
                 );
         timeline.playFromStart();
+    }
+    private VBox makeVBox(){
+        ProgressBar progressBar = new ProgressBar(1.0);
+        progressBar.setMaxHeight(15);
+        progressBar.setMaxWidth(100);
+        imageView = new ImageView();
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk/Knight_01__WALK_000.png")).toExternalForm()));
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        return new VBox(progressBar, imageView);
     }
 
     private Coordinate find (){

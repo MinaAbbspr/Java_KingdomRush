@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public abstract class TowerController {
     private Tower tower;
+    private Thread thread;
 
     public TowerController() {
     }
@@ -26,4 +27,11 @@ public abstract class TowerController {
 
     public void action(ArrayList<RaiderController> raiders){}
 
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
 }

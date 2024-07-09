@@ -21,26 +21,6 @@ public class Bird extends Raider{
 
 
     public void walk(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                Duration.ZERO,
-                e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk1.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(200),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk2.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(400),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk3.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(600),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk4.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(800),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk5.png")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(1000),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/walk/Walk6.png")).toExternalForm())))
-        );
-        timeline.playFromStart();
+        imageView.setImage((new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/output-onlinegiftools (1).gif")).toExternalForm())));
     }
 }

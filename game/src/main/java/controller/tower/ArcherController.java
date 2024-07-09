@@ -22,35 +22,37 @@ public class ArcherController extends TowerController {
 
     public void action(ArrayList<RaiderController> raiders){
         archer.setRaiders(raiders);
-        for(RaiderController raider : archer.getRaiders())
-            if(raider.getRaider().getvBox().isVisible()){
-                double x = Math.abs(raider.getRaider().getCoordinate().getX()- archer.getCoordinate().getX());
-                double y = Math.abs(raider.getRaider().getCoordinate().getY()- archer.getCoordinate().getY());
-                if(Math.sqrt(x*x + y*y) <= archer.getRadius()){
-                    Timeline timeline = new Timeline(
-                            new KeyFrame(
-                                    Duration.millis(0),
-                                    e -> {
-                                        new Shot("arrow",archer.getCoordinate(),raider.getRaider().getCoordinate());
-                                        ProgressBar progressBar = (ProgressBar)(raider.getRaider().getvBox().getChildren().getFirst());
-                                        if(progressBar.getProgress() - archer.getDPS()/100 >= 0) {
-                                            progressBar.setProgress(progressBar.getProgress() - archer.getDPS() / 100);
-                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
-                                        }
-                                        else {
-                                            archer.getRaiders().remove(raider);
-                                            raider.getRaider().getvBox().setVisible(false);
-                                            View.getView().getRoot().getChildren().remove(raider.getRaider().getvBox());
-                                        }
-                                    }),
-                            new KeyFrame(
-                                    Duration.millis(2000),
-                                    e -> {})
-                    );
-                    timeline.playFromStart();
-                    break;
+        super.setThread(new Thread(() -> {
+            for (RaiderController raider : archer.getRaiders())
+                if (raider.getRaider().getvBox().isVisible()) {
+                    double x = Math.abs(raider.getRaider().getCoordinate().getX() - archer.getCoordinate().getX());
+                    double y = Math.abs(raider.getRaider().getCoordinate().getY() - archer.getCoordinate().getY());
+                    if (Math.sqrt(x * x + y * y) <= archer.getRadius()) {
+                        Timeline timeline = new Timeline(
+                                new KeyFrame(
+                                        Duration.millis(0),
+                                        e -> {
+                                            new Shot("arrow", archer.getCoordinate(), raider.getRaider().getCoordinate());
+                                            ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
+                                            if (progressBar.getProgress() - archer.getDPS() / 100 >= 0) {
+                                                progressBar.setProgress(progressBar.getProgress() - archer.getDPS() / 100);
+                                                raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
+                                            } else {
+                                                archer.getRaiders().remove(raider);
+                                                raider.getRaider().getvBox().setVisible(false);
+                                                View.getView().getRoot().getChildren().remove(raider.getRaider().getvBox());
+                                            }
+                                        }),
+                                new KeyFrame(
+                                        Duration.millis(2000),
+                                        e -> {
+                                        })
+                        );
+                        timeline.playFromStart();
+                        break;
+                    }
                 }
-            }
-
+        }));
+        getThread().start();
     }
 }

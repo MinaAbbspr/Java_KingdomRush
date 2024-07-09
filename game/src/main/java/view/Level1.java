@@ -8,12 +8,14 @@ import controller.tower.BarracksController;
 import controller.tower.TowerController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -378,11 +380,7 @@ public class Level1 implements Initializable {
             imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new ArcherController(new Archer(coordinate)));
         }
@@ -395,11 +393,7 @@ public class Level1 implements Initializable {
             imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/BigBertha.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 112);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
         }
     }
@@ -411,11 +405,7 @@ public class Level1 implements Initializable {
             imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/barracks.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
         }
@@ -428,27 +418,19 @@ public class Level1 implements Initializable {
             imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/mage.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 90);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
         }
     }
 
     @FXML
     void start(MouseEvent event) {
-        for(int i=0; i<map.getWave(); i++) {
-            int finalI = i;
-            new Thread(() -> timeLine(finalI)).start();
-        }
-//        timeLine(wave);
-//        new Thread(() -> new Timeline(new KeyFrame(Duration.seconds(wave * 30 +4), e -> run())).play()).start();
-//        wave++;
+        timeLine(wave);
     }
     private void timeLine(int finalI){
-        Timeline timeline = new Timeline(
+        if(wave == map.getWave())
+            return;
+        Timeline time = new Timeline(
                 new KeyFrame(
                         Duration.seconds(finalI * 30),
                         e -> {
@@ -460,17 +442,18 @@ public class Level1 implements Initializable {
                             FT.setAutoReverse(true);
                             FT.setCycleCount(7);
                             FT.play();
+                            addWave(map.getWaves().get(finalI));
                         }),
                 new KeyFrame(
                         Duration.seconds(finalI * 30 + 3.5),
                         e -> {
                             img_start.setVisible(false);
-                            new Thread(() -> Platform.runLater(() -> lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave()))).start();
-                            addWave(map.getWaves().get(finalI));
+                            lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave());
                         })
         );
-        timeline.play();
-        new Timeline(new KeyFrame(Duration.seconds(wave * 30 +4), e -> run())).play();
+        time.play();
+        run(false);
+        timeLine(++wave);
     }
     private void addWave(Wave wave){
         addEnemy(wave.getNumber1(), wave.getKind1());
@@ -483,42 +466,49 @@ public class Level1 implements Initializable {
             case "Troll" -> {
                 for(int i=0; i<number; i++){
                     enemies.add(new TrollController(map.getWay(), new VBox(),map.getWay().getFirst()));
-                    try {
-                        enemies.getLast().getRaider().setvBox(new FXMLLoader(HelloApplication.class.getResource("enemy.fxml")).load());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    AnchorPane.setTopAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getY()-50);
-                    AnchorPane.setLeftAnchor(enemies.getLast().getRaider().getvBox(),map.getWay().getFirst().getX());
+                    enemies.getLast().getRaider().setvBox(makeVBox());
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
                 }
             }
         }
     }
-    private void run(){
-        int counter = 0;
-        while (!enemies.isEmpty()){
-            Timeline timeline = new Timeline(
-                    new KeyFrame(
-                            Duration.millis(counter++),
-                            e -> {
-                                for (int i = 0; i < enemies.size(); i++)
-                                    if (!enemies.get(i).action()) {
-                                        enemies.remove(enemies.get(i));
-                                        i--;
-                                        health--;
-                                        new Thread(() -> Platform.runLater(() -> lbl_heart.setText(String.valueOf(health)))).start();
-                                        if (health == 0) {
-                                            //gameOver
-                                        }
-                                    }
-                                for (TowerController tower : towerController) {
-                                    tower.action(enemies);
-                                }
-                            })
-            );
-            timeline.play();
+    private VBox makeVBox(){
+        ProgressBar progressBar = new ProgressBar(1.0);
+        progressBar.setMaxHeight(15);
+        progressBar.setMaxWidth(100);
+        ImageView imageView = new ImageView();
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        return new VBox(progressBar, imageView);
+    }
+    private void run(boolean end){
+        if(end)
+            return;
+        double speed=1;
+        if(!enemies.isEmpty())
+            speed = (double) enemies.getFirst().getRaider().getSpeed() /100;
+        for (int i = 0; i < enemies.size(); i++)
+            if (!enemies.get(i).action()) {
+                root.getChildren().remove(enemies.get(i).getRaider().getvBox());
+                enemies.remove(enemies.get(i));
+                i--;
+                health--;
+                lbl_heart.setText(String.valueOf(health));
+                if (health == 0) {
+                    //gameOver
+                }
+            }
+        for(TowerController tower : towerController){
+            tower.action(enemies);
         }
+        PauseTransition pause = new PauseTransition(Duration.seconds(speed));
+        pause.setOnFinished(e -> {
+            run(enemies.isEmpty());
+        });
+        pause.play();
     }
 
     @FXML

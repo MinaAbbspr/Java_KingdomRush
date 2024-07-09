@@ -14,8 +14,6 @@
 }
 
 .progress-bar .bar {
-    -fx-background-color:
-        -fx-box-border,
-        green;
-    -fx-padding: 0.1916667em;
+    -fx-background-color: green;
+    -fx-padding: 0.4em;
 }
