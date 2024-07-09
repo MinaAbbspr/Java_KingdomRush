@@ -27,8 +27,8 @@ public class Shot {
         switch (shot){
             case "arrow" ->{
                 ImageView img_arrow = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
-                img_arrow.setFitWidth(20);
-                img_arrow.setFitHeight(20);
+                img_arrow.setFitWidth(15);
+                img_arrow.setFitHeight(15);
                 img_arrow.setPreserveRatio(false);
                 img_arrow.setX(start.getX());
                 img_arrow.setY(start.getY()-100);
@@ -58,6 +58,31 @@ public class Shot {
                         new KeyFrame(
                                 Duration.seconds(1),
                                 e -> View.getView().getRoot().getChildren().remove(img_arrow))
+                );
+                timeline.playFromStart();
+            }
+            case"hex" -> {
+                ImageView img_hex = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
+                img_hex.setFitWidth(20);
+                img_hex.setFitHeight(20);
+                img_hex.setPreserveRatio(false);
+                img_hex.setX(start.getX());
+                img_hex.setY(start.getY()-150);
+
+                Timeline timeline = new Timeline(
+                        new KeyFrame(
+                                Duration.seconds(0),
+                                e -> {
+                                    TranslateTransition TT = new TranslateTransition();
+                                    TT.setNode(img_hex);
+                                    TT.setDuration(Duration.millis(500));
+                                    TT.setToX(end.getX() - img_hex.getX());
+                                    TT.setToY(end.getY() - img_hex.getY());
+                                    TT.play();
+                                }),
+                        new KeyFrame(
+                                Duration.seconds(0.5),
+                                e -> View.getView().getRoot().getChildren().remove(img_hex))
                 );
                 timeline.playFromStart();
             }
