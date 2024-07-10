@@ -5,7 +5,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -18,7 +17,6 @@ import model.raidar.Bird;
 import view.HelloApplication;
 import view.View;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class HeroController {
@@ -110,6 +108,15 @@ public class HeroController {
     }
 
     private void attackTime(RaiderController raider){
+        int counter;
+        int heroCounter = hero.getHealth() / raider.getRaider().getDPS() +1;
+        int raiderCounter = raider.getRaider().getHealth() / hero.getDPS() +1;
+        if(heroCounter > raiderCounter)
+            counter = raiderCounter;
+        else if(heroCounter == raiderCounter)
+            counter = raiderCounter +1;
+        else
+            counter = heroCounter;
         Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
@@ -119,7 +126,7 @@ public class HeroController {
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
                                 TT.setDuration(Duration.millis(hero.getSpeed() * 10));
-                                TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() + 40);
+                                TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() + 25);
                                 TT.setToY(raider.getRaider().getCoordinate().getY() - hero.getvBox().getLayoutY());
                                 TT.play();
                             }
@@ -128,7 +135,7 @@ public class HeroController {
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
                                 TT.setDuration(Duration.millis(hero.getSpeed() * 10));
-                                TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() -40);
+                                TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() -25);
                                 TT.setToY(raider.getRaider().getCoordinate().getY() - hero.getvBox().getLayoutY());
                                 TT.play();
                             }
@@ -137,30 +144,11 @@ public class HeroController {
                 new KeyFrame(
                         Duration.millis(hero.getSpeed() * 10),
                         e -> {
-                            int heroCounter = hero.getHealth() / raider.getRaider().getDPS() +1;
-                            int raiderCounter = raider.getRaider().getHealth() / hero.getDPS() +1;
-                            if(heroCounter > raiderCounter){
-                                attack(raiderCounter,raider);
-                                raider.attack(raiderCounter,hero.getDPS());
-                            }
-                            else if(heroCounter == raiderCounter){
-                                attack(raiderCounter+1,raider);
-                            }
-                            else{
-                                attack(heroCounter,raider);
-                            }
-                        })
-        );
-        timeline.playFromStart();
-    }
-
-    private void attack(int counter, RaiderController raider){
-        Timeline timeline = new Timeline(
+                            attackAnimation(counter,raider.getRaider().getDPS());
+                            raider.attack(counter,hero.getDPS());
+                        }),
                 new KeyFrame(
-                        Duration.ZERO,
-                        e -> attackAnimation(counter, raider.getRaider().getDPS())),
-                new KeyFrame(
-                        Duration.seconds(2 * counter),
+                        Duration.seconds(2 * counter + hero.getSpeed() * 10),
                         e -> {
                             if (hero.getHealth() > 0) {
                                 hero.setRaider(false);
@@ -177,10 +165,8 @@ public class HeroController {
                                 raider.getRaider().setHero(false);
                         }),
                 new KeyFrame(
-                        Duration.seconds(2 * counter + (double) hero.getSpeed() / 100),
-                        e -> {
-                            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm()));
-                        })
+                        Duration.seconds(2 * counter + (double) hero.getSpeed() / 50),
+                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm())))
         );
         timeline.playFromStart();
     }

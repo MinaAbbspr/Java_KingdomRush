@@ -32,7 +32,7 @@ public class Shot {
                 arrowAndBomb(img_arrow);
             }
             case "hex" -> {
-                ImageView img_hex = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/arrow.png")).toExternalForm()));
+                ImageView img_hex = new ImageView(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/hex.png")).toExternalForm()));
                 img_hex.setFitWidth(20);
                 img_hex.setFitHeight(20);
                 img_hex.setPreserveRatio(false);
