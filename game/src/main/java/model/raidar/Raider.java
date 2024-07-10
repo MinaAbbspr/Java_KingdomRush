@@ -1,5 +1,6 @@
 package model.raidar;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import model.map.Coordinate;
 
@@ -14,10 +15,11 @@ public abstract class Raider {
     private boolean hero;
     private final ArrayList<Coordinate> pathwayFractures;
     private final Random random;
-    private VBox vBox;
+    private final VBox vBox;
     private Coordinate coordinate;
     private final int DPS;
     private int nextIndex;
+    private final ImageView imageView;
 
     public Raider(int health, int speed, int loot, int DPS, ArrayList<Coordinate> pathwayFractures, VBox vBox, Coordinate coordinate) {
         this.health = health;
@@ -31,14 +33,11 @@ public abstract class Raider {
         this.random = new Random();
         this.coordinate = coordinate;
         this.nextIndex = 1;
+        this.imageView = (ImageView) vBox.getChildren().getLast();
     }
 
     public VBox getvBox() {
         return vBox;
-    }
-
-    public void setvBox(VBox vBox) {
-        this.vBox = vBox;
     }
 
     public Coordinate getCoordinate() {
@@ -95,5 +94,12 @@ public abstract class Raider {
 
     public void setNextIndex() {
         this.nextIndex++ ;
+    }
+    public void setNextIndex(int nextIndex) {
+        this.nextIndex = nextIndex;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 }

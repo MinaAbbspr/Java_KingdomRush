@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import model.Tower.Artillery;
+import model.raidar.Bird;
 import view.Shot;
 import view.View;
 
@@ -28,7 +29,7 @@ public class ArtilleryController extends TowerController{
             if (raider.getRaider().getvBox().isVisible()) {
                 double x = Math.abs(raider.getRaider().getCoordinate().getX() - artillery.getCoordinate().getX());
                 double y = Math.abs(raider.getRaider().getCoordinate().getY() - artillery.getCoordinate().getY());
-                if (Math.sqrt(x * x + y * y) <= artillery.getRadius()) {
+                if (Math.sqrt(x * x + y * y) <= artillery.getRadius() && !(raider.getRaider() instanceof Bird)) {
                     targets.add(raider);
                     if (targets.size() == maxTarget)
                         break;

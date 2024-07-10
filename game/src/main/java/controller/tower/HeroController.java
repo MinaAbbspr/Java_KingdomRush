@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Tower.Hero;
 import model.map.Coordinate;
+import model.raidar.Bird;
 import view.HelloApplication;
 import view.View;
 
@@ -103,7 +104,7 @@ public class HeroController {
                 if (raider.getRaider().getvBox().isVisible()) {
                     double x = Math.abs(raider.getRaider().getCoordinate().getX() - hero.getBarracks().getCoordinate().getX());
                     double y = Math.abs(raider.getRaider().getCoordinate().getY() - hero.getBarracks().getCoordinate().getY());
-                    if (Math.sqrt(x * x + y * y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero()) {
+                    if (Math.sqrt(x * x + y * y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero() && !(raider.getRaider() instanceof Bird)) {
                         hero.setRaider(true);
                         raider.getRaider().setHero(true);
                         attackTime(raider);

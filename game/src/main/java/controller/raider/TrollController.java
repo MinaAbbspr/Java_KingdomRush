@@ -22,36 +22,17 @@ public class TrollController extends RaiderController {
         super();
         this.troll = new Troll(way,vBox,coordinate);
         super.setRaider(troll);
-        troll.getImageView().setImage((new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/Troll/walk.gif")).toExternalForm())));
+        walk();
     }
 
+
+    @Override
     public void walk(){
         troll.getImageView().setImage((new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/Troll/walk.gif")).toExternalForm())));
     }
 
     @Override
-    public void attack(int counter, int DPS){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.millis(0),
-                        e -> troll.getImageView().setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/Troll/attack.gif")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.millis(2000),
-                        e -> {
-                            walk();
-                            ProgressBar progressBar = (ProgressBar)(troll.getvBox().getChildren().getFirst());
-                            if(progressBar.getProgress() - (double) DPS /100 >= 0) {
-                                progressBar.setProgress(progressBar.getProgress() - (double) DPS /100);
-                                troll.setHealth((int) (progressBar.getProgress() * troll.getFinalHealth()));
-                            }
-                            else {
-                                troll.getvBox().setVisible(false);
-                                View.getView().getMap().setCoin(View.getView().getMap().getCoin() + troll.getLoot());
-                                View.getView().getRoot().getChildren().remove(troll.getvBox());
-                            }
-                        })
-        );
-        timeline.setCycleCount(counter);
-        timeline.playFromStart();
+    public void attackAnimation(){
+        troll.getImageView().setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/Troll/attack.gif")).toExternalForm()));
     }
 }
