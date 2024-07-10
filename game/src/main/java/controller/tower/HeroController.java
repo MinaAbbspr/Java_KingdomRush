@@ -28,11 +28,11 @@ public class HeroController {
 
     public HeroController(Hero hero) {
         this.hero = hero;
+        updateLevel();
         showHero();
     }
 
     public void showHero(){
-
         hero.setvBox(makeVBox());
         Coordinate coordinate = find();
         hero.getvBox().setLayoutX(coordinate.getX() -hero.getRandom().nextInt(50));
@@ -78,6 +78,10 @@ public class HeroController {
             }
         }
         return point;
+    }
+
+    public void updateLevel(){
+        hero.setDPS(hero.getDPS() + hero.getBarracks().getLevel() * 5);
     }
 
 

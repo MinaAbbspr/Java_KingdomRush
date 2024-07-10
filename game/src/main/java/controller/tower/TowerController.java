@@ -23,6 +23,7 @@ public abstract class TowerController {
     public void updateLevel(){
         tower.setLevel(tower.getLevel() + 1);
         tower.setRadius(tower.getRadius() + 20);
+        tower.setDPS(tower.getDPS() + 5);
     }
 
     public void action(ArrayList<RaiderController> raiders){}

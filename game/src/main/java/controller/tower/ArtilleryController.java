@@ -18,7 +18,9 @@ public class ArtilleryController extends TowerController{
     private Random random;
     private static final int maxTarget = 3;
     public ArtilleryController(Artillery artillery) {
+        super();
         this.artillery = artillery;
+        setTower(artillery);
         this.random = new Random();
     }
 

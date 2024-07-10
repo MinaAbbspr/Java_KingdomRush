@@ -173,17 +173,19 @@ public class Level1 implements Initializable {
 
     @FXML
     private AnchorPane root;
-    private boolean isBackpackOpen;
     private MapLevel1 map;
+    private TowerController tower;
     private Map<Coordinate,ImageView> towers;
     private ArrayList<TowerController> towerController;
     private ArrayList<RaiderController> enemies;
     private Coordinate coordinate;
+    private boolean isBackpackOpen;
     private boolean ringOpen;
     private boolean archer;
     private boolean wizard;
     private boolean barracks;
     private boolean artillery;
+    private boolean upgrade;
     private int wave;
 
     @FXML
@@ -224,6 +226,9 @@ public class Level1 implements Initializable {
                 img_ring.setVisible(true);
                 img_upgrade.setVisible(true);
                 img_sell.setVisible(true);
+                lbl_upgrade.setVisible(true);
+                board_upgrade.setVisible(true);
+                checkCoinForUpdate();
             } else {
                 img_ring.setVisible(true);
                 img_barracks.setVisible(true);
@@ -283,6 +288,18 @@ public class Level1 implements Initializable {
         board_upgrade.setLayoutX(coordinate.getX() - 10);
         board_upgrade.setLayoutY(coordinate.getY() - 81);
     }
+    private void checkCoinForUpdate(){
+        findTower();
+        lbl_upgrade.setText(String.valueOf(tower.getTower().getUpdateCost()));
+        if(tower.getTower().getUpdateCost() > map.getCoin()){
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayUpgrade.png")).toExternalForm()));
+            upgrade = false;
+        }
+        else {
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/upgrade.png")).toExternalForm()));
+            upgrade = true;
+        }
+    }
     private void checkCoin(){
         if(map.getCoin() < 70){
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
@@ -325,7 +342,7 @@ public class Level1 implements Initializable {
             barracks = true;
         }
     }
-    void closeRing() {
+    private void closeRing() {
         img_ring.setVisible(false);
         img_barracks.setVisible(false);
         img_archer.setVisible(false);
@@ -341,11 +358,36 @@ public class Level1 implements Initializable {
         lbl_wizard.setVisible(false);
         img_upgrade.setVisible(false);
         img_sell.setVisible(false);
+        lbl_upgrade.setVisible(false);
+        board_upgrade.setVisible(false);
         ringOpen = false;
+    }
+    private void findTower(){
+        for (TowerController tower1 : towerController) {
+            if (tower1.getTower().getCoordinate().equals(coordinate)) {
+                this.tower = tower1;
+                break;
+            }
+        }
     }
 
     @FXML
     void sell(MouseEvent event) {
+        tower.getTower().setLevel(tower.getTower().getLevel() - 1);
+        map.setCoin(map.getCoin() + tower.getTower().getUpdateCost()/2);
+        lbl_coin.setText(String.valueOf(map.getCoin()));
+        towerController.remove(tower);
+        towers.get(coordinate).setVisible(false);
+    }
+
+    @FXML
+    void upgrade(MouseEvent event) {
+        if(upgrade){
+            map.setCoin(map.getCoin() - tower.getTower().getUpdateCost());
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+            tower.updateLevel();
+            ///image
+        }
     }
 
     @FXML

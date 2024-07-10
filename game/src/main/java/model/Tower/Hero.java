@@ -16,7 +16,7 @@ public class Hero {
     private VBox vBox;
     private final Barracks barracks;
     private Coordinate coordinate;
-    private final int DPS;
+    private int DPS;
 
     public Hero(ArrayList<Coordinate> pathwayFractures, Barracks barracks) {
         this.pathwayFractures = pathwayFractures;
@@ -79,6 +79,10 @@ public class Hero {
 
     public int getDPS() {
         return DPS;
+    }
+
+    public void setDPS(int DPS) {
+        this.DPS = DPS;
     }
 
     public int getFinalHealth() {

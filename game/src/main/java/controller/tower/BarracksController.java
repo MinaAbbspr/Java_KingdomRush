@@ -18,6 +18,12 @@ public class BarracksController extends TowerController{
         barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(),barracks)));
     }
 
+    public void updateLevel(){
+        super.updateLevel();
+        for(HeroController hero : barracks.getHeroes())
+            hero.updateLevel();
+    }
+
 //    public void action(ArrayList<RaiderController> raiders){
 //        barracks.setRaiders(raiders);
 //        super.setThread(new Thread(() ->{
