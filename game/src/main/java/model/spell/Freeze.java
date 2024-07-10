@@ -7,7 +7,7 @@ public class Freeze implements ISpell{
     }
 
     @Override
-    public void drop() {
+    public void drop(Object o) {
 
     }
 }

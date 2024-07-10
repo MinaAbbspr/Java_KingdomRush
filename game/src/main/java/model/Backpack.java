@@ -44,4 +44,20 @@ public class Backpack {
     public void addLittleBoy() {
         this.littleBoy++;
     }
+
+    public void subtractHealth() {
+        this.health--;
+    }
+
+    public void subtractFreeze() {
+        this.freeze--;
+    }
+
+    public void subtractCoin() {
+        this.coin--;
+    }
+
+    public void subtractLittleBoy() {
+        this.littleBoy--;
+    }
 }

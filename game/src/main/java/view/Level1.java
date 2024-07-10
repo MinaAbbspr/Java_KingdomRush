@@ -7,9 +7,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -28,6 +26,9 @@ import model.map.Wave;
 import model.raidar.Bird;
 import model.raidar.MotherTroll;
 import model.raidar.ShieldTroll;
+import model.spell.Bomb;
+import model.spell.Coin;
+import model.spell.Heart;
 
 import java.io.IOException;
 import java.net.URL;
@@ -403,7 +404,12 @@ public class Level1 implements Initializable {
 
     @FXML
     void coin(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractCoin();
+            Coin coin = new Coin();
+            coin.drop(map);
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+        }
     }
 
     @FXML
@@ -413,12 +419,22 @@ public class Level1 implements Initializable {
 
     @FXML
     void health(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractHealth();
+            Heart heart = new Heart();
+            heart.drop(map);
+            lbl_heart.setText(String.valueOf(map.getHealth()));
+        }
     }
 
     @FXML
     void bomb(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractLittleBoy();
+            Bomb bomb = new Bomb();
+            bomb.drop(enemies);
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+        }
     }
 
     @FXML
