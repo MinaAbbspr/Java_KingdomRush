@@ -1,8 +1,7 @@
 package view;
 
 import controller.PlayerController;
-import controller.raider.RaiderController;
-import controller.raider.TrollController;
+import controller.raider.*;
 import controller.tower.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -26,6 +25,9 @@ import model.Tower.*;
 import model.map.Coordinate;
 import model.map.MapLevel1;
 import model.map.Wave;
+import model.raidar.Bird;
+import model.raidar.MotherTroll;
+import model.raidar.ShieldTroll;
 
 import java.io.IOException;
 import java.net.URL;
@@ -510,10 +512,33 @@ public class Level1 implements Initializable {
     }
     private void addEnemy(int number, String kind) {
         switch (kind){
-            case "Bird" -> {}
+            case "Bird" -> {
+                for(int i=0; i<number; i++){
+                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getWay().getFirst())));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
             case "Troll" -> {
                 for(int i=0; i<number; i++){
                     enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst()));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+            case "Shield" -> {
+                for(int i=0; i<number; i++){
+                    enemies.add(new ShieldTrollController(new ShieldTroll(map.getWay(), makeVBox(),map.getWay().getFirst())));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+            case "Mother" ->{
+                for(int i=0; i<number; i++){
+                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),map.getWay().getFirst(),enemies)));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -534,9 +559,9 @@ public class Level1 implements Initializable {
     private void run(boolean end){
         if(end)
             return;
-        double speed=1;
+        double speed=2;
         if(!enemies.isEmpty())
-            speed = (double) enemies.getFirst().getRaider().getSpeed() /100;
+            speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
         for (int i = 0; i < enemies.size(); i++)
             if (!enemies.get(i).action()) {
                 root.getChildren().remove(enemies.get(i).getRaider().getvBox());
@@ -553,9 +578,7 @@ public class Level1 implements Initializable {
         }
         lbl_coin.setText(String.valueOf(map.getCoin()));
         PauseTransition pause = new PauseTransition(Duration.seconds(speed));
-        pause.setOnFinished(e -> {
-            run(enemies.isEmpty());
-        });
+        pause.setOnFinished(e -> run(enemies.isEmpty()));
         pause.play();
     }
 

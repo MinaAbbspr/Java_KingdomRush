@@ -68,7 +68,7 @@ public abstract class RaiderController {
         TT.setNode(raider.getvBox());
         TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
         TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
-        TT.setDuration(Duration.millis(TT.getToX()/raider.getSpeed()));
+        TT.setDuration(Duration.millis(Math.abs(TT.getToX())/raider.getSpeed()));
         TT.play();
         raider.setNextIndex();
         return raider.getNextIndex() < raider.getPathwayFractures().size();

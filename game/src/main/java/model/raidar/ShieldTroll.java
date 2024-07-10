@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public class ShieldTroll extends Raider{
     public ShieldTroll( ArrayList<Coordinate> way, VBox vBox,Coordinate coordinate) {
-        super(400, 10, 40, 25, way, vBox,coordinate);
+        super(400, 20, 40, 25, way, vBox,coordinate);
     }
 }

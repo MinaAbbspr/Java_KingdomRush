@@ -21,6 +21,6 @@ public class BirdController extends RaiderController {
 
     @Override
     public void walk(){
-        bird.getImageView().setImage((new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/Bird.gif")).toExternalForm())));
+        bird.getImageView().setImage((new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/bird/Bird.gif")).toExternalForm())));
     }
 }
