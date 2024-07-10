@@ -7,10 +7,12 @@ import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import model.Tower.Wizard;
+import view.HelloApplication;
 import view.Shot;
 import view.View;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WizardController extends TowerController{
     private final Wizard wizard;
@@ -56,5 +58,22 @@ public class WizardController extends TowerController{
                     break;
                 }
             }
+    }
+
+    public String setImage(){
+        switch (wizard.getLevel()){
+            case 0 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/mage.png")).toExternalForm());
+            }
+            case 1 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/wizard1.png")).toExternalForm());
+            }
+            case 2 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/Wizard2.png")).toExternalForm());
+            }
+            default -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/wizard3.png")).toExternalForm());
+            }
+        }
     }
 }

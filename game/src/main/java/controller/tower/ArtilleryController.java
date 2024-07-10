@@ -7,10 +7,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import model.Tower.Artillery;
 import model.raidar.Bird;
+import view.HelloApplication;
 import view.Shot;
 import view.View;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class ArtilleryController extends TowerController{
@@ -63,6 +65,23 @@ public class ArtilleryController extends TowerController{
                             })
             );
             timeline.playFromStart();
+        }
+    }
+
+    public String setImage(){
+        switch (artillery.getLevel()){
+            case 0 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/artillery.png")).toExternalForm());
+            }
+            case 1 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/artillery1(1).png")).toExternalForm());
+            }
+            case 2 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/artillery2.png")).toExternalForm());
+            }
+            default -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/artillery3.png")).toExternalForm());
+            }
         }
     }
 

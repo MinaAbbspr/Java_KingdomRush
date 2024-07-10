@@ -10,9 +10,10 @@ public abstract class Map {
     private final int wave;
     private int coin;
     private int health;
-    private int diamondReward;
+    private final int diamondReward;
+    private final int level;
 
-    public Map(Coordinate endPoint, int wave, int coin, int diamondReward) {
+    public Map(Coordinate endPoint, int wave, int coin, int diamondReward, int level) {
         this.endPoint = endPoint;
         this.wave = wave;
         this.coin = coin;
@@ -20,6 +21,7 @@ public abstract class Map {
         this.way = new ArrayList<>();
         this.health = 20;
         this.diamondReward = diamondReward;
+        this.level = level;
     }
 
     public ArrayList<Coordinate> getTowersCoordinate() {
@@ -56,6 +58,14 @@ public abstract class Map {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getDiamondReward() {
+        return diamondReward;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public Coordinate find (Coordinate coordinate){

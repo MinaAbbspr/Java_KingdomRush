@@ -1,6 +1,7 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
+import javafx.scene.image.ImageView;
 import model.Tower.Tower;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public abstract class TowerController {
     }
 
     public void action(ArrayList<RaiderController> raiders){}
+    public void clear(){}
+
+    public String setImage(){return null;}
 
     public Thread getThread() {
         return thread;

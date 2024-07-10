@@ -8,10 +8,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import model.Tower.Archer;
 import model.raidar.ShieldTroll;
+import view.HelloApplication;
 import view.Shot;
 import view.View;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ArcherController extends TowerController {
     private final Archer archer;
@@ -93,5 +95,22 @@ public class ArcherController extends TowerController {
                     break;
                 }
             }
+    }
+
+    public String setImage(){
+        switch (archer.getLevel()){
+            case 0 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer.png")).toExternalForm());
+            }
+            case 1 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer1.png")).toExternalForm());
+            }
+            case 2 -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer2.png")).toExternalForm());
+            }
+            default -> {
+                return (Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer3.png")).toExternalForm());
+            }
+        }
     }
 }

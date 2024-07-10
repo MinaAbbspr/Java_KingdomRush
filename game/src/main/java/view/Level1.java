@@ -291,7 +291,13 @@ public class Level1 implements Initializable {
     private void checkCoinForUpdate(){
         findTower();
         lbl_upgrade.setText(String.valueOf(tower.getTower().getUpdateCost()));
-        if(tower.getTower().getUpdateCost() > map.getCoin()){
+        if(tower.getTower().getLevel() == map.getLevel()){
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayUpgrade.png")).toExternalForm()));
+            upgrade = false;
+            lbl_upgrade.setVisible(false);
+            board_upgrade.setVisible(false);
+        }
+        else if(tower.getTower().getUpdateCost() > map.getCoin()){
             img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayUpgrade.png")).toExternalForm()));
             upgrade = false;
         }
@@ -378,6 +384,8 @@ public class Level1 implements Initializable {
         lbl_coin.setText(String.valueOf(map.getCoin()));
         towerController.remove(tower);
         towers.get(coordinate).setVisible(false);
+        tower.clear();
+        closeRing();
     }
 
     @FXML
@@ -386,7 +394,8 @@ public class Level1 implements Initializable {
             map.setCoin(map.getCoin() - tower.getTower().getUpdateCost());
             lbl_coin.setText(String.valueOf(map.getCoin()));
             tower.updateLevel();
-            ///image
+            towers.get(coordinate).setImage(new Image(tower.setImage()));
+            closeRing();
         }
     }
 
@@ -414,12 +423,12 @@ public class Level1 implements Initializable {
     void buildArcher(MouseEvent event) {
         if(archer){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new ArcherController(new Archer(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
         }
     }
 
@@ -427,12 +436,12 @@ public class Level1 implements Initializable {
     void buildArtillery(MouseEvent event) {
         if(artillery){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/BigBertha.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 112);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new ArtilleryController(new Artillery(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
         }
     }
 
@@ -440,12 +449,12 @@ public class Level1 implements Initializable {
     void buildBarracks(MouseEvent event) {
         if(barracks){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/barracks.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
         }
     }
 
@@ -453,12 +462,12 @@ public class Level1 implements Initializable {
     void buildWizard(MouseEvent event) {
         if(wizard){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/mage.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 90);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
             towerController.add(new WizardController(new Wizard(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
         }
     }
 

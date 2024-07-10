@@ -67,7 +67,6 @@ public class HeroController {
         imageView.setFitWidth(100);
         return new VBox(progressBar, imageView);
     }
-
     private Coordinate find (){
         double min = Math.abs(hero.getBarracks().getCoordinate().getX() - hero.getPathwayFractures().getFirst().getX());
         Coordinate point = hero.getPathwayFractures().getFirst();
@@ -80,26 +79,17 @@ public class HeroController {
         return point;
     }
 
+    public Hero getHero() {
+        return hero;
+    }
+
     public void updateLevel(){
         hero.setDPS(hero.getDPS() + hero.getBarracks().getLevel() * 5);
     }
 
 
-    public void walk(){
-        switch (hero.getBarracks().getLevel()){
-            case 0 -> walkLevel0();
-            case 1 -> walkLevel1();
-            case 2,3 -> walkLevel2();
-        }
-    }
-    private void walkLevel0(){
+    public void walk() {
         imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk.gif")).toExternalForm()));
-    }
-    private void walkLevel1(){
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/1/walk.gif")).toExternalForm()));
-    }
-    private void walkLevel2(){
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/2/walk.gif")).toExternalForm()));
     }
 
     public void action() {
@@ -168,13 +158,7 @@ public class HeroController {
         Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
-                        e -> {
-                            switch (hero.getBarracks().getLevel()) {
-                                case 0 -> attackLevel0(counter, raider.getRaider().getDPS());
-                                case 1 -> walkLevel1();
-                                case 2, 3 -> walkLevel2();
-                            }
-                        }),
+                        e -> attackAnimation(counter, raider.getRaider().getDPS())),
                 new KeyFrame(
                         Duration.seconds(2 * counter),
                         e -> {
@@ -200,7 +184,7 @@ public class HeroController {
         );
         timeline.playFromStart();
     }
-     private void attackLevel0(int counter, int DPS){
+     private void attackAnimation(int counter, int DPS){
         Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
