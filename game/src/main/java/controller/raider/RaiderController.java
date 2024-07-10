@@ -39,7 +39,7 @@ public abstract class RaiderController {
                         e -> {
                             walk();
                             ProgressBar progressBar = (ProgressBar)(raider.getvBox().getChildren().getFirst());
-                            if(progressBar.getProgress() - (double) DPS /100 >= 0) {
+                            if(progressBar.getProgress() * raider.getFinalHealth() - DPS > 0) {
                                 raider.setHealth((int) (progressBar.getProgress() * raider.getFinalHealth() - DPS));
                                 progressBar.setProgress((double) (raider.getHealth() * 100) /raider.getFinalHealth());
                             }

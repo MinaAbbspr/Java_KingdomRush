@@ -1,6 +1,7 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
+import controller.raider.ShieldTrollController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
@@ -33,9 +34,12 @@ public class WizardController extends TowerController{
                                     e -> {
                                         new Shot("hex",wizard.getCoordinate(),raider.getRaider().getCoordinate());
                                         ProgressBar progressBar = (ProgressBar)(raider.getRaider().getvBox().getChildren().getFirst());
-                                        if(progressBar.getProgress() - wizard.getDPS()/100 >= 0) {
-                                            progressBar.setProgress(progressBar.getProgress() - wizard.getDPS() / 100);
-                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
+                                        double DPS = wizard.getDPS();
+                                        if(raider instanceof ShieldTrollController && raider.getRaider().getHealth()>300)
+                                            DPS = 300;
+                                        if(progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
+                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
+                                            progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) /raider.getRaider().getFinalHealth());
                                         }
                                         else {
                                             wizard.getRaiders().remove(raider);

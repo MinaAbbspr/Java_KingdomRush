@@ -44,9 +44,9 @@ public class ArtilleryController extends TowerController{
                                 for(RaiderController raider : targets) {
                                     ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
                                     int DPS = (int) (artillery.getDPS() + random.nextInt(artillery.getRandomDPS()));
-                                    if (progressBar.getProgress() - (double) DPS / 100 >= 0) {
-                                        progressBar.setProgress(progressBar.getProgress() - (double) DPS / 100);
-                                        raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
+                                    if(progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
+                                        raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
+                                        progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) /raider.getRaider().getFinalHealth());
                                     } else {
                                         artillery.getRaiders().remove(raider);
                                         raider.getRaider().getvBox().setVisible(false);

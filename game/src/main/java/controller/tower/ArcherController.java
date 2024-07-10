@@ -1,11 +1,13 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
+import controller.raider.ShieldTrollController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
 import model.Tower.Archer;
+import model.raidar.ShieldTroll;
 import view.Shot;
 import view.View;
 
@@ -69,9 +71,12 @@ public class ArcherController extends TowerController {
                                     e -> {
                                         new Shot("arrow", archer.getCoordinate(), raider.getRaider().getCoordinate());
                                         ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
-                                        if (progressBar.getProgress() - archer.getDPS() / 100 >= 0) {
-                                            progressBar.setProgress(progressBar.getProgress() - archer.getDPS() / 100);
-                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth()));
+                                        double DPS = archer.getDPS();
+                                        if(raider instanceof ShieldTrollController)
+                                            DPS /= 2;
+                                        if(progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
+                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
+                                            progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) /raider.getRaider().getFinalHealth());
                                         } else {
                                             archer.getRaiders().remove(raider);
                                             raider.getRaider().getvBox().setVisible(false);
