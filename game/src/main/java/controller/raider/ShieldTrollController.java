@@ -1,18 +1,21 @@
 package controller.raider;
 
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import model.map.Coordinate;
 import model.raidar.ShieldTroll;
 import view.HelloApplication;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ShieldTrollController extends RaiderController {
     private final ShieldTroll shieldTroll;
 
-    public ShieldTrollController(ShieldTroll shieldTroll) {
+    public ShieldTrollController(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate) {
         super();
-        this.shieldTroll = shieldTroll;
-        setRaider(shieldTroll);
+        this.shieldTroll = new ShieldTroll(way,vBox,coordinate);
+        super.setRaider(shieldTroll);
         walk();
     }
 

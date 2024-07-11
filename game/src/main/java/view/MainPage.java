@@ -26,9 +26,6 @@ public class MainPage implements Initializable {
     private Label lbl_star;
 
     @FXML
-    private VBox level1;
-
-    @FXML
     private VBox level2;
 
     @FXML

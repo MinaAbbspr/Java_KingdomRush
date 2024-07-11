@@ -15,7 +15,7 @@ import view.View;
 import java.util.Objects;
 
 public class MotherTrollController extends RaiderController{
-    private MotherTroll motherTroll;
+    private final MotherTroll motherTroll;
 
     public MotherTrollController(MotherTroll motherTroll) {
         super();

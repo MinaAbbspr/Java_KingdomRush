@@ -1,12 +1,9 @@
 package controller.raider;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-import model.map.Coordinate;
 import model.raidar.Bird;
 import view.HelloApplication;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class BirdController extends RaiderController {

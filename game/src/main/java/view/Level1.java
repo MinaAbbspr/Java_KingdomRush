@@ -437,6 +437,7 @@ public class Level1 implements Initializable {
         if(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy() > 0){
             PlayerController.getPlayerController().getPlayer().getBackpack().subtractLittleBoy();
             new Bomb(enemies);
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             lbl_bombNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy()));
         }
     }
@@ -499,27 +500,38 @@ public class Level1 implements Initializable {
 
     @FXML
     void start(MouseEvent event) {
-        timeLine(wave);
+        clear();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        e -> timeLine(wave++)),
+                new KeyFrame(Duration.seconds(30),
+                        e -> {
+                    if(wave < map.getWave())
+                        img_start.setVisible(true);})
+        );
+        timeline.play();
+    }
+    private void clear(){
+        enemies.removeIf(raider -> !raider.getRaider().getvBox().isVisible());
     }
     private void timeLine(int finalI){
-        if(wave == map.getWave())
+        if(wave > map.getWave())
             return;
         Timeline time = new Timeline(
                 new KeyFrame(
-                        Duration.seconds(finalI * 15),
+                        Duration.ZERO,
                         e -> {
-                            img_start.setVisible(true);
                             FadeTransition FT = new FadeTransition();
                             FT.setNode(img_start);
                             FT.setDuration(Duration.seconds(0.5));
                             FT.setToValue(0.001);
                             FT.setAutoReverse(true);
-                            FT.setCycleCount(7);
+                            FT.setCycleCount(8);
                             FT.play();
                             addWave(map.getWaves().get(finalI));
                         }),
                 new KeyFrame(
-                        Duration.seconds(finalI * 15 + 3.5),
+                        Duration.seconds(3.5),
                         e -> {
                             img_start.setVisible(false);
                             lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave());
@@ -527,14 +539,10 @@ public class Level1 implements Initializable {
         );
         time.play();
         run(false);
-        timeLine(++wave);
     }
     private void addWave(Wave wave){
-        addEnemy(wave.getNumber1(), wave.getKind1());
-        addEnemy(wave.getNumber2(), wave.getKind2());
-        addEnemy(wave.getNumber3(), wave.getKind3());
-    }
-    private void addEnemy(int number, String kind) {
+        int number = wave.getNumber();
+        String kind = wave.getKind();
         switch (kind){
             case "Bird" -> {
                 for(int i=0; i<number; i++){
@@ -554,7 +562,7 @@ public class Level1 implements Initializable {
             }
             case "Shield" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new ShieldTrollController(new ShieldTroll(map.getWay(), makeVBox(),map.getWay().getFirst())));
+                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getWay().getFirst()));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -586,10 +594,12 @@ public class Level1 implements Initializable {
         double speed=2;
         if(!enemies.isEmpty())
             speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
-        for (RaiderController enemy : enemies)
-            if (enemy.getRaider().getvBox().isVisible())
-                if (!enemy.action()) {
-                    enemy.getRaider().getvBox().setVisible(false);
+        for (int i=0; i<enemies.size(); i++)
+            if (enemies.get(i).getRaider().getvBox().isVisible())
+                if (!enemies.get(i).action()) {
+                    enemies.get(i).getRaider().getvBox().setVisible(false);
+                    enemies.remove(enemies.get(i));
+                    i--;
                     map.setHealth(map.getHealth() - 1);
                     lbl_heart.setText(String.valueOf(map.getHealth()));
                     if (map.getHealth() == 0) {

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class MotherTroll extends Raider{
     private int counter;
     private static final int setFreeBirds = 4;
-    private ArrayList<RaiderController> raiders;
+    private final ArrayList<RaiderController> raiders;
     public MotherTroll(ArrayList<Coordinate> pathwayFractures, VBox vBox,Coordinate coordinate,ArrayList<RaiderController> raiders) {
-        super(120, 50, 50, 50, pathwayFractures, vBox, coordinate);
+        super(120, 70, 50, 50, pathwayFractures, vBox, coordinate);
         this.raiders = raiders;
     }
 

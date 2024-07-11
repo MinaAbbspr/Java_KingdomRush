@@ -29,7 +29,7 @@ public class Freeze implements ISpell{
                             for(RaiderController raider : raiders)
                                 raider.getRaider().setFreeze(true);
                         }),
-                new KeyFrame(Duration.seconds(2),
+                new KeyFrame(Duration.seconds(5),
                         e -> {
                             for(RaiderController raider : raiders)
                                 raider.getRaider().setFreeze(false);

@@ -5,8 +5,11 @@ import java.sql.*;
 public class SQLConnection {
     private static SQLConnection sqlConnection;
     private final String url = "jdbc:mysql://localhost/kingdom_rush";
+    private final String className;
 
-    private SQLConnection() {}
+    private SQLConnection() {
+        this.className = "com.mysql.cj.jdbc.Driver";
+    }
 
     public static SQLConnection getSqlConnection() {
         if (sqlConnection == null)
@@ -14,24 +17,21 @@ public class SQLConnection {
         return sqlConnection;
     }
 
-    public boolean execute(String sqlCommand) {
+    public void execute(String sqlCommand) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(className);
             Connection connection = DriverManager.getConnection(url, "root", "");
 
             Statement statement = connection.prepareStatement(sqlCommand);
             statement.execute(sqlCommand);
             connection.close();
-            return true;
 
-        } catch (SQLException | ClassNotFoundException e) {
-            return false;
-        }
+        } catch (SQLException | ClassNotFoundException ignored) {}
     }
 
     public ResultSet executeSelect(String sqlCommand) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(className);
             Connection connection = DriverManager.getConnection(url, "root", "");
 
             Statement statement = connection.prepareStatement(sqlCommand);

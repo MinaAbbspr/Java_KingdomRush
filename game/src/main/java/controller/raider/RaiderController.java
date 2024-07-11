@@ -5,13 +5,9 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 import model.raidar.Raider;
-import view.HelloApplication;
 import view.View;
-
-import java.util.Objects;
 
 public abstract class RaiderController {
     private Raider raider;

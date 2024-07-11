@@ -1,11 +1,8 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
-import javafx.util.Duration;
 import model.Tower.Artillery;
 import model.raidar.Bird;
 import view.HelloApplication;
@@ -16,7 +13,7 @@ import java.util.*;
 
 public class ArtilleryController extends TowerController{
     private final Artillery artillery;
-    private Random random;
+    private final Random random;
     private static final int maxTarget = 3;
     public ArtilleryController(Artillery artillery) {
         super();
@@ -47,19 +44,14 @@ public class ArtilleryController extends TowerController{
                     for (RaiderController raider : targets) {
                         ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
                         int DPS = (int) (artillery.getDPS() + random.nextInt(artillery.getRandomDPS()));
-                        if (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
-                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
-                            progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) / raider.getRaider().getFinalHealth());
+                        if (raider.getRaider().getHealth() - DPS > 0) {
+                            raider.getRaider().setHealth(raider.getRaider().getHealth() - DPS);
+                            Platform.runLater(() -> progressBar.setProgress(((double) (raider.getRaider().getHealth() * 100) / raider.getRaider().getFinalHealth())));
                         } else {
-                            artillery.getRaiders().remove(raider);
+                            raiders.remove(raider);
                             raider.getRaider().getvBox().setVisible(false);
                             View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());
                         }
-                    }
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
 

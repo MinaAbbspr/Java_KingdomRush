@@ -1,12 +1,6 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 import model.Tower.Barracks;
 import model.Tower.Hero;
 import view.HelloApplication;

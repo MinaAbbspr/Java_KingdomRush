@@ -68,7 +68,7 @@ public class LoginSignup implements Initializable {
     }
 
     @FXML
-    void submitLogin(MouseEvent event) throws IOException {
+    void submitLogin(MouseEvent event) {
         try {
             PlayerController.getPlayerController().Login(txt_usernameL.getText(),txt_passwordL.getText());
             View.getView().show("mainPage.fxml");
@@ -79,7 +79,7 @@ public class LoginSignup implements Initializable {
     }
 
     @FXML
-    void submitSignup(MouseEvent event) throws IOException {
+    void submitSignup(MouseEvent event) {
         try {
             PlayerController.getPlayerController().Signup(txt_usernameS.getText(),txt_passwordS1.getText(),txt_passwordS2.getText());
             View.getView().show("mainPage.fxml");

@@ -1,17 +1,10 @@
 package controller.raider;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.geometry.NodeOrientation;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import model.map.Coordinate;
 import model.raidar.Troll;
 import view.HelloApplication;
-import view.View;
 
 import java.util.ArrayList;
 import java.util.Objects;

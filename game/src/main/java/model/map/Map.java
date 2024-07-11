@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public abstract class Map {
     private ArrayList<Coordinate> towersCoordinate;
-    private ArrayList<ArrayList<Coordinate>> way;
-    private ArrayList<Wave> waves;
+    private final ArrayList<ArrayList<Coordinate>> way;
+    private final ArrayList<Wave> waves;
     private final Coordinate endPoint;
     private final int wave;
     private int coin;
