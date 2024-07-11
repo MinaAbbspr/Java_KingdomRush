@@ -24,7 +24,7 @@ public class Hero {
         this.random = new Random();
         this.raider = false;
         this.health = 100;
-        this.speed = 200;
+        this.speed = 100;
         this.DPS = 20;
         this.finalHealth = health;
     }

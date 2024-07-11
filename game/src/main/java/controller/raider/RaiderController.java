@@ -3,6 +3,7 @@ package controller.raider;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ProgressBar;
 import javafx.util.Duration;
@@ -28,16 +29,16 @@ public abstract class RaiderController {
     public void attack(int counter, int DPS){
         Timeline timeline = new Timeline(
                 new KeyFrame(
-                        Duration.millis(0),
+                        Duration.ZERO,
                         e -> attackAnimation()),
                 new KeyFrame(
-                        Duration.millis(2000),
+                        Duration.seconds(2),
                         e -> {
                             walk();
                             ProgressBar progressBar = (ProgressBar)(raider.getvBox().getChildren().getFirst());
-                            if(progressBar.getProgress() * raider.getFinalHealth() - DPS > 0) {
-                                raider.setHealth((int) (progressBar.getProgress() * raider.getFinalHealth() - DPS));
-                                progressBar.setProgress((double) (raider.getHealth() * 100) /raider.getFinalHealth());
+                            if(raider.getHealth() - DPS > 0) {
+                                raider.setHealth(raider.getHealth() - DPS);
+                                Platform.runLater(() -> progressBar.setProgress((double) (raider.getHealth() * 100) /raider.getFinalHealth()));
                             }
                             else {
                                 raider.getvBox().setVisible(false);

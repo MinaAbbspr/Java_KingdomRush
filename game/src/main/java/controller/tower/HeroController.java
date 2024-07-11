@@ -92,7 +92,7 @@ public class HeroController {
     }
 
     public void action() {
-        if(!hero.isRaider()){
+        if(!hero.isRaider())
             for (RaiderController raider : hero.getBarracks().getRaiders())
                 if (raider.getRaider().getvBox().isVisible()) {
                     double x = Math.abs(raider.getRaider().getCoordinate().getX() - hero.getBarracks().getCoordinate().getX());
@@ -104,8 +104,6 @@ public class HeroController {
                         break;
                     }
                 }
-        }
-
     }
 
     private void attackTime(RaiderController raider){
@@ -170,7 +168,7 @@ public class HeroController {
         );
         timeline.playFromStart();
     }
-     private void attackAnimation(int counter, int DPS){
+    private void attackAnimation(int counter, int DPS){
         Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
