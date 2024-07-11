@@ -28,6 +28,7 @@ import model.raidar.MotherTroll;
 import model.raidar.ShieldTroll;
 import model.spell.Bomb;
 import model.spell.Coin;
+import model.spell.Freeze;
 import model.spell.Heart;
 
 import java.io.IOException;
@@ -406,8 +407,7 @@ public class Level1 implements Initializable {
     void coin(MouseEvent event) {
         if(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin() > 0){
             PlayerController.getPlayerController().getPlayer().getBackpack().subtractCoin();
-            Coin coin = new Coin();
-            coin.drop(map);
+            new Coin(map);
             lbl_coin.setText(String.valueOf(map.getCoin()));
             lbl_coinNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin()));
         }
@@ -415,15 +415,18 @@ public class Level1 implements Initializable {
 
     @FXML
     void freeze(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractFreeze();
+            new Freeze(enemies);
+            lbl_freezeNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze()));
+        }
     }
 
     @FXML
     void health(MouseEvent event) {
         if(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth() > 0){
             PlayerController.getPlayerController().getPlayer().getBackpack().subtractHealth();
-            Heart heart = new Heart();
-            heart.drop(map);
+            new Heart(map);
             lbl_heart.setText(String.valueOf(map.getHealth()));
             lbl_heartNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth()));
         }
@@ -433,9 +436,7 @@ public class Level1 implements Initializable {
     void bomb(MouseEvent event) {
         if(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy() > 0){
             PlayerController.getPlayerController().getPlayer().getBackpack().subtractLittleBoy();
-            Bomb bomb = new Bomb();
-            bomb.drop(enemies);
-            lbl_coin.setText(String.valueOf(map.getCoin()));
+            new Bomb(enemies);
             lbl_bombNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy()));
         }
     }
@@ -520,10 +521,6 @@ public class Level1 implements Initializable {
                 new KeyFrame(
                         Duration.seconds(finalI * 15 + 3.5),
                         e -> {
-                            for(TowerController tower : towerController) {
-                                tower.getTimeline().pause();
-                                tower.action(enemies);
-                            }
                             img_start.setVisible(false);
                             lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave());
                         })
@@ -589,11 +586,11 @@ public class Level1 implements Initializable {
         double speed=2;
         if(!enemies.isEmpty())
             speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
-        for (int i = 0; i < enemies.size(); i++)
-            if(enemies.get(i).getRaider().getvBox().isVisible())
-                if (!enemies.get(i).action()) {
-                    enemies.get(i).getRaider().getvBox().setVisible(false);
-                    map.setHealth(map.getHealth()-1);
+        for (RaiderController enemy : enemies)
+            if (enemy.getRaider().getvBox().isVisible())
+                if (!enemy.action()) {
+                    enemy.getRaider().getvBox().setVisible(false);
+                    map.setHealth(map.getHealth() - 1);
                     lbl_heart.setText(String.valueOf(map.getHealth()));
                     if (map.getHealth() == 0) {
                         //gameOver

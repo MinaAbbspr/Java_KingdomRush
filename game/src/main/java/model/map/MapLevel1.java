@@ -45,7 +45,7 @@ public class MapLevel1 extends Map{
         way.add(new Coordinate(638,800));
         super.getWays().add(way);
 
-        super.getWaves().add(new Wave(4,0,0,"Troll","",""));
+        super.getWaves().add(new Wave(1,0,0,"Troll","",""));
         super.getWaves().add(new Wave(8,0,0,"Bird","",""));
         super.getWaves().add(new Wave(4,4,0,"Shield","Troll",""));
     }

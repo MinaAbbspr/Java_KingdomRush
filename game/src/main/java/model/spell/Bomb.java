@@ -6,14 +6,22 @@ import view.View;
 import java.util.ArrayList;
 
 public class Bomb implements ISpell{
+    private ArrayList<RaiderController> raiders;
+    public Bomb(ArrayList<RaiderController> raiders) {
+        this.raiders = raiders;
+        drop();
+    }
+
+    public Bomb() {
+    }
+
     @Override
     public int getPrice() {
         return 999;
     }
 
     @Override
-    public void drop(Object o) {
-        ArrayList<RaiderController> raiders = (ArrayList<RaiderController>) o;
+    public void drop() {
         for(RaiderController raider : raiders){
             raider.getRaider().getvBox().setVisible(false);
             View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());

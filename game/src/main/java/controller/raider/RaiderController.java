@@ -54,7 +54,7 @@ public abstract class RaiderController {
     }
 
     public boolean action() {
-        if(raider.isHero()){
+        if(raider.isHero() || raider.isFreeze()){
             return true;
         }
         else if (raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() < 0)

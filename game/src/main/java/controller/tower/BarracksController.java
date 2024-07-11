@@ -14,6 +14,8 @@ import view.View;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BarracksController extends TowerController{
     public Barracks barracks;
@@ -35,29 +37,18 @@ public class BarracksController extends TowerController{
 
     public void action(ArrayList<RaiderController> raiders){
         barracks.setRaiders(raiders);
-        setTimeline(new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        e -> {
-                            if (barracks.getHeroes().size() < Barracks.getMaxHero())
-                                barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (barracks.getHeroes().size() < Barracks.getMaxHero())
+                    barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
 
-                            for (HeroController hero : barracks.getHeroes())
-                                hero.action();
-                        }
-                )));
-        getTimeline().setCycleCount(Animation.INDEFINITE);
-        getTimeline().play();
+                for (HeroController hero : barracks.getHeroes())
+                    hero.action();
+            }
+        },1000,1);
     }
-//    public void action(ArrayList<RaiderController> raiders){
-//        barracks.setRaiders(raiders);
-//        if (barracks.getHeroes().size() < Barracks.getMaxHero())
-//            barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
-//
-//        for (HeroController hero : barracks.getHeroes())
-//            hero.action();
-//
-//    }
 
     public void clear(){
         for(HeroController hero : barracks.getHeroes())

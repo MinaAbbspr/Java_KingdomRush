@@ -5,6 +5,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -179,14 +180,13 @@ public class HeroController {
                         e -> {
                             ProgressBar progressBar = (ProgressBar)(hero.getvBox().getChildren().getFirst());
                             if(progressBar.getProgress() - (double) DPS /100 >= 0) {
-                                progressBar.setProgress(progressBar.getProgress() - (double) DPS / 100);
+                                Platform.runLater(() -> progressBar.setProgress(progressBar.getProgress() - (double) DPS / 100));
                                 hero.setHealth((int) (progressBar.getProgress() * hero.getFinalHealth()));
                             }
                             else {
                                 hero.setHealth(0);
                                 hero.getBarracks().getHeroes().remove(this);
                                 hero.getvBox().setVisible(false);
-                                View.getView().getRoot().getChildren().remove(hero.getvBox());
                             }
                         }
                 )

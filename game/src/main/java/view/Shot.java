@@ -73,6 +73,7 @@ public class Shot {
                         new KeyFrame(
                                 Duration.seconds(0),
                                 e -> {
+                                    View.getView().getRoot().getChildren().add(img_hex);
                                     TranslateTransition TT = new TranslateTransition();
                                     TT.setNode(img_hex);
                                     TT.setDuration(Duration.millis(500));

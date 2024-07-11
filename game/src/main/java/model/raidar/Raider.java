@@ -20,6 +20,7 @@ public abstract class Raider {
     private final int DPS;
     private int nextIndex;
     private final ImageView imageView;
+    private boolean freeze;
 
     public Raider(int health, int speed, int loot, int DPS, ArrayList<Coordinate> pathwayFractures, VBox vBox, Coordinate coordinate) {
         this.health = health;
@@ -30,6 +31,7 @@ public abstract class Raider {
         this.pathwayFractures = pathwayFractures;
         this.vBox = vBox;
         this.hero = false;
+        this.freeze = false;
         this.random = new Random();
         this.coordinate = coordinate;
         this.nextIndex = 1;
@@ -101,5 +103,13 @@ public abstract class Raider {
 
     public ImageView getImageView() {
         return imageView;
+    }
+
+    public boolean isFreeze() {
+        return freeze;
+    }
+
+    public void setFreeze(boolean freeze) {
+        this.freeze = freeze;
     }
 }

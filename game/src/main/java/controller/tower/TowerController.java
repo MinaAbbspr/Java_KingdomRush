@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public abstract class TowerController {
     private Tower tower;
-    private Timeline timeline;
 
     public TowerController() {
     }
@@ -32,12 +31,4 @@ public abstract class TowerController {
     public void clear(){}
 
     public String setImage(){return null;}
-
-    public Timeline getTimeline() {
-        return timeline;
-    }
-
-    public void setTimeline(Timeline timeline) {
-        this.timeline = timeline;
-    }
 }
