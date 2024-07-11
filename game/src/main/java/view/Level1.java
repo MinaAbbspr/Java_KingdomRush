@@ -588,9 +588,18 @@ public class Level1 implements Initializable {
         imageView.setFitWidth(100);
         return new VBox(progressBar, imageView);
     }
-    private void run(boolean end){
-        if(end)
+    private void run(boolean end) {
+        if(end) {
+            if(wave >= map.getWave() && map.getHealth() > 0){
+                EndGame.win = true;
+                try {
+                    View.getView().show("endGame.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             return;
+        }
         double speed=2;
         if(!enemies.isEmpty())
             speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
@@ -603,7 +612,12 @@ public class Level1 implements Initializable {
                     map.setHealth(map.getHealth() - 1);
                     lbl_heart.setText(String.valueOf(map.getHealth()));
                     if (map.getHealth() == 0) {
-                        //gameOver
+                        EndGame.win = false;
+                        try {
+                            View.getView().show("endGame.fxml");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         lbl_coin.setText(String.valueOf(map.getCoin()));
