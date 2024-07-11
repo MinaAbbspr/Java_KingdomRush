@@ -1,8 +1,12 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import model.Tower.Barracks;
 import model.Tower.Hero;
 import view.HelloApplication;
@@ -31,14 +35,19 @@ public class BarracksController extends TowerController{
 
     public void action(ArrayList<RaiderController> raiders){
         barracks.setRaiders(raiders);
-        super.setThread(new Thread(() ->{
-            if (barracks.getHeroes().size() < Barracks.getMaxHero())
-                barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
+        setTimeline(new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        e -> {
+                            if (barracks.getHeroes().size() < Barracks.getMaxHero())
+                                barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
 
-            for (HeroController hero : barracks.getHeroes())
-                hero.action();
-        }));
-        getThread().start();
+                            for (HeroController hero : barracks.getHeroes())
+                                hero.action();
+                        }
+                )));
+        getTimeline().setCycleCount(Animation.INDEFINITE);
+        getTimeline().play();
     }
 //    public void action(ArrayList<RaiderController> raiders){
 //        barracks.setRaiders(raiders);

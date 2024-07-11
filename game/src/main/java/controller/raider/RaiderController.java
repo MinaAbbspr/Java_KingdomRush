@@ -46,7 +46,6 @@ public abstract class RaiderController {
                             else {
                                 raider.getvBox().setVisible(false);
                                 View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getLoot());
-                                View.getView().getRoot().getChildren().remove(raider.getvBox());
                             }
                         })
         );
@@ -62,13 +61,12 @@ public abstract class RaiderController {
                 raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         else
             raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-
         raider.setCoordinate(raider.getPathwayFractures().get(raider.getNextIndex()));
         TranslateTransition TT = new TranslateTransition();
         TT.setNode(raider.getvBox());
         TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() -raider.getRandom().nextInt(5));
         TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
-        TT.setDuration(Duration.millis(Math.abs(TT.getToX())/raider.getSpeed()));
+        TT.setDuration(Duration.seconds((double)200/ raider.getSpeed()));
         TT.play();
         raider.setNextIndex();
         return raider.getNextIndex() < raider.getPathwayFractures().size();

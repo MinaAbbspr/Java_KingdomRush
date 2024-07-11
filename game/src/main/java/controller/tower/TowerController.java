@@ -1,6 +1,7 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
+import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import model.Tower.Tower;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class TowerController {
     private Tower tower;
-    private Thread thread;
+    private Timeline timeline;
 
     public TowerController() {
     }
@@ -32,11 +33,11 @@ public abstract class TowerController {
 
     public String setImage(){return null;}
 
-    public Thread getThread() {
-        return thread;
+    public Timeline getTimeline() {
+        return timeline;
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setTimeline(Timeline timeline) {
+        this.timeline = timeline;
     }
 }

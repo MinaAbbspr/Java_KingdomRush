@@ -409,6 +409,7 @@ public class Level1 implements Initializable {
             Coin coin = new Coin();
             coin.drop(map);
             lbl_coin.setText(String.valueOf(map.getCoin()));
+            lbl_coinNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin()));
         }
     }
 
@@ -424,6 +425,7 @@ public class Level1 implements Initializable {
             Heart heart = new Heart();
             heart.drop(map);
             lbl_heart.setText(String.valueOf(map.getHealth()));
+            lbl_heartNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth()));
         }
     }
 
@@ -434,6 +436,7 @@ public class Level1 implements Initializable {
             Bomb bomb = new Bomb();
             bomb.drop(enemies);
             lbl_coin.setText(String.valueOf(map.getCoin()));
+            lbl_bombNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy()));
         }
     }
 
@@ -447,6 +450,7 @@ public class Level1 implements Initializable {
             closeRing();
             towerController.add(new ArcherController(new Archer(coordinate)));
             imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -460,6 +464,7 @@ public class Level1 implements Initializable {
             closeRing();
             towerController.add(new ArtilleryController(new Artillery(coordinate)));
             imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -473,6 +478,7 @@ public class Level1 implements Initializable {
             closeRing();
             towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
             imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -486,6 +492,7 @@ public class Level1 implements Initializable {
             closeRing();
             towerController.add(new WizardController(new Wizard(coordinate)));
             imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -498,7 +505,7 @@ public class Level1 implements Initializable {
             return;
         Timeline time = new Timeline(
                 new KeyFrame(
-                        Duration.seconds(finalI * 30),
+                        Duration.seconds(finalI * 15),
                         e -> {
                             img_start.setVisible(true);
                             FadeTransition FT = new FadeTransition();
@@ -511,8 +518,12 @@ public class Level1 implements Initializable {
                             addWave(map.getWaves().get(finalI));
                         }),
                 new KeyFrame(
-                        Duration.seconds(finalI * 30 + 3.5),
+                        Duration.seconds(finalI * 15 + 3.5),
                         e -> {
+                            for(TowerController tower : towerController) {
+                                tower.getTimeline().pause();
+                                tower.action(enemies);
+                            }
                             img_start.setVisible(false);
                             lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave());
                         })
@@ -579,19 +590,15 @@ public class Level1 implements Initializable {
         if(!enemies.isEmpty())
             speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
         for (int i = 0; i < enemies.size(); i++)
-            if (!enemies.get(i).action()) {
-                root.getChildren().remove(enemies.get(i).getRaider().getvBox());
-                enemies.remove(enemies.get(i));
-                i--;
-                map.setHealth(map.getHealth()-1);
-                lbl_heart.setText(String.valueOf(map.getHealth()));
-                if (map.getHealth() == 0) {
-                    //gameOver
+            if(enemies.get(i).getRaider().getvBox().isVisible())
+                if (!enemies.get(i).action()) {
+                    enemies.get(i).getRaider().getvBox().setVisible(false);
+                    map.setHealth(map.getHealth()-1);
+                    lbl_heart.setText(String.valueOf(map.getHealth()));
+                    if (map.getHealth() == 0) {
+                        //gameOver
+                    }
                 }
-            }
-        for(TowerController tower : towerController){
-            tower.action(enemies);
-        }
         lbl_coin.setText(String.valueOf(map.getCoin()));
         PauseTransition pause = new PauseTransition(Duration.seconds(speed));
         pause.setOnFinished(e -> run(enemies.isEmpty()));

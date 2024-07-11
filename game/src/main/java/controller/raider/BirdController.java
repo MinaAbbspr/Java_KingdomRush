@@ -17,6 +17,8 @@ public class BirdController extends RaiderController {
         this.bird = bird;
         super.setRaider(bird);
         walk();
+        bird.getImageView().setFitWidth(70);
+        bird.getImageView().setFitHeight(70);
     }
 
     @Override

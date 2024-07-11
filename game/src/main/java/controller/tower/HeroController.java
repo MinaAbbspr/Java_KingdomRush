@@ -152,7 +152,6 @@ public class HeroController {
                         e -> {
                             if (hero.getHealth() > 0) {
                                 hero.setRaider(false);
-                                hero.getBarracks().getRaiders().remove(raider);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
                                 TT.setDuration(Duration.millis(hero.getSpeed() * 10));

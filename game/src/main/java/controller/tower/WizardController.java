@@ -2,6 +2,7 @@ package controller.tower;
 
 import controller.raider.RaiderController;
 import controller.raider.ShieldTrollController;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
@@ -51,32 +52,34 @@ public class WizardController extends TowerController{
 //    }
     public void action(ArrayList<RaiderController> raiders){
         wizard.setRaiders(raiders);
-        setThread(new Thread(() -> {
-            for(RaiderController raider : wizard.getRaiders())
-                if(raider.getRaider().getvBox().isVisible()){
-                    double x = Math.abs(raider.getRaider().getCoordinate().getX()- wizard.getCoordinate().getX());
-                    double y = Math.abs(raider.getRaider().getCoordinate().getY()- wizard.getCoordinate().getY());
-                    if(Math.sqrt(x*x + y*y) <= wizard.getRadius()){
-                        new Shot("hex",wizard.getCoordinate(),raider.getRaider().getCoordinate());
-                        ProgressBar progressBar = (ProgressBar)(raider.getRaider().getvBox().getChildren().getFirst());
-                        double DPS = wizard.getDPS();
-                        if(raider instanceof ShieldTrollController && raider.getRaider().getHealth()>300)
-                            DPS = 300;
-                        if(progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
-                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
-                            progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) /raider.getRaider().getFinalHealth());
+        setTimeline(new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        e -> {
+                            for (RaiderController raider : wizard.getRaiders())
+                                if (raider.getRaider().getvBox().isVisible()) {
+                                    double x = Math.abs(raider.getRaider().getCoordinate().getX() - wizard.getCoordinate().getX());
+                                    double y = Math.abs(raider.getRaider().getCoordinate().getY() - wizard.getCoordinate().getY());
+                                    if (Math.sqrt(x * x + y * y) <= wizard.getRadius()) {
+                                        new Shot("hex", wizard.getCoordinate(), raider.getRaider().getCoordinate());
+                                        ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
+                                        double DPS = wizard.getDPS();
+                                        if (raider instanceof ShieldTrollController && raider.getRaider().getHealth() > 300)
+                                            DPS = 300;
+                                        if (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS > 0) {
+                                            raider.getRaider().setHealth((int) (progressBar.getProgress() * raider.getRaider().getFinalHealth() - DPS));
+                                            progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) / raider.getRaider().getFinalHealth());
+                                        } else {
+                                            raider.getRaider().getvBox().setVisible(false);
+                                            View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());
+                                        }
+                                        break;
+                                    }
+                                }
                         }
-                        else {
-                            wizard.getRaiders().remove(raider);
-                            raider.getRaider().getvBox().setVisible(false);
-                            View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());
-                            View.getView().getRoot().getChildren().remove(raider.getRaider().getvBox());
-                        }
-                        break;
-                    }
-                }
-        }));
-        getThread().start();
+                )));
+        getTimeline().setCycleCount(Animation.INDEFINITE);
+        getTimeline().play();
     }
 
     public String setImage(){
