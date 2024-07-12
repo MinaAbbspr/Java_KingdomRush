@@ -176,7 +176,7 @@
             <Image url="@images/icon/sell.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_upgrade" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="img_upgrade" fitHeight="40.0" fitWidth="200.0" onMouseClicked="#upgrade" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/icon/upgrade.png" />
          </image>

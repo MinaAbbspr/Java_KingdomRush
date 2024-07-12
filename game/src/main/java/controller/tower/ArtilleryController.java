@@ -56,7 +56,7 @@ public class ArtilleryController extends TowerController{
                 }
 
             }
-        },1000,1000);
+        },1000,2000);
     }
 
     public String setImage(){
