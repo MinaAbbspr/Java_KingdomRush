@@ -79,4 +79,8 @@ public abstract class Map {
         }
         return point;
     }
+
+    public Coordinate getEndPoint() {
+        return endPoint;
+    }
 }

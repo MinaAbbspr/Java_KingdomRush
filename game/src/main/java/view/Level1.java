@@ -25,7 +25,6 @@ import model.map.MapLevel1;
 import model.map.Wave;
 import model.raidar.Bird;
 import model.raidar.MotherTroll;
-import model.raidar.ShieldTroll;
 import model.spell.Bomb;
 import model.spell.Coin;
 import model.spell.Freeze;
@@ -546,7 +545,7 @@ public class Level1 implements Initializable {
         switch (kind){
             case "Bird" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getWay().getFirst())));
+                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1)));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -554,7 +553,7 @@ public class Level1 implements Initializable {
             }
             case "Troll" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst()));
+                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -562,7 +561,7 @@ public class Level1 implements Initializable {
             }
             case "Shield" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getWay().getFirst()));
+                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -570,7 +569,7 @@ public class Level1 implements Initializable {
             }
             case "Mother" ->{
                 for(int i=0; i<number; i++){
-                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),map.getWay().getFirst(),enemies)));
+                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),map.getWay().getFirst(),enemies,map.getLevel()+1)));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -591,6 +590,9 @@ public class Level1 implements Initializable {
     private void run(boolean end) {
         if(end) {
             if(wave >= map.getWave() && map.getHealth() > 0){
+                PlayerController.getPlayerController().getPlayer().setDiamond(PlayerController.getPlayerController().getPlayer().getDiamond() + map.getDiamondReward());
+                if(PlayerController.getPlayerController().getPlayer().getLevel() == map.getLevel())
+                    PlayerController.getPlayerController().getPlayer().setLevel(map.getLevel()+1);
                 EndGame.win = true;
                 try {
                     View.getView().show("endGame.fxml");

@@ -7,14 +7,15 @@ import model.raidar.ShieldTroll;
 import view.HelloApplication;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class ShieldTrollController extends RaiderController {
     private final ShieldTroll shieldTroll;
 
-    public ShieldTrollController(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate) {
+    public ShieldTrollController(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate, int level) {
         super();
-        this.shieldTroll = new ShieldTroll(way,vBox,coordinate);
+        this.shieldTroll = new ShieldTroll(way,vBox,coordinate,level);
         super.setRaider(shieldTroll);
         walk();
     }

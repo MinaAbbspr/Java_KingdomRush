@@ -21,6 +21,7 @@ public class MotherTrollController extends RaiderController{
         super();
         this.motherTroll = motherTroll;
         setRaider(motherTroll);
+        walk();
     }
     @Override
     public void walk(){
@@ -34,12 +35,11 @@ public class MotherTrollController extends RaiderController{
 
     @Override
     public boolean action() {
-        if(motherTroll.isHero()){
+        if(motherTroll.isHero() || motherTroll.isFreeze())
             return true;
-        }
         else if(motherTroll.getCounter() == MotherTroll.getSetFreeBirds()){
             for(int i=0; i<3; i++){
-                motherTroll.getRaiders().add(new BirdController(new Bird(motherTroll.getPathwayFractures(), makeVBox(),motherTroll.getCoordinate(),motherTroll.getNextIndex())));
+                motherTroll.getRaiders().add(new BirdController(new Bird(motherTroll.getPathwayFractures(), makeVBox(),motherTroll.getCoordinate(),motherTroll.getNextIndex(),View.getView().getMap().getLevel()+1)));
                 motherTroll.getRaiders().getLast().getRaider().getvBox().setLayoutY(motherTroll.getCoordinate().getY()-50);
                 motherTroll.getRaiders().getLast().getRaider().getvBox().setLayoutX(motherTroll.getCoordinate().getX());
                 View.getView().getRoot().getChildren().add(motherTroll.getRaiders().getLast().getRaider().getvBox());
@@ -56,7 +56,7 @@ public class MotherTrollController extends RaiderController{
         TT.setNode(motherTroll.getvBox());
         TT.setToX(motherTroll.getPathwayFractures().get(motherTroll.getNextIndex()).getX() - motherTroll.getvBox().getLayoutX() -motherTroll.getRandom().nextInt(5));
         TT.setToY(motherTroll.getPathwayFractures().get(motherTroll.getNextIndex()).getY() - motherTroll.getvBox().getLayoutY() - motherTroll.getRandom().nextInt(25) - 25);
-        TT.setDuration(Duration.millis(TT.getToX()/motherTroll.getSpeed()));
+        TT.setDuration(Duration.seconds((double)200/ motherTroll.getSpeed()));
         TT.play();
         motherTroll.setNextIndex();
         motherTroll.setCounter(motherTroll.getCounter()+1);

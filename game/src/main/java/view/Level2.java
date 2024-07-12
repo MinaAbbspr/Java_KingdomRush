@@ -1,25 +1,41 @@
 package view;
 
 import controller.PlayerController;
-import javafx.application.Platform;
+import controller.raider.*;
+import controller.tower.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+import model.Tower.Archer;
+import model.Tower.Artillery;
+import model.Tower.Barracks;
+import model.Tower.Wizard;
 import model.map.Coordinate;
 import model.map.MapLevel2;
+import model.map.Wave;
+import model.raidar.Bird;
+import model.raidar.MotherTroll;
+import model.spell.Bomb;
+import model.spell.Coin;
+import model.spell.Freeze;
+import model.spell.Heart;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Level2 implements Initializable {
 
@@ -163,15 +179,19 @@ public class Level2 implements Initializable {
 
     @FXML
     private AnchorPane root;
-    private boolean isBackpackOpen;
     private MapLevel2 map;
+    private TowerController tower;
     private Map<Coordinate,ImageView> towers;
+    private ArrayList<TowerController> towerController;
+    private ArrayList<RaiderController> enemies;
     private Coordinate coordinate;
+    private boolean isBackpackOpen;
     private boolean ringOpen;
     private boolean archer;
     private boolean wizard;
     private boolean barracks;
     private boolean artillery;
+    private boolean upgrade;
     private int wave;
 
     @FXML
@@ -212,6 +232,9 @@ public class Level2 implements Initializable {
                 img_ring.setVisible(true);
                 img_upgrade.setVisible(true);
                 img_sell.setVisible(true);
+                lbl_upgrade.setVisible(true);
+                board_upgrade.setVisible(true);
+                checkCoinForUpdate();
             } else {
                 img_ring.setVisible(true);
                 img_barracks.setVisible(true);
@@ -271,6 +294,24 @@ public class Level2 implements Initializable {
         board_upgrade.setLayoutX(coordinate.getX() - 10);
         board_upgrade.setLayoutY(coordinate.getY() - 81);
     }
+    private void checkCoinForUpdate(){
+        findTower();
+        lbl_upgrade.setText(String.valueOf(tower.getTower().getUpdateCost()));
+        if(tower.getTower().getLevel() == map.getLevel()){
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayUpgrade.png")).toExternalForm()));
+            upgrade = false;
+            lbl_upgrade.setVisible(false);
+            board_upgrade.setVisible(false);
+        }
+        else if(tower.getTower().getUpdateCost() > map.getCoin()){
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayUpgrade.png")).toExternalForm()));
+            upgrade = false;
+        }
+        else {
+            img_upgrade.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/upgrade.png")).toExternalForm()));
+            upgrade = true;
+        }
+    }
     private void checkCoin(){
         if(map.getCoin() < 70){
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
@@ -289,8 +330,8 @@ public class Level2 implements Initializable {
             img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
             archer = true;
             wizard = false;
-            artillery = true;
-            barracks = false;
+            artillery = false;
+            barracks = true;
         }
         else if(map.getCoin() < 112){
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/grayBomb.png")).toExternalForm()));
@@ -299,8 +340,8 @@ public class Level2 implements Initializable {
             img_archer.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/archer.png")).toExternalForm()));
             archer = true;
             wizard = true;
-            artillery = true;
-            barracks = false;
+            artillery = false;
+            barracks = true;
         }
         else {
             img_artillery.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/icon/bomb.png")).toExternalForm()));
@@ -313,7 +354,7 @@ public class Level2 implements Initializable {
             barracks = true;
         }
     }
-    void closeRing() {
+    private void closeRing() {
         img_ring.setVisible(false);
         img_barracks.setVisible(false);
         img_archer.setVisible(false);
@@ -329,46 +370,91 @@ public class Level2 implements Initializable {
         lbl_wizard.setVisible(false);
         img_upgrade.setVisible(false);
         img_sell.setVisible(false);
+        lbl_upgrade.setVisible(false);
+        board_upgrade.setVisible(false);
         ringOpen = false;
+    }
+    private void findTower(){
+        for (TowerController tower1 : towerController) {
+            if (tower1.getTower().getCoordinate().equals(coordinate)) {
+                this.tower = tower1;
+                break;
+            }
+        }
     }
 
     @FXML
     void sell(MouseEvent event) {
+        tower.getTower().setLevel(tower.getTower().getLevel() - 1);
+        map.setCoin(map.getCoin() + tower.getTower().getUpdateCost()/2);
+        lbl_coin.setText(String.valueOf(map.getCoin()));
+        towerController.remove(tower);
+        towers.get(coordinate).setVisible(false);
+        tower.clear();
+        closeRing();
+    }
+
+    @FXML
+    void upgrade(MouseEvent event) {
+        if(upgrade){
+            map.setCoin(map.getCoin() - tower.getTower().getUpdateCost());
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+            tower.updateLevel();
+            towers.get(coordinate).setImage(new Image(tower.setImage()));
+            closeRing();
+        }
     }
 
     @FXML
     void coin(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractCoin();
+            new Coin(map);
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+            lbl_coinNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getCoin()));
+        }
     }
 
     @FXML
     void freeze(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractFreeze();
+            new Freeze(enemies);
+            lbl_freezeNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getFreeze()));
+        }
     }
 
     @FXML
     void health(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractHealth();
+            new Heart(map);
+            lbl_heart.setText(String.valueOf(map.getHealth()));
+            lbl_heartNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getHealth()));
+        }
     }
 
     @FXML
     void bomb(MouseEvent event) {
-
+        if(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy() > 0){
+            PlayerController.getPlayerController().getPlayer().getBackpack().subtractLittleBoy();
+            new Bomb(enemies);
+            lbl_coin.setText(String.valueOf(map.getCoin()));
+            lbl_bombNumber.setText(String.valueOf(PlayerController.getPlayerController().getPlayer().getBackpack().getLittleBoy()));
+        }
     }
 
     @FXML
     void buildArcher(MouseEvent event) {
         if(archer){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/archer.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new ArcherController(new Archer(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -376,15 +462,13 @@ public class Level2 implements Initializable {
     void buildArtillery(MouseEvent event) {
         if(artillery){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/BigBertha.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 112);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new ArtilleryController(new Artillery(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -392,15 +476,13 @@ public class Level2 implements Initializable {
     void buildBarracks(MouseEvent event) {
         if(barracks){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/barracks.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 70);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new BarracksController(new Barracks(coordinate, map.getWay())));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
@@ -408,27 +490,145 @@ public class Level2 implements Initializable {
     void buildWizard(MouseEvent event) {
         if(wizard){
             ImageView imageView = towers.get(coordinate);
-            imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/tower/mage.png")).toExternalForm()));
             imageView.setVisible(true);
             map.setCoin(map.getCoin() - 90);
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    lbl_coin.setText(String.valueOf(map.getCoin()));
-                });
-            }).start();
+            lbl_coin.setText(String.valueOf(map.getCoin()));
             closeRing();
+            towerController.add(new WizardController(new Wizard(coordinate)));
+            imageView.setImage(new Image(towerController.getLast().setImage()));
+            towerController.getLast().action(enemies);
         }
     }
 
     @FXML
     void start(MouseEvent event) {
-        img_start.setVisible(false);
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                //map.getWaves().get(wave++).run(root);
-                lbl_wave.setText("wave " + wave + "/" + map.getWave());
-            });
-        }).start();
+        clear();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        e -> timeLine(wave++)),
+                new KeyFrame(Duration.seconds(30),
+                        e -> {
+                            if(wave < map.getWave())
+                                img_start.setVisible(true);})
+        );
+        timeline.play();
+    }
+    private void clear(){
+        enemies.removeIf(raider -> !raider.getRaider().getvBox().isVisible());
+    }
+    private void timeLine(int finalI){
+        if(wave > map.getWave())
+            return;
+        Timeline time = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        e -> {
+                            FadeTransition FT = new FadeTransition();
+                            FT.setNode(img_start);
+                            FT.setDuration(Duration.seconds(0.5));
+                            FT.setToValue(0.001);
+                            FT.setAutoReverse(true);
+                            FT.setCycleCount(8);
+                            FT.play();
+                            addWave(map.getWaves().get(finalI));
+                        }),
+                new KeyFrame(
+                        Duration.seconds(3.5),
+                        e -> {
+                            img_start.setVisible(false);
+                            lbl_wave.setText("wave " + (finalI+1) + "/" + map.getWave());
+                        })
+        );
+        time.play();
+        run(false);
+    }
+    private void addWave(Wave wave){
+        int number = wave.getNumber();
+        String kind = wave.getKind();
+        switch (kind){
+            case "Bird" -> {
+                for(int i=0; i<number; i++){
+                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1)));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+            case "Troll" -> {
+                for(int i=0; i<number; i++){
+                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+            case "Shield" -> {
+                for(int i=0; i<number; i++){
+                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+            case "Mother" ->{
+                for(int i=0; i<number; i++){
+                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),map.getWay().getFirst(),enemies,map.getLevel()+1)));
+                    enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
+                    enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
+                    root.getChildren().add(enemies.getLast().getRaider().getvBox());
+                }
+            }
+        }
+    }
+    private VBox makeVBox(){
+        ProgressBar progressBar = new ProgressBar(1.0);
+        progressBar.setMaxHeight(15);
+        progressBar.setMaxWidth(100);
+        ImageView imageView = new ImageView();
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        return new VBox(progressBar, imageView);
+    }
+    private void run(boolean end) {
+        if(end) {
+            if(wave >= map.getWave() && map.getHealth() > 0){
+                PlayerController.getPlayerController().getPlayer().setDiamond(PlayerController.getPlayerController().getPlayer().getDiamond() + map.getDiamondReward());
+                if(PlayerController.getPlayerController().getPlayer().getLevel() == map.getLevel())
+                    PlayerController.getPlayerController().getPlayer().setLevel(map.getLevel()+1);
+                EndGame.win = true;
+                try {
+                    View.getView().show("endGame.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return;
+        }
+        double speed=2;
+        if(!enemies.isEmpty())
+            speed = (double)200/ enemies.getFirst().getRaider().getSpeed();
+        for (int i=0; i<enemies.size(); i++)
+            if (enemies.get(i).getRaider().getvBox().isVisible())
+                if (!enemies.get(i).action()) {
+                    enemies.get(i).getRaider().getvBox().setVisible(false);
+                    enemies.remove(enemies.get(i));
+                    i--;
+                    map.setHealth(map.getHealth() - 1);
+                    lbl_heart.setText(String.valueOf(map.getHealth()));
+                    if (map.getHealth() == 0) {
+                        EndGame.win = false;
+                        try {
+                            View.getView().show("endGame.fxml");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        lbl_coin.setText(String.valueOf(map.getCoin()));
+        PauseTransition pause = new PauseTransition(Duration.seconds(speed));
+        pause.setOnFinished(e -> run(enemies.isEmpty()));
+        pause.play();
     }
 
     @FXML
@@ -496,6 +696,10 @@ public class Level2 implements Initializable {
         wave = 0;
         map = new MapLevel2();
         towers = new HashMap<>();
+        towerController = new ArrayList<>();
+        enemies = new ArrayList<>();
+        View.getView().setRoot(root);
+        View.getView().setMap(map);
 
         lbl_coin.setText(String.valueOf(map.getCoin()));
         lbl_wave.setText("wave 0/" + map.getWave());
