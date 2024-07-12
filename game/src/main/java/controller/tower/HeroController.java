@@ -179,7 +179,7 @@ public class HeroController {
                             ProgressBar progressBar = (ProgressBar)(hero.getvBox().getChildren().getFirst());
                             if(hero.getHealth() - DPS > 0) {
                                 hero.setHealth(hero.getHealth() - DPS);
-                                Platform.runLater(() -> progressBar.setProgress((double) (hero.getHealth() * 100) / hero.getFinalHealth()));
+                                Platform.runLater(() -> progressBar.setProgress((double) hero.getHealth() / hero.getFinalHealth()));
                             }
                             else {
                                 hero.setHealth(0);

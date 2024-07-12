@@ -67,7 +67,7 @@ public class Shot {
                 img_hex.setFitHeight(20);
                 img_hex.setPreserveRatio(false);
                 img_hex.setX(start.getX());
-                img_hex.setY(start.getY() - 150);
+                img_hex.setY(start.getY() - 100);
 
                 Timeline timeline = new Timeline(
                         new KeyFrame(

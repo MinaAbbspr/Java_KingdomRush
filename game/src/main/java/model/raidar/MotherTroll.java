@@ -10,8 +10,8 @@ public class MotherTroll extends Raider{
     private int counter;
     private static final int setFreeBirds = 4;
     private final ArrayList<RaiderController> raiders;
-    public MotherTroll(ArrayList<Coordinate> pathwayFractures, VBox vBox,Coordinate coordinate,ArrayList<RaiderController> raiders, int level) {
-        super(120*level, 70, 50, 50, pathwayFractures, vBox, coordinate);
+    public MotherTroll(ArrayList<Coordinate> pathwayFractures, VBox vBox,ArrayList<RaiderController> raiders, int level) {
+        super(120*level, 70, 50, 50, pathwayFractures, vBox, pathwayFractures.getFirst());
         this.raiders = raiders;
     }
 

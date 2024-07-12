@@ -42,7 +42,7 @@ public class WizardController extends TowerController{
                             if (raider.getRaider().getHealth() - DPS > 0) {
                                 raider.getRaider().setHealth((int) (raider.getRaider().getHealth() - DPS));
                                 ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
-                                Platform.runLater(() -> progressBar.setProgress((double) (raider.getRaider().getHealth() * 100) / raider.getRaider().getFinalHealth()));
+                                Platform.runLater(() -> progressBar.setProgress((double)raider.getRaider().getHealth() / raider.getRaider().getFinalHealth()));
                             } else {
                                 raider.getRaider().getvBox().setVisible(false);
                                 View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());

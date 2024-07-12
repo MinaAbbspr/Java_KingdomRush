@@ -38,7 +38,7 @@ public abstract class RaiderController {
                             ProgressBar progressBar = (ProgressBar)(raider.getvBox().getChildren().getFirst());
                             if(raider.getHealth() - DPS > 0) {
                                 raider.setHealth(raider.getHealth() - DPS);
-                                Platform.runLater(() -> progressBar.setProgress((double) (raider.getHealth() * 100) /raider.getFinalHealth()));
+                                Platform.runLater(() -> progressBar.setProgress((double)raider.getHealth() /raider.getFinalHealth()));
                             }
                             else {
                                 raider.getvBox().setVisible(false);
@@ -57,15 +57,14 @@ public abstract class RaiderController {
                 raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         else
             raider.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+
         raider.setCoordinate(raider.getPathwayFractures().get(raider.getNextIndex()));
-        if(raider.getNextIndex()+2 != raider.getPathwayFractures().size()){
-            TranslateTransition TT = new TranslateTransition();
-            TT.setNode(raider.getvBox());
-            TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() - raider.getRandom().nextInt(5));
-            TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
-            TT.setDuration(Duration.seconds((double) 200 / raider.getSpeed()));
-            TT.play();
-        }
+        TranslateTransition TT = new TranslateTransition();
+        TT.setNode(raider.getvBox());
+        TT.setToX(raider.getPathwayFractures().get(raider.getNextIndex()).getX() - raider.getvBox().getLayoutX() - raider.getRandom().nextInt(5));
+        TT.setToY(raider.getPathwayFractures().get(raider.getNextIndex()).getY() - raider.getvBox().getLayoutY() - raider.getRandom().nextInt(25) - 25);
+        TT.setDuration(Duration.seconds((double) 200 / raider.getSpeed()));
+        TT.play();
         raider.setNextIndex();
         return raider.getNextIndex() < raider.getPathwayFractures().size();
     }

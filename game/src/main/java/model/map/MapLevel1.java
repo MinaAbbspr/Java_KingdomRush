@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MapLevel1 extends Map{
 
     public MapLevel1() {
-        super(new Coordinate(638,724), 3, 220,200,0);
+        super(new Coordinate(638,724), 3, 220,350,0);
         ArrayList <Coordinate> tower = new ArrayList<>();
         tower.add(new Coordinate(278,345));
         tower.add(new Coordinate(663,224));

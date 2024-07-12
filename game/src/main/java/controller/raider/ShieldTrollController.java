@@ -13,9 +13,9 @@ import java.util.Objects;
 public class ShieldTrollController extends RaiderController {
     private final ShieldTroll shieldTroll;
 
-    public ShieldTrollController(ArrayList<Coordinate> way, VBox vBox, Coordinate coordinate, int level) {
+    public ShieldTrollController(ArrayList<Coordinate> way, VBox vBox, int level) {
         super();
-        this.shieldTroll = new ShieldTroll(way,vBox,coordinate,level);
+        this.shieldTroll = new ShieldTroll(way,vBox,level);
         super.setRaider(shieldTroll);
         walk();
     }

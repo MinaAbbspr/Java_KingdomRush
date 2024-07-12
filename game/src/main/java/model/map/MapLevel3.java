@@ -7,7 +7,7 @@ public class MapLevel3 extends Map{
     private final Random random;
 
     public MapLevel3() {
-        super(new Coordinate(928,800), 4, 550,400,2);
+        super(new Coordinate(928,800), 4, 550,550,2);
         ArrayList <Coordinate> tower = new ArrayList<>();
         tower.add(new Coordinate(1302,383));
         tower.add(new Coordinate(1342,515));

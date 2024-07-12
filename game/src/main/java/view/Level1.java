@@ -545,7 +545,7 @@ public class Level1 implements Initializable {
         switch (kind){
             case "Bird" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1)));
+                    enemies.add(new BirdController(new Bird(map.getWay(), makeVBox(),map.getLevel()+1)));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -553,7 +553,7 @@ public class Level1 implements Initializable {
             }
             case "Troll" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
+                    enemies.add(new TrollController(map.getWay(), makeVBox(),map.getLevel()+1));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -561,7 +561,7 @@ public class Level1 implements Initializable {
             }
             case "Shield" -> {
                 for(int i=0; i<number; i++){
-                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getWay().getFirst(),map.getLevel()+1));
+                    enemies.add(new ShieldTrollController(map.getWay(), makeVBox(),map.getLevel()+1));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
@@ -569,7 +569,7 @@ public class Level1 implements Initializable {
             }
             case "Mother" ->{
                 for(int i=0; i<number; i++){
-                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),map.getWay().getFirst(),enemies,map.getLevel()+1)));
+                    enemies.add(new MotherTrollController(new MotherTroll(map.getWay(), makeVBox(),enemies,map.getLevel()+1)));
                     enemies.getLast().getRaider().getvBox().setLayoutY(map.getWay().getFirst().getY()-50);
                     enemies.getLast().getRaider().getvBox().setLayoutX(map.getWay().getFirst().getX());
                     root.getChildren().add(enemies.getLast().getRaider().getvBox());
