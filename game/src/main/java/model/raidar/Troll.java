@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public class Troll extends Raider{
 
     public Troll( ArrayList<Coordinate> way, VBox vBox,int level) {
-        super(50, 160, 15, 15, way, vBox,way.getFirst());
+        super(50*level, 160, 15, 15, way, vBox,way.getFirst());
     }
 }

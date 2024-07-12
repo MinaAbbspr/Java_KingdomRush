@@ -94,7 +94,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="828.0" layoutY="473.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
+      <Label layoutX="836.0" layoutY="173.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
       <ImageView fx:id="img_tower1" fitHeight="100.0" fitWidth="150.0" layoutX="703.0" layoutY="203.0" onMouseClicked="#showAndCloseRing" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/tower/mage.png" />
@@ -106,7 +106,7 @@
          </image>
       </ImageView>
       <Label layoutX="876.0" layoutY="342.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
-      <Label layoutX="836.0" layoutY="182.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
+      <Label layoutX="828.0" layoutY="464.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
       <Label layoutX="692.0" layoutY="328.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
       <Label layoutX="1052.0" layoutY="514.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />
       <Label layoutX="638.0" layoutY="484.0" onMouseClicked="#showAndCloseRing" prefHeight="160.0" prefWidth="200.0" />

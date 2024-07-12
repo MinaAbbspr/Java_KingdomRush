@@ -69,10 +69,10 @@ public abstract class Map {
     }
 
     public Coordinate find (Coordinate coordinate){
-        double min = Math.abs(coordinate.getX() - towersCoordinate.getFirst().getX());
+        double min = Math.abs(coordinate.getX() - towersCoordinate.getFirst().getX()) + Math.abs(coordinate.getY() - towersCoordinate.getFirst().getY());
         Coordinate point = towersCoordinate.getFirst();
         for(Coordinate coordinate1 : towersCoordinate){
-            if(min > Math.abs(coordinate.getX() - coordinate1.getX())) {
+            if(min > Math.abs(coordinate.getX() - coordinate1.getX())+Math.abs(coordinate.getY() - coordinate1.getY())) {
                 min = Math.abs(coordinate.getX() - coordinate1.getX());
                 point = coordinate1;
             }
