@@ -1,8 +1,6 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
-import javafx.animation.Timeline;
-import javafx.scene.image.ImageView;
 import model.Tower.Tower;
 
 import java.util.ArrayList;

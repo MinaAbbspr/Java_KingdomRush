@@ -1,11 +1,7 @@
 package controller.tower;
 
 import controller.raider.RaiderController;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
+import javafx.animation.*;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -60,18 +56,16 @@ public class HeroController {
         progressBar.setMaxHeight(15);
         progressBar.setMaxWidth(100);
         imageView = new ImageView();
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm()));
         imageView.setPreserveRatio(false);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
+        stand();
         return new VBox(progressBar, imageView);
     }
     private Coordinate find (){
-        double min = Math.abs(hero.getBarracks().getCoordinate().getX() - hero.getPathwayFractures().getFirst().getX());
+        double min = Math.abs(hero.getBarracks().getCoordinate().getX() - hero.getPathwayFractures().getFirst().getX())+Math.abs(hero.getBarracks().getCoordinate().getY() - hero.getPathwayFractures().getFirst().getY());
         Coordinate point = hero.getPathwayFractures().getFirst();
         for(Coordinate coordinate : hero.getPathwayFractures()){
-            if(min > Math.abs(hero.getBarracks().getCoordinate().getX() - coordinate.getX())) {
-                min = Math.abs(hero.getBarracks().getCoordinate().getX() - coordinate.getX());
+            if(min > Math.abs(hero.getBarracks().getCoordinate().getX() - coordinate.getX())+Math.abs(hero.getBarracks().getCoordinate().getY() - hero.getPathwayFractures().getFirst().getY())) {
+                min = Math.abs(hero.getBarracks().getCoordinate().getX() - coordinate.getX()) + Math.abs(hero.getBarracks().getCoordinate().getY() - hero.getPathwayFractures().getFirst().getY());
                 point = coordinate;
             }
         }
@@ -83,18 +77,33 @@ public class HeroController {
     }
 
     public void updateLevel(){
-        hero.setDPS(hero.getDPS() + hero.getBarracks().getLevel() * 5);
+        hero.setDPS(hero.getDPS() + hero.getBarracks().getLevel() * 10);
     }
 
 
     public void walk() {
-        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/walk.gif")).toExternalForm()));
+//        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/walk.gif")).toExternalForm()));
+//        imageView.setFitHeight(50);
+//        imageView.setFitWidth(50);
+    }
+
+    public void attack(){
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/attack.gif")).toExternalForm()));
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+    }
+
+    public void stand(){
+        imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm()));
+        imageView.setPreserveRatio(false);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
     }
 
     public void action() {
-        if(!hero.isRaider())
+        if(!hero.isRaider() && hero.isAlive())
             for (RaiderController raider : hero.getBarracks().getRaiders())
-                if (raider.getRaider().getvBox().isVisible()) {
+                if (raider.getRaider().getvBox().isVisible() && !raider.getRaider().isHero()) {
                     double x = Math.abs(raider.getRaider().getCoordinate().getX() - hero.getBarracks().getCoordinate().getX());
                     double y = Math.abs(raider.getRaider().getCoordinate().getY() - hero.getBarracks().getCoordinate().getY());
                     if (Math.sqrt(x * x + y * y) <= hero.getBarracks().getRadius() && !raider.getRaider().isHero() && !(raider.getRaider() instanceof Bird)) {
@@ -124,7 +133,7 @@ public class HeroController {
                                 hero.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
-                                TT.setDuration(Duration.millis(hero.getSpeed() * 10));
+                                TT.setDuration(Duration.seconds(2));
                                 TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() + 25);
                                 TT.setToY(raider.getRaider().getCoordinate().getY() - hero.getvBox().getLayoutY());
                                 TT.play();
@@ -133,7 +142,7 @@ public class HeroController {
                                 hero.getvBox().getChildren().getLast().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
-                                TT.setDuration(Duration.millis(hero.getSpeed() * 10));
+                                TT.setDuration(Duration.seconds(2));
                                 TT.setToX(raider.getRaider().getCoordinate().getX() - hero.getvBox().getLayoutX() -25);
                                 TT.setToY(raider.getRaider().getCoordinate().getY() - hero.getvBox().getLayoutY());
                                 TT.play();
@@ -141,56 +150,65 @@ public class HeroController {
                             walk();
                         }),
                 new KeyFrame(
-                        Duration.millis(hero.getSpeed() * 10),
+                        Duration.seconds(2),
                         e -> {
-                            attackAnimation(counter,raider.getRaider().getDPS());
-                            raider.attack(counter,hero.getDPS());
+                            attack();
+                            raider.attackAnimation();
+                            attackAnimation(counter,raider,hero);
+                            //raider.attack(counter,hero.getDPS());
                         }),
                 new KeyFrame(
-                        Duration.seconds(2 * counter + hero.getSpeed() * 10),
+                        Duration.seconds(2 * counter + 2),
                         e -> {
                             if (hero.getHealth() > 0) {
                                 hero.setRaider(false);
                                 TranslateTransition TT = new TranslateTransition();
                                 TT.setNode(hero.getvBox());
-                                TT.setDuration(Duration.millis(hero.getSpeed() * 10));
+                                TT.setDuration(Duration.seconds(2));
                                 TT.setToX(hero.getCoordinate().getX() - hero.getvBox().getLayoutX());
                                 TT.setToY(hero.getCoordinate().getY() - hero.getvBox().getLayoutY());
                                 TT.play();
                                 walk();
                             }
-                            else
+                            else {
+                                raider.walk();
                                 raider.getRaider().setHero(false);
+                            }
                         }),
                 new KeyFrame(
-                        Duration.seconds(2 * counter + (double) hero.getSpeed() / 50),
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/Knight_01__WALK_001.png")).toExternalForm())))
+                        Duration.seconds(2 * counter + 4),
+                        e -> stand())
         );
-        timeline.playFromStart();
+        timeline.play();
     }
-    private void attackAnimation(int counter, int DPS){
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        e -> imageView.setImage(new Image(Objects.requireNonNull(HelloApplication.class.getResource("images/knight/0/attack.gif")).toExternalForm()))),
-                new KeyFrame(
-                        Duration.seconds(2),
-                        e -> {
-                            ProgressBar progressBar = (ProgressBar)(hero.getvBox().getChildren().getFirst());
-                            if(hero.getHealth() - DPS > 0) {
-                                hero.setHealth(hero.getHealth() - DPS);
-                                Platform.runLater(() -> progressBar.setProgress((double) hero.getHealth() / hero.getFinalHealth()));
-                            }
-                            else {
-                                hero.setHealth(0);
-                                hero.getBarracks().getHeroes().remove(this);
-                                hero.getvBox().setVisible(false);
-                            }
-                        }
-                )
-        );
-        timeline.setCycleCount(counter);
-        timeline.playFromStart();
+
+    private void attackAnimation(int counter, RaiderController raider, Hero hero){
+        if(counter == 0)
+            return;
+
+        if (raider.getRaider().getHealth() - hero.getDPS() > 0) {
+            raider.getRaider().setHealth(raider.getRaider().getHealth() - hero.getDPS());
+            ProgressBar progressBar = (ProgressBar) (raider.getRaider().getvBox().getChildren().getFirst());
+            progressBar.setProgress((double) raider.getRaider().getHealth() / raider.getRaider().getFinalHealth());
+        } else {
+            raider.getRaider().getvBox().setVisible(false);
+            View.getView().getMap().setCoin(View.getView().getMap().getCoin() + raider.getRaider().getLoot());
+        }
+        if(hero.getHealth() - raider.getRaider().getDPS() > 0) {
+            hero.setHealth(hero.getHealth() - raider.getRaider().getDPS());
+            ProgressBar progressBar = (ProgressBar)(hero.getvBox().getChildren().getFirst());
+            progressBar.setProgress((double) hero.getHealth() / hero.getFinalHealth());
+        }
+        else {
+            hero.setHealth(0);
+            hero.setAlive(false);
+            hero.getvBox().setVisible(false);
+        }
+        int finalCounter = --counter;
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(e -> attackAnimation(finalCounter,raider,hero));
+        pause.play();
     }
 
 }

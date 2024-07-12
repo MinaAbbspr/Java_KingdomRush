@@ -28,10 +28,10 @@ import model.map.MapLevel2;
 import model.map.Wave;
 import model.raidar.Bird;
 import model.raidar.MotherTroll;
-import model.spell.Bomb;
-import model.spell.Coin;
-import model.spell.Freeze;
-import model.spell.Heart;
+import controller.spell.Bomb;
+import controller.spell.Coin;
+import controller.spell.Freeze;
+import controller.spell.Heart;
 
 import java.io.IOException;
 import java.net.URL;

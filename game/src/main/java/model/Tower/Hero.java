@@ -9,7 +9,6 @@ import java.util.Random;
 public class Hero {
     private int health;
     private final int finalHealth;
-    private final int speed;
     private boolean raider;
     private final ArrayList<Coordinate> pathwayFractures;
     private final Random random;
@@ -17,6 +16,7 @@ public class Hero {
     private final Barracks barracks;
     private Coordinate coordinate;
     private int DPS;
+    private boolean alive;
 
     public Hero(ArrayList<Coordinate> pathwayFractures, Barracks barracks) {
         this.pathwayFractures = pathwayFractures;
@@ -24,9 +24,9 @@ public class Hero {
         this.random = new Random();
         this.raider = false;
         this.health = 100;
-        this.speed = 100;
         this.DPS = 20;
         this.finalHealth = health;
+        this.alive = true;
     }
 
     public int getHealth() {
@@ -35,10 +35,6 @@ public class Hero {
 
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public int getSpeed() {
-        return speed;
     }
 
     public boolean isRaider() {
@@ -87,5 +83,13 @@ public class Hero {
 
     public int getFinalHealth() {
         return finalHealth;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

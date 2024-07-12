@@ -1,4 +1,4 @@
-package model.spell;
+package controller.spell;
 
 import controller.raider.RaiderController;
 import javafx.animation.KeyFrame;

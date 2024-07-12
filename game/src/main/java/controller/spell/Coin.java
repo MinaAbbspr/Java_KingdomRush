@@ -1,4 +1,4 @@
-package model.spell;
+package controller.spell;
 
 import model.map.Map;
 

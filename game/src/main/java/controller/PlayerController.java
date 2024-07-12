@@ -4,10 +4,10 @@ import exception.InvalidPassword;
 import exception.InvalidUsername;
 import model.Backpack;
 import model.Player;
-import model.spell.Bomb;
-import model.spell.Coin;
-import model.spell.Freeze;
-import model.spell.Heart;
+import controller.spell.Bomb;
+import controller.spell.Coin;
+import controller.spell.Freeze;
+import controller.spell.Heart;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -10,8 +10,7 @@ public abstract class Tower {
     private int cost;
     private double radius;
     private int level;
-    private int updateCost;
-    private boolean run;
+    private final int updateCost;
     private ArrayList<RaiderController> raiders;
     private Coordinate coordinate;
 
@@ -44,14 +43,6 @@ public abstract class Tower {
         return updateCost * (level + 1) + cost;
     }
 
-    public boolean isRun() {
-        return run;
-    }
-
-    public void setRun(boolean run) {
-        this.run = run;
-    }
-
     public ArrayList<RaiderController> getRaiders() {
         return raiders;
     }
@@ -78,10 +69,6 @@ public abstract class Tower {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public void setUpdateCost(int updateCost) {
-        this.updateCost = updateCost;
     }
 
     public void setCoordinate(Coordinate coordinate) {

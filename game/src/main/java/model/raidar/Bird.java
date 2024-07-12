@@ -2,7 +2,6 @@ package model.raidar;
 
 import javafx.scene.layout.VBox;
 import model.map.Coordinate;
-import view.View;
 
 import java.util.ArrayList;
 

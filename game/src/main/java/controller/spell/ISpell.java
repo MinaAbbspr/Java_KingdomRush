@@ -1,4 +1,4 @@
-package model.spell;
+package controller.spell;
 
 public interface ISpell {
     int getPrice();

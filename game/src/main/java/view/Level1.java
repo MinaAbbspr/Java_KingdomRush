@@ -25,10 +25,10 @@ import model.map.MapLevel1;
 import model.map.Wave;
 import model.raidar.Bird;
 import model.raidar.MotherTroll;
-import model.spell.Bomb;
-import model.spell.Coin;
-import model.spell.Freeze;
-import model.spell.Heart;
+import controller.spell.Bomb;
+import controller.spell.Coin;
+import controller.spell.Freeze;
+import controller.spell.Heart;
 
 import java.io.IOException;
 import java.net.URL;
@@ -624,7 +624,10 @@ public class Level1 implements Initializable {
                 }
         lbl_coin.setText(String.valueOf(map.getCoin()));
         PauseTransition pause = new PauseTransition(Duration.seconds(speed));
-        pause.setOnFinished(e -> run(enemies.isEmpty()));
+        pause.setOnFinished(e -> {
+            clear();
+            run(enemies.isEmpty());
+        });
         pause.play();
     }
 

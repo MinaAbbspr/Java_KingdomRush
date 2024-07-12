@@ -35,13 +35,14 @@ public class BarracksController extends TowerController{
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                barracks.getHeroes().removeIf(hero -> !hero.getHero().isAlive());
                 if (barracks.getHeroes().size() < Barracks.getMaxHero())
                     barracks.getHeroes().add(new HeroController(new Hero(barracks.getPathwayFractures(), barracks)));
 
                 for (HeroController hero : barracks.getHeroes())
                     hero.action();
             }
-        },1000,1);
+        },1000,2000);
     }
 
     public void clear(){

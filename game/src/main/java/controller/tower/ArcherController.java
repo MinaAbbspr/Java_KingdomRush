@@ -2,7 +2,6 @@ package controller.tower;
 
 import controller.raider.RaiderController;
 import controller.raider.ShieldTrollController;
-import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import model.Tower.Archer;
 import view.HelloApplication;
